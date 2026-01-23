@@ -1,21 +1,10 @@
 La investigación se basó en una metodología experimental dividida en dos fases: una primera fase de validación para evaluar la exactitud en la estimación de distancia punto a punto, y una segunda fase para evaluar el sistema de posicionamiento 2D completo.
 
-\subsection{Configuración del Hardware y Escenario}
-Se utilizaron módulos de desarrollo Qorvo DWM1001, configurados para operar en una frecuencia central de 6.5 GHz. El sistema experimental consistió en un nodo de referencia fijo y un nodo móvil portado por un sujeto de prueba.
+Para la configuración del hardware y el escenario, se utilizaron módulos de desarrollo Qorvo DWM1001, configurados para operar en una frecuencia central de 6.5 GHz \cite{ref8}. El sistema experimental consistió en un nodo de referencia fijo y un nodo móvil portado por un sujeto de prueba.
 
-Los experimentos se realizaron en dos escenarios:
-\begin{enumerate}
-    \item \textbf{Exterior:} Un campo abierto para minimizar reflexiones y aislar el impacto directo de la BS.
-    \item \textbf{Interior:} Un corredor de edificio para introducir efectos de multitrayecto controlados, representativos de aplicaciones indoor.
-\end{enumerate}
+Los experimentos se realizaron en dos escenarios distintos: un campo abierto en el exterior, seleccionado para minimizar las reflexiones y aislar el impacto directo de la \textit{Body Shadowing}, y un corredor de edificio en el interior para introducir efectos de multitrayecto controlados que fueran representativos de las aplicaciones en espacios cerrados.
 
-\subsection{Protocolo de Recolección de Datos}
-Se evaluaron siete ubicaciones corporales del dispositivo móvil: cabeza, pecho, cadera, mano, muñeca, rodilla y tobillo. Para cada ubicación, se tomaron medidas en dos condiciones:
-\begin{itemize}
-    \item \textbf{LOS (Line of Sight):} Con una trayectoria visual directa entre el nodo fijo y el móvil.
-    \item \textbf{NLOS (Non-Line of Sight):} Obstruyendo deliberadamente la señal con el cuerpo del sujeto (rotación de 180°).
-\end{itemize}
+En relación con el protocolo de recolección de datos, se evaluaron siete ubicaciones corporales del dispositivo móvil: cabeza, pecho, cadera, mano, muñeca, rodilla y tobillo. Para cada ubicación, se tomaron medidas bajo dos condiciones de propagación principales. En primer lugar, la condición LOS (\textit{Line of Sight}) con una trayectoria visual directa entre el nodo fijo y el móvil. En segundo lugar, la condición NLOS (\textit{Non-Line of Sight}), donde se obstruyó deliberadamente la señal rotando el cuerpo del sujeto 180°.
 Las mediciones se realizaron en 13 puntos estáticos, a distancias de 1 m a 13 m. En cada punto, se registraron 250 mediciones de distancia, acumulando un total de 91,000 mediciones en la primera fase.
 
-\subsection{Análisis de Datos}
-El error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$. Se utilizaron métricas como el Error Absoluto Medio (MAE) y la Raíz del Error Cuadrático Medio (RMSE) para cuantificar el rendimiento. Dado que las distribuciones de error mostraron ser no gaussianas (prueba de Shapiro-Wilk, $p \ll 0.001$), se emplearon pruebas no paramétricas, como la U de Mann-Whitney, para el análisis inferencial.
+Por último, para el análisis de datos, el error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$. Se utilizaron métricas como el Error Absoluto Medio (MAE) y la Raíz del Error Cuadrático Medio (RMSE) para cuantificar el rendimiento. Dado que las distribuciones de error mostraron ser no gaussianas (prueba de Shapiro-Wilk, $p \ll 0.001$), se emplearon pruebas no paramétricas, como la U de Mann-Whitney, para el análisis inferencial.

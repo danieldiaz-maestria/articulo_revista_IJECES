@@ -1,14 +1,8 @@
-Los resultados experimentales demuestran una fuerte dependencia entre la ubicación del dispositivo, el escenario y la condición de propagación (LOS/NLOS).
+Los resultados experimentales demuestran una fuerte dependencia entre la ubicación del dispositivo, el escenario y la condición de propagación (LOS/NLOS). 
 
-\subsection{Error de Distancia por Ubicación Corporal}
-La Tabla \ref{tab:resumen_mae} consolida el Error Absoluto Medio (MAE) para todas las configuraciones evaluadas. De los datos se extraen los siguientes hallazgos clave:
-\begin{itemize}
-    \item \textbf{Mejor rendimiento general:} La \textbf{cabeza} ofrece el comportamiento más estable y predecible, con una degradación LOS-a-NLOS moderada, especialmente en interiores (factor de 2.0x). La geometría curva del cráneo parece facilitar la difracción de la señal.
-    \item \textbf{Peor rendimiento general:} La \textbf{cadera} exhibe la degradación más severa en condiciones NLOS, con errores cercanos a 1 metro y factores de degradación superiores a 10x. El torso y la pelvis actúan como un obstáculo significativo.
-    \item \textbf{Ubicaciones en extremidades:} La \textbf{muñeca} y la \textbf{mano} presentan un rendimiento moderado y consistente, siendo alternativas viables a la cabeza. El tobillo y la rodilla muestran errores más elevados debido a la proximidad con el suelo y la obstrucción de las piernas.
-\end{itemize}
+En primer lugar, analizando el error de distancia por ubicación corporal, la Tabla \ref{tab:resumen_mae} consolida el Error Absoluto Medio (MAE) para todas las configuraciones evaluadas. El análisis de los datos revela que la cabeza ofrece el mejor rendimiento general, con un comportamiento estable y una degradación moderada entre LOS y NLOS (especialmente en interiores, con un factor de 2.0x), posiblemente debido a que la geometría del cráneo facilita la difracción. Por el contrario, la cadera presenta el peor rendimiento, con una degradación severa en NLOS donde los errores se acercan al metro y los factores de degradación superan 10x, confirmando que el torso actúa como un obstáculo crítico. Respecto a las extremidades, la muñeca y la mano muestran un rendimiento moderado y consistente que las posiciona como alternativas viables a la cabeza, mientras que el tobillo y la rodilla registran errores más elevados por la proximidad al suelo y la obstrucción de las piernas.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \caption{Resumen de MAE (cm) por Ubicación y Condición.}
 \label{tab:resumen_mae}
@@ -29,14 +23,6 @@ Tobillo  & 29.81 & 38.45 & 41.48 & 29.96 \\
 \end{tabular}
 \end{table}
 
-\subsection{Análisis Estadístico}
-El análisis no paramétrico confirmó que las diferencias entre las configuraciones son estadísticamente significativas ($p \ll 0.001$) y de gran relevancia práctica. Un hallazgo clave fue el fenómeno de \textbf{multitrayecto constructivo} en el escenario interior: para varias ubicaciones (cabeza, mano, tobillo), el error en NLOS fue menor en interiores que en exteriores. Esto sugiere que las reflexiones en paredes y suelo pueden compensar parcialmente la atenuación causada por la obstrucción corporal.
+Complementariamente, el análisis estadístico no paramétrico confirmó que las diferencias entre las configuraciones son estadísticamente significativas ($p \ll 0.001$) y de gran relevancia práctica. Un hallazgo clave fue el fenómeno de \textbf{multitrayecto constructivo} en el escenario interior: para varias ubicaciones (cabeza, mano, tobillo), el error en NLOS fue menor en interiores que en exteriores. Este comportamiento sugiere que las reflexiones en paredes y suelo pueden compensar parcialmente la atenuación causada por la obstrucción corporal, un fenómeno que ha sido observado en otros estudios de propagación UWB en interiores \cite{ref11, ref17}.
 
-\subsection{Rendimiento del Sistema de Posicionamiento 2D}
-El sistema completo, con cuatro anclas, alcanzó una exactitud de posicionamiento promedio de:
-\begin{itemize}
-    \item \textbf{48 cm} para el tag de referencia (sin cuerpo).
-    \item \textbf{55-95 cm} para el dispositivo en la cadera.
-    \item \textbf{70-91 cm} para el dispositivo en el pecho.
-\end{itemize}
-Estos resultados validan la viabilidad del sistema para aplicaciones que requieren una localización a nivel de habitación, pero también resaltan la necesidad de técnicas de mitigación para alcanzar una precisión sub-métrica de manera consistente.
+Finalmente, al evaluar el rendimiento del sistema de posicionamiento 2D, el sistema completo, configurado con cuatro anclas, alcanzó una exactitud de posicionamiento promedio de 48 cm para el tag de referencia sin obstrucción corporal. Al introducir al sujeto, la exactitud se situó entre 55 y 95 cm para el dispositivo ubicado en la cadera, y entre 70 y 91 cm para la ubicación en el pecho. Estos resultados validan la viabilidad del sistema para aplicaciones de localización a nivel de habitación, aunque subrayan la importancia de implementar técnicas de mitigación para garantizar una precisión submétrica de forma constante.
