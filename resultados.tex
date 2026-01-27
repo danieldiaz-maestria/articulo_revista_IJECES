@@ -25,4 +25,102 @@ Tobillo  & 29.81 & 38.45 & 41.48 & 29.96 \\
 
 Complementariamente, el análisis estadístico no paramétrico confirmó que las diferencias entre las configuraciones son estadísticamente significativas ($p \ll 0.001$) y de gran relevancia práctica. Un hallazgo clave fue el fenómeno de \textbf{multitrayecto constructivo} en el escenario interior: para varias ubicaciones (cabeza, mano, tobillo), el error en NLOS fue menor en interiores que en exteriores. Este comportamiento sugiere que las reflexiones en paredes y suelo pueden compensar parcialmente la atenuación causada por la obstrucción corporal, un fenómeno que ha sido observado en otros estudios de propagación UWB en interiores \cite{ref11, ref17}.
 
-Finalmente, al evaluar el rendimiento del sistema de posicionamiento 2D, el sistema completo, configurado con cuatro anclas, alcanzó una exactitud de posicionamiento promedio de 48 cm para el tag de referencia sin obstrucción corporal. Al introducir al sujeto, la exactitud se situó entre 55 y 95 cm para el dispositivo ubicado en la cadera, y entre 70 y 91 cm para la ubicación en el pecho. Estos resultados validan la viabilidad del sistema para aplicaciones de localización a nivel de habitación, aunque subrayan la importancia de implementar técnicas de mitigación para garantizar una precisión submétrica de forma constante.
+\subsection{Análisis Temporal del Tiempo de Vuelo (ToF)}
+El análisis detallado del Tiempo de Vuelo (ToF) revela patrones críticos que explican la degradación en la precisión. La variabilidad temporal de la señal, cuantificada mediante la desviación estándar ($\sigma$), se identificó como el indicador más robusto para distinguir entre condiciones LOS y NLOS.
+
+Como se observa en la Tabla \ref{tab:tof_stats}, al pasar de una condición de línea de vista a una de obstrucción corporal, la desviación estándar del ToF se incrementa drásticamente, con un aumento promedio del 251\%.
+
+\begin{table}[H]
+\centering
+\caption{Comparación estadística de ToF para ubicación en Pecho.}
+\label{tab:tof_stats}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+\textbf{Métrica} & \textbf{LOS (ns)} & \textbf{NLOS (ns)} & \textbf{Incremento} \\
+\midrule
+Desv. Std Promedio & 0.18 & 0.63 & 3.5x \\
+Rango Máximo & 27.37 & 42.86 & 1.5x \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+La Figura \ref{fig:tof_pecho_dist} ilustra las distribuciones de ToF para el Sujeto 1. Se evidencia que en condiciones NLOS (gráficas inferiores o colas largas), la dispersión temporal es mucho mayor, lo que implica una incertidumbre directa en la estimación de distancia.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.48\columnwidth}
+        \includegraphics[width=\linewidth]{pecho_sujeto1_ancla1_tof_sin_outliers.png}
+        \caption*{Ancla 1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\columnwidth}
+        \includegraphics[width=\linewidth]{pecho_sujeto1_ancla2_tof_sin_outliers.png}
+        \caption*{Ancla 2}
+    \end{minipage}
+    \caption{Distribuciones de ToF (Pecho, Sujeto 1). La mayor dispersión en ciertos enlaces indica obstrucción severa.}
+    \label{fig:tof_pecho_dist}
+\end{figure}
+
+Basado en estos hallazgos, se propone un \textbf{Factor de Peso} para algoritmos de localización ponderados, definido como la relación de desviaciones estándar $\sigma_{LOS}/\sigma_{NLOS} \approx 0.28$. Este valor sugiere que una medición NLOS debería tener aproximadamente un tercio del peso de una medición limpia en el cálculo de la posición.
+
+\subsection{Caracterización Probabilística del Error}
+El modelado estadístico del error es esencial para el diseño de algoritmos de navegación robustos. Mediante el Criterio de Información de Akaike (AIC), se evaluó el ajuste de diversas distribuciones teóricas a los datos empíricos.
+
+En condiciones LOS, la distribución Gamma resultó ser el modelo óptimo (ver Figura \ref{fig:ajuste_los}), caracterizando adecuadamente la asimetría positiva leve inherente a la medición de ToF. Sin embargo, en condiciones NLOS, la estructura del error cambia radicalmente, presentando colas pesadas asociadas a retardos significativos por difracción y refracción. Como se observa en la Figura \ref{fig:ajuste_nlos}, la distribución Log-normal ofrece el mejor ajuste para estos casos, superando a la Gamma y evidenciando la naturaleza multiplicativa del ruido en entornos obstruidos.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.48\columnwidth}
+        \includegraphics[width=\linewidth]{ajuste_hist_Datos_LOS.png}
+        \caption{Ajuste LOS: Gamma óptimo.}
+        \label{fig:ajuste_los}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\columnwidth}
+        \includegraphics[width=\linewidth]{ajuste_hist_Datos_NLOS.png}
+        \caption{Ajuste NLOS: Log-normal óptimo.}
+        \label{fig:ajuste_nlos}
+    \end{minipage}
+    \caption{Comparación de ajustes de distribución de probabilidad para errores de distancia.}
+\end{figure}
+
+La desviación respecto a la normalidad es crítica. La Figura \ref{fig:qq_nlos} presenta el gráfico Q-Q para datos NLOS, donde la divergencia extrema en la cola superior confirma que los errores grandes son mucho más frecuentes de lo que predeciría una distribución Gaussiana. Esto explica la ineficacia de filtros lineales clásicos en presencia de obstrucción corporal severa.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\columnwidth]{ajuste_qq_Datos_NLOS.png}
+    \caption{Gráfico Q-Q (Datos NLOS vs. Normal Teórica). La curvatura indica una fuerte desviación de la gaussianidad (línea roja).}
+    \label{fig:qq_nlos}
+\end{figure}
+
+\subsection{Evaluación del Sistema de Posicionamiento 2D}
+Para validar el impacto de los errores de distancia en una aplicación real, se implementó un sistema de posicionamiento 2D en un salón de 7.4 $\times$ 10.4 m, equipado con cuatro anclas fijas en las esquinas. Se trazó una trayectoria de prueba compuesta por 18 puntos distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas.
+
+La Figura \ref{fig:kalman_tag} muestra los resultados para el \textit{tag} de referencia (sin cuerpo humano). Se observa que el Filtro de Kalman (línea azul) suaviza eficazmente las fluctuaciones de la multilateración cruda (puntos naranjas), logrando una trayectoria que se ajusta fielmente a la referencia real (puntos verdes), con un error de posicionamiento promedio de 48 cm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{kalman_tag.pdf}
+    \caption{Trayectoria estimada para el tag de referencia: comparación entre posiciones reales y estimadas.}
+    \label{fig:kalman_tag}
+\end{figure}
+
+Al introducir el factor humano, la degradación es evidente. La Figura \ref{fig:kalman_cadera} ilustra el caso de la ubicación en la cadera. Se aprecian desviaciones significativas en varios puntos de la trayectoria, causadas por la obstrucción severa del torso cuando el sujeto se interpone entre el tag y las anclas. A pesar de esto, el filtro de Kalman logra mantener la coherencia de la trayectoria, aunque con una exactitud degradada a un rango entre 55 y 95 cm.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{kalman_cadera_sujeto1.pdf}
+    \caption{Trayectoria estimada para la ubicación en Cadera (Sujeto 1), evidenciando el impacto de la obstrucción corporal.}
+    \label{fig:kalman_cadera}
+\end{figure}
+
+Similares efectos se observan en la ubicación del pecho (Figura \ref{fig:kalman_pecho}), donde la exactitud osciló entre 70 y 91 cm. Estos resultados confirman que, si bien el sistema es funcional para aplicaciones de localización a nivel de habitación, la obstrucción corporal introduce un error sistemático que no puede ser totalmente eliminado solo con filtrado temporal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{kalman_pecho_sujeto1.pdf}
+    \caption{Trayectoria estimada para la ubicación en Pecho (Sujeto 1).}
+    \label{fig:kalman_pecho}
+\end{figure}

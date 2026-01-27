@@ -12,7 +12,11 @@
 \fancyfoot[LE,RO]{\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \usepackage[spanish, es-tabla]{babel}
-\usepackage{fontspec}
+%\usepackage{fontspec}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
 \usepackage{multicol}
 \usepackage[explicit]{titlesec}
 \usepackage{lineno}
@@ -22,10 +26,13 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{cite}
+\usepackage{caption}
+\usepackage{subcaption}
+\graphicspath{{imagenes/}{../Monografía/imagenes/}}
 
 
 \setlength{\columnsep}{5mm}
-\setmainfont{Arial}
+%\setmainfont{Arial}
 \titleformat{\section}
   {\normalfont\bfseries}{\thesection}{1em}{\MakeUppercase{#1}}
 
@@ -58,7 +65,7 @@ e-mail: vflorez@unicauca.edu.co
 
 \textbf{Abstract - }\textit{Ultra-Wideband (UWB) technology has emerged as a promising solution for Indoor Positioning Systems (IPS) due to its high precision. However, its performance in human tracking applications is affected by the body shadowing (BS) phenomenon, which degrades localization accuracy. This article presents a systematic experimental investigation of BS effects on UWB IPS operating in the 6.5 GHz band, a frequency less explored than lower bands.
 The methodology was based on an experimental system with four fixed anchors and a mobile node worn by participants in seven body locations (head, chest, hip, wrist, ankle, hand, knee). Time of Flight (ToF) measurements were collected under Line of Sight (LOS) and Non-Line of Sight (NLOS) conditions in indoor and outdoor scenarios.
-Results reveal that device location is critical. The head offers the most consistent performance, with a Mean Absolute Error (MAE) of 4.87 cm in outdoor LOS, degrading controllably to 18.16 cm in indoor NLOS. Conversely, the hip shows the highest degradation, going from a MAE of 7.22 cm in LOS to 95.11 cm in NLOS. Statistical analysis showed that NLOS errors do not follow a Gaussian distribution, requiring robust localization algorithms. The 2D positioning system achieved accuracy between 55-95 cm depending on location, demonstrating the technology's viability for multiple practical applications.}
+Results reveal that device location is critical. The head offers the most consistent performance, with a Mean Absolute Error (MAE) of 4.87 cm in outdoor LOS, degrading controllably to 18.16 cm in indoor NLOS. Conversely, the hip shows the highest degradation, going from a MAE of 7.22 cm in LOS to 95.11 cm in NLOS. Statistical analysis showed that NLOS errors do not follow a gama o log-normal distribution, requiring robust localization algorithms. The 2D positioning system achieved accuracy between 55-95 cm depending on location, demonstrating the technology's viability for multiple practical applications.}
 
 \vspace{5mm}
 
