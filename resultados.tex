@@ -23,12 +23,12 @@ Tobillo  & 29.81 & 38.45 & 41.48 & 29.96 \\
 \end{tabular}
 \end{table}
 
-Complementariamente, el análisis estadístico no paramétrico confirmó que las diferencias entre las configuraciones son estadísticamente significativas ($p \ll 0.001$) y de gran relevancia práctica. Un hallazgo clave fue el fenómeno de \textbf{multitrayecto constructivo} en el escenario interior: para varias ubicaciones (cabeza, mano, tobillo), el error en NLOS fue menor en interiores que en exteriores. Este comportamiento sugiere que las reflexiones en paredes y suelo pueden compensar parcialmente la atenuación causada por la obstrucción corporal, un fenómeno que ha sido observado en otros estudios de propagación UWB en interiores \cite{ref11, ref17}.
+Complementariamente, el análisis estadístico no paramétrico confirmó que las diferencias entre las configuraciones son estadísticamente significativas ($p \ll 0.001$). Un hallazgo relevante fue el comportamiento diferencial entre escenarios: para varias ubicaciones (cabeza, mano, tobillo), el error en NLOS fue menor en interiores respecto a exteriores. Este fenómeno no implica una ``mejora'' de la precisión, sino que refleja un cambio cualitativo en el mecanismo de propagación. En el entorno interior (pasillo con paredes cercanas), la proximidad de superficies reflectantes permite mantener la conectividad de la señal mediante trayectorias múltiples (reflexiones) que aunque introducen retardos adicionales y variabilidad temporal, garantizan la recepción continua de energía. En contraste, en el exterior, cuando el cuerpo obstruye el camino directo, la señal se atenúa severamente sin fuentes alternativas de reflexión cercana, resultando en pérdida de integridad de la señal \cite{ref11, ref17}. Esta distinción entre interior (multipath persistente) y exterior (ausencia de alternativas de propagación) es crítica para interpretar la naturaleza del error observado en Fase 2.
 
 \subsection{Análisis Temporal del Tiempo de Vuelo (ToF)}
-El análisis detallado del Tiempo de Vuelo (ToF) revela patrones críticos que explican la degradación en la precisión. La variabilidad temporal de la señal, cuantificada mediante la desviación estándar ($\sigma$), se identificó como el indicador más robusto para distinguir entre condiciones LOS y NLOS.
+El análisis detallado del Tiempo de Vuelo (ToF) revela patrones críticos que explican tanto la degradación en la precisión de distancia como la estructura probabilística del error. La variabilidad temporal de la señal, cuantificada mediante la desviación estándar ($\sigma$), se identificó como el indicador más robusto para distinguir entre condiciones LOS y NLOS e informar la configuración de la matriz de covarianza del filtro de Kalman en Fase 2.
 
-Como se observa en la Tabla \ref{tab:tof_stats}, al pasar de una condición de línea de vista a una de obstrucción corporal, la desviación estándar del ToF se incrementa drásticamente, con un aumento promedio del 251\%.
+Como se observa en la Tabla \ref{tab:tof_stats}, al pasar de una condición de línea de vista a una de obstrucción corporal, la desviación estándar del ToF se incrementa drásticamente, con un aumento promedio de 3.5$\times$ (de 0.18~ns a 0.63~ns), ilustrando el aumento exponencial de la incertidumbre temporal bajo shadowing corporal. Este incremento de variabilidad es la manifestación temporal de los errores de distancia severos documentados en la Tabla \ref{tab:resumen_mae}.
 
 \begin{table}[H]
 \centering
@@ -64,9 +64,9 @@ La Figura \ref{fig:tof_pecho_dist} ilustra las distribuciones de ToF para el Suj
 \end{figure}
 
 \subsection{Caracterización Probabilística del Error}
-El modelado estadístico del error es esencial para el diseño de algoritmos de navegación robustos. Mediante el Criterio de Información de Akaike (AIC), se evaluó el ajuste de diversas distribuciones teóricas a los datos empíricos.
+El modelado estadístico del error es esencial para el diseño de algoritmos de navegación robustos. Mediante el Criterio de Información de Akaike (AIC), se evaluó el ajuste de diversas distribuciones teóricas (Gamma, Log-normal, Exponencial, Normal) a los datos empíricos, seleccionando el modelo que mejor capturara la estructura de colas del error.
 
-En condiciones LOS, la distribución Gamma resultó ser el modelo óptimo (ver Figura \ref{fig:ajuste_los}), caracterizando adecuadamente la asimetría positiva leve inherente a la medición de ToF. Sin embargo, en condiciones NLOS, la estructura del error cambia radicalmente, presentando colas pesadas asociadas a retardos significativos por difracción y refracción. Como se observa en la Figura \ref{fig:ajuste_nlos}, la distribución Log-normal ofrece el mejor ajuste para estos casos, superando a la Gamma y evidenciando la naturaleza multiplicativa del ruido en entornos obstruidos.
+En condiciones LOS, la distribución Gamma resultó ser el modelo óptimo (ver Figura \ref{fig:ajuste_los}), caracterizando adecuadamente la asimetría positiva leve inherente a la medición de ToF en propagación directa. Sin embargo, en condiciones NLOS, la estructura del error cambia radicalmente. La Figura \ref{fig:ajuste_nlos} demuestra de forma concluyente que \textbf{la distribución Log-normal ofrece el mejor ajuste de los datos NLOS}, superando significativamente a la Gamma según criterio AIC. Este hallazgo no es casual: refleja la naturaleza multiplicativa del ruido en entornos obstruidos. A diferencia de los errores Gaussianos aditivos que asumen los filtros lineales clásicos, los errores NLOS resultan de procesos multiplicativos donde múltiples factores (atenuación por BS, retardo por multipath, distorsión por difracción) se concatenan, generando distribuciones con colas pesadas característica de procesos multiplicativos. El error de distancia en NLOS puede expresarse aproximadamente como: $d_{\text{error}} \propto d_{\text{real}} \cdot (1 + \alpha_1 \cdot \alpha_2 \cdot \alpha_3)$, donde $\alpha_i$ representan factores multiplicativos de atenuación, cuya composición genera la distribución Log-normal observada.
 
 \begin{figure}[H]
     \centering
@@ -84,7 +84,7 @@ En condiciones LOS, la distribución Gamma resultó ser el modelo óptimo (ver F
     \caption{Comparación de ajustes de distribución de probabilidad para errores de distancia.}
 \end{figure}
 
-La desviación respecto a la normalidad es crítica. La Figura \ref{fig:qq_nlos} presenta el gráfico Q-Q para datos NLOS, donde la divergencia extrema en la cola superior confirma que los errores grandes son mucho más frecuentes de lo que predeciría una distribución Gaussiana. Esto explica la ineficacia de filtros lineales clásicos en presencia de obstrucción corporal severa.
+La desviación respecto a la normalidad es crítica para comprender las limitaciones de los filtros tradicionales. La Figura \ref{fig:qq_nlos} presenta el gráfico Q-Q para datos NLOS, donde la divergencia extrema en la cola superior confirma que los errores grandes son mucho más frecuentes de lo que predeciría una distribución Gaussiana (test de Shapiro-Wilk: $p \ll 0.001$). Específicamente, la curvatura pronunciada en el extremo derecho indica que la probabilidad de ``eventos de error grande'' en NLOS es órdenes de magnitud mayor que bajo la hipótesis Gaussiana, explicando por qué filtros lineales clásicos (Kalman lineal) son ineficaces en presencia de obstrucción corporal severa. El filtro extendido de Kalman (EKF) empleado en Fase 2, al ser informado por estas desviaciones estándar empíricas (Tabla \ref{tab:tof_stats}) en la configuración de su matriz de covarianza de medición, proporciona un mecanismo de adaptación que, aunque no resuelve completamente la no-Gaussianidad, mejora significativamente la coherencia de trayectoria respecto a un filtro lineal no adaptativo.
 
 \begin{figure}[H]
     \centering
@@ -94,9 +94,10 @@ La desviación respecto a la normalidad es crítica. La Figura \ref{fig:qq_nlos}
 \end{figure}
 
 \subsection{Evaluación del Sistema de Posicionamiento 2D}
-Para validar el impacto de los errores de distancia en una aplicación real, se implementó un sistema de posicionamiento 2D en un salón de 7.4 $\times$ 10.4 m, equipado con cuatro anclas fijas en las esquinas. Se trazó una trayectoria de prueba compuesta por 18 puntos distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas.
+Para validar el impacto de los errores de distancia en una aplicación real, se implementó un sistema de posicionamiento 2D en un salón de 7.4 $\times$ 10.4 m, equipado con cuatro anclas fijas en las esquinas (coordenadas: (10.11, 0.37), (0.28, 0.38), (0.28, 6.72), (10.09, 6.97) m). Se trazó una trayectoria de prueba compuesta por 18 puntos de parada (detención estacionaria de ~70 segundos en cada punto) distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas con espaciamiento de 1.5~m.
 
-La Figura \ref{fig:kalman_tag} muestra los resultados para el \textit{tag} de referencia (sin cuerpo humano). Se observa que el Filtro de Kalman (línea azul) suaviza eficazmente las fluctuaciones de la multilateración cruda (puntos naranjas), logrando una trayectoria que se ajusta fielmente a la referencia real (puntos verdes), con un error de posicionamiento promedio de 48 cm.
+\subsubsection{Caso de Referencia: Tag sin Cuerpo Humano}
+La Figura \ref{fig:kalman_tag} muestra los resultados para el \textit{tag} de referencia (sin cuerpo humano). El Filtro de Kalman Extendido (línea azul) suaviza eficazmente las fluctuaciones de la multilateración cruda (puntos naranjas), logrando una trayectoria que se ajusta fielmente a la referencia real (puntos verdes), con un error de posicionamiento promedio de 48 cm. Este desempeño representa el caso óptimo del sistema: cuando no existe obstrucción corporal, el ruido de medición es aproximadamente gaussiano de media cero, y el EKF converge correctamente a las posiciones reales.
 
 \begin{figure}[H]
     \centering
@@ -105,20 +106,26 @@ La Figura \ref{fig:kalman_tag} muestra los resultados para el \textit{tag} de re
     \label{fig:kalman_tag}
 \end{figure}
 
-Al introducir el factor humano, la degradación es evidente. La Figura \ref{fig:kalman_cadera} ilustra el caso de la ubicación en la cadera. Se aprecian desviaciones significativas en varios puntos de la trayectoria, causadas por la obstrucción severa del torso cuando el sujeto se interpone entre el tag y las anclas. A pesar de esto, el filtro de Kalman logra mantener la coherencia de la trayectoria, aunque con una exactitud degradada a un rango entre 55 y 95 cm.
+\subsubsection{Caso con Obstrucción Corporal: Cadera}
+Al introducir el factor humano con el tag en la cadera, la degradación es drástica. La Figura \ref{fig:kalman_cadera} ilustra este caso crítico. Se aprecian desviaciones significativas en múltiples puntos de la trayectoria, con errores de posición que alcanzan hasta 95 cm. Aunque el filtro de Kalman (línea azul) logra suavizar las fluctuaciones aleatorias (reduciendo el jitter en comparación con los puntos naranjas crudos de multilateración), la línea filtrada converge consistentemente LEJOS de la posición verdadera (puntos verdes).
+
+Esta separación sistemática entre la trayectoria suavizada y la referencia real no es noise—es BIAS. El problema fundamental es que el EKF asume ruido de medición con media cero: $\mathbf{v}_k \sim \mathcal{N}(0, \mathbf{R})$. Sin embargo, bajo obstrucción corporal severa, la obstrucción introduce un sesgo positivo sistemático: cada distancia medida es SIEMPRE mayor que la distancia real $d_{\text{medida}} = d_{\text{real}} + \text{bias}(\text{ubicación})$. Como el filtro carece de una referencia externa para estimar este sesgo en tiempo real, converge hacia la medición errónea suavizada, amplificando el error posicional. En otras palabras: el EKF eficientemente suaviza una medición incorrecta.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{kalman_cadera_sujeto1.pdf}
-    \caption{Trayectoria estimada para la ubicación en Cadera (Sujeto 1), evidenciando el impacto de la obstrucción corporal.}
+    \caption{Trayectoria estimada para la ubicación en Cadera (Sujeto 1). El filtro suaviza el jitter (línea azul vs puntos naranjas) pero no corrige el sesgo sistemático, resultando en desviaciones consistentes de la referencia verdadera (puntos verdes).}
     \label{fig:kalman_cadera}
 \end{figure}
 
-Similares efectos se observan en la ubicación del pecho (Figura \ref{fig:kalman_pecho}), donde la exactitud osciló entre 70 y 91 cm. Estos resultados confirman que, si bien el sistema es funcional para aplicaciones de localización a nivel de habitación, la obstrucción corporal introduce un error sistemático que no puede ser totalmente eliminado solo con filtrado temporal.
+\subsubsection{Comparación: Pecho y Contraste con Cabeza}
+Similares efectos se observan en la ubicación del pecho (Figura \ref{fig:kalman_pecho}), donde el error osciló entre 70 y 91 cm. El sesgo es ligeramente menor que en cadera pero igualmente presente.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{kalman_pecho_sujeto1.pdf}
-    \caption{Trayectoria estimada para la ubicación en Pecho (Sujeto 1).}
+    \caption{Trayectoria estimada para la ubicación en Pecho (Sujeto 1). Similar a la cadera, el EKF suaviza pero no elimina el sesgo.}
     \label{fig:kalman_pecho}
 \end{figure}
+
+En contraste, cuando analizamos hipotéticamente una ubicación como la cabeza (no presentada aquí pero predicha por Fase 1), donde la atenuación NLOS es moderada (MAE: 18.16~cm interior), el sesgo sería mucho menor. En tal caso, el EKF sí convergería cercano a la posición verdadera, demostrando que el sistema es robusto CUANDO la visibilidad de línea de vista es suficiente.

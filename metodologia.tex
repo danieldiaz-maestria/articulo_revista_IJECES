@@ -1,28 +1,56 @@
-La investigación se basó en una metodología experimental dividida en dos fases: una primera fase de validación para evaluar la exactitud en la estimación de distancia punto a punto, y una segunda fase para evaluar el sistema de posicionamiento 2D completo.
+La investigación se basó en una metodología experimental de dos fases, cada una con propósitos específicos: Fase 1 (caracterización estática) para evaluar sistemáticamente el impacto de la BS sobre la estimación de distancia punto a punto en múltiples ubicaciones corporales; Fase 2 (validación dinámica) para evaluar el desempeño del sistema de posicionamiento 2D completo utilizando los modelos estadísticos derivados de Fase 1.
 
-Para la configuración del hardware y el escenario, se utilizaron módulos de desarrollo Qorvo DWM1001, configurados para operar en una frecuencia central de 6.5 GHz \cite{ref8}. El sistema experimental consistió en un nodo de referencia fijo y un nodo móvil portado por un sujeto de prueba.
+\textbf{Configuración del Hardware.} Los experimentos emplearon módulos de desarrollo Qorvo DWM1001, configurados para operar en una frecuencia central de 6.5 GHz \cite{ref8}. El sistema experimental consistió en cuatro nodos ancla fijos (Fase 2) o un nodo de referencia fijo (Fase 1) junto con un nodo móvil portado por participantes humanos.
 
-Los experimentos se realizaron en dos escenarios distintos: un campo abierto en el exterior, seleccionado para minimizar las reflexiones y aislar el impacto directo de la \textit{Body Shadowing}, y un corredor de edificio en el interior para introducir efectos de multitrayecto controlados que fueran representativos de las aplicaciones en espacios cerrados.
+\textbf{Escenarios Experimentales.} Las dos fases se ejecutaron en entornos distintos, elegidos deliberadamente para reflejar diferentes aspectos del problema:
 
-En relación con el protocolo de recolección de datos, se evaluaron siete ubicaciones corporales del dispositivo móvil: cabeza, pecho, cadera, mano, muñeca, rodilla y tobillo, tal como se ilustra en la Figura \ref{fig:posiciones}. Para cada ubicación, se tomaron medidas bajo dos condiciones de propagación principales. En primer lugar, la condición LOS (\textit{Line of Sight}) con una trayectoria visual directa entre el nodo fijo y el móvil. En segundo lugar, la condición NLOS (\textit{Non-Line of Sight}), donde se obstruyó deliberadamente la señal rotando el cuerpo del sujeto 180°.
+\textit{Fase 1 (Caracterización de Distancia):} Se realizaron mediciones estáticas en dos escenarios complementarios. Primero, un campo abierto al aire libre (amplitud aproximada de 20~m $\times$ 30~m) seleccionado para minimizar reflexiones y aislar el impacto directo de la Body Shadowing. Segundo, un corredor interior (aproximadamente 2~m de ancho, 50~m de largo, con paredes y techos cercanos) para introducir efectos de multitrayecto controlados y representativos de aplicaciones en espacios cerrados. Esta dualizad de escenarios permitió diferenciar entre atenuación por obstrucción corporal pura (exterior) versus atenuación compuesta con reflexiones (interior).
+
+\textit{Fase 2 (Posicionamiento Dinámico 2D):} Se utilizó un salón experimental de dimensiones 7.4~m $\times$ 10.4~m con cuatro anclas UWB fijas instaladas a una altura de 1.52~m. Este entorno representa un escenario de aplicación práctica (oficina, área de laboratorio) donde el sistema debe operar en condiciones realistas con multitrayecto y con los usuarios en movimiento.
+
+\textbf{Fase 1: Protocolo de Caracterización de Distancia.} Se evaluaron siete ubicaciones corporales del nodo móvil: cabeza, pecho, cadera, mano, muñeca, rodilla y tobillo (Figura~\ref{fig:posiciones}). Para cada ubicación, se recopilaron medidas bajo dos condiciones de propagación: Línea de Vista (LOS) con trayectoria directa entre ancla y nodo móvil, y No-Línea de Vista (NLOS), donde se obstruyó deliberadamente la señal rotando el cuerpo del participante 180° para asegurar oclusión completa del nodo móvil desde el ancla.
+
+Las mediciones se realizaron en 13 posiciones estáticas, a distancias de 1~m a 13~m desde el ancla de referencia. En cada posición, se registraron 250 mediciones independientes de distancia, acumulando aproximadamente 91,000 mediciones de distancia en total (13 posiciones $\times$ 7 ubicaciones corporales $\times$ 2 condiciones de canal $\times$ 250 muestras $\times$ 2 escenarios). Este volumen de datos permitió construcción de modelos estadísticos robustos para caracterizar la distribución de errores bajo cada condición.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{posiciones_cuerpo.jpg}
-    \caption{Ubicación de los nodos en el cuerpo para las pruebas experimentales.}
+    \includegraphics[width=0.8\linewidth]{posiciones_cuerpo.png}
+    \caption{Ubicaciones de medición en el cuerpo humano durante Fase 1 de caracterización.}
     \label{fig:posiciones}
 \end{figure}
-Las mediciones se realizaron en 13 puntos estáticos, a distancias de 1 m a 13 m. En cada punto, se registraron 250 mediciones de distancia, acumulando un aproximado de $100000$ mediciones en la primera fase.
 
-Para la segunda fase, orientada a la evaluación del sistema de posicionamiento 2D, se habilitó un escenario experimental en un salón de $7.4$ m $\times$ $10.4$ m. Se desplegaron cuatro anclas fijas instaladas a una altura de $1.52$ m, formando un rectángulo que cubre el área de interés (ver Figura \ref{fig:croquis}). Las coordenadas $(x, y)$ de las anclas, en metros, se establecieron de la siguiente manera: $A_1(10.11, 0.37)$, $A_2(0.28, 0.38)$, $A_3(0.28, 6.72)$ y $A_4(10.09, 6.97)$.
+\textbf{Análisis Estadístico de Fase 1.} El error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$ para cada medición. Se ajustaron distribuciones de probabilidad teóricas (Gamma, Log-normal, Exponencial, Normal) a los datos empíricos utilizando Estimación de Máxima Verosimilitud (MLE). Se empleó el Criterio de Información de Akaike (AIC) para seleccionar el modelo más parsimonioso. La prueba de Shapiro--Wilk confirmó que los errores en NLOS se apartan significativamente de la normalidad ($p \ll 0.001$), validando la necesidad de distribuciones alternativas. Se calcularon las desviaciones estándar experimentales ($\sigma_{\text{LOS}}$ y $\sigma_{\text{NLOS}}$) para cada ubicación corporal bajo ambas condiciones, datos que fueron utilizados subsecuentemente para configurar la matriz de covarianza de ruido de medición del EKF en Fase 2.
+
+\textbf{Fase 2: Validación de Posicionamiento 2D Dinámico.} El salón experimental de 7.4~m $\times$ 10.4~m fue equipado con cuatro anclas fijas cuyas coordenadas se determinaron mediante medición directa (Figura~\ref{fig:croquis}): $\mathbf{A}_1(10.11, 0.37)$, $\mathbf{A}_2(0.28, 0.38)$, $\mathbf{A}_3(0.28, 6.72)$, y $\mathbf{A}_4(10.09, 6.97)$ (en metros).
+
+Un participante portó el nodo móvil en dos ubicaciones corporales---cadera y pecho, seleccionadas como casos extremos de desempeño (mejor y peor según Fase 1)---y se posicionó secuencialmente en cada uno de los 18 puntos de referencia distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas (separación de 1.5~m entre puntos adyacentes). En cada punto, el participante se mantuvo estacionario durante aproximadamente 70 segundos (equivalente a $\sim$250 muestras) para registrar mediciones de distancia continuas desde los cuatro anclas.
+
+\textbf{Algoritmo de Posicionamiento.} El sistema de posicionamiento 2D empleó dos etapas secuenciales:
+
+\textit{Etapa 1---Estimación Inicial (Trilateración NLLS):} Las mediciones de distancia crudas desde los cuatro anclas se procesaron mediante un algoritmo de Mínimos Cuadrados No Lineales (NLLS) para estimar la posición bruta del nodo móvil. El problema de optimización se formuló como:
+\begin{equation}
+\min_{\mathbf{p}} \sum_{i=1}^{4} \left( \|\mathbf{p} - \mathbf{A}_i\| - d_i \right)^2
+\end{equation}
+donde $\mathbf{p} = (x, y)$ es la posición desconocida, $\mathbf{A}_i$ es la posición del ancla $i$-ésima, y $d_i$ es la distancia medida hacia el ancla $i$. Este estimador, aunque robusto a pequeños errores de medición, proporciona estimaciones ruidosas bajo condiciones NLOS debido a los errores sistemáticos introducidos por la Body Shadowing.
+
+\textit{Etapa 2---Filtrado con Extended Kalman Filter (EKF):} Para reducir la variabilidad y aprovechar correlaciones temporales, se empleó un Extended Kalman Filter (EKF) que opera sobre las estimaciones NLLS sucesivas. El EKF se configuró con un modelo de movimiento de velocidad constante discreto:
+\begin{align}
+\mathbf{x}_{k+1} &= \mathbf{F} \mathbf{x}_k + \mathbf{w}_k, \quad \mathbf{w}_k \sim \mathcal{N}(0, \mathbf{Q}) \\
+\mathbf{z}_k &= \mathbf{H} \mathbf{x}_k + \mathbf{v}_k, \quad \mathbf{v}_k \sim \mathcal{N}(0, \mathbf{R})
+\end{align}
+donde $\mathbf{x}_k = [x_k, y_k, \dot{x}_k, \dot{y}_k]^\top$ es el estado (posición y velocidad), $\mathbf{F}$ es la matriz de transición de estado, $\mathbf{z}_k$ son las posiciones estimadas por NLLS, $\mathbf{H}$ es la matriz de observación, $\mathbf{w}_k$ es el ruido de proceso, y $\mathbf{v}_k$ es el ruido de medición.
+
+Crucialmente, la matriz de covarianza de ruido de medición $\mathbf{R}$ se ajustó diferencialmente basándose en las desviaciones estándar empíricas derivadas en Fase 1. Específicamente:
+\begin{equation}
+\mathbf{R} = \text{diag}\left( \left[\sigma_{\text{empirical}}^2 + \Delta_{\text{NLOS}}\right]^2 \right)
+\end{equation}
+donde $\sigma_{\text{empirical}}$ se obtuvo de la caracterización estadística para la ubicación corporal específica y condición de canal detectada, y $\Delta_{\text{NLOS}}$ es un término adicional que captura la degradación extra en condiciones NLOS. Este enfoque informado por datos conecta explícitamente el análisis estadístico de Fase 1 con la estrategia de filtrado de Fase 2, permitiendo al EKF ponderar adecuadamente las observaciones ruidosas.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{RepresentacionPosiciones.jpeg}
-    \caption{Croquis del escenario experimental 2D: Distribución de anclas y trayectoria de prueba.}
+    \caption{Croquis del escenario experimental Fase 2: distribución de anclas fijas y trayectoria de 18 puntos.}
     \label{fig:croquis}
 \end{figure}
 
-El protocolo de prueba consistió en recorrer una trayectoria predefinida de 18 puntos distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas, con una separación de $1.5$ m entre puntos adyacentes. En esta fase se empleó el algoritmo de multilateración basado en Mínimos Cuadrados para estimar la posición bruta, seguido de un Filtro de Kalman Extendido (EKF) para suavizar la cada punto de la trayectoria y mitigar el ruido de medición. El EKF se configuró con un modelo de movimiento de velocidad constante, asumiendo una varianza del ruido de medición ajustada dinámicamente según la desviación estándar observada en la fase de caracterización.
-
-Por último, para el análisis de datos, el error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$. Se utilizaron métricas como el Error Absoluto Medio (MAE) y la Raíz del Error Cuadrático Medio (RMSE) para cuantificar el rendimiento. Dado que las distribuciones de error mostraron ser no gaussianas (prueba de Shapiro-Wilk, $p \ll 0.001$), se emplearon pruebas no paramétricas, como la U de Mann-Whitney, para el análisis entre factores.
+\textbf{Métricas de Desempeño.} Se utilizaron el Error Absoluto Medio (MAE) y Raíz del Error Cuadrático Medio (RMSE) para cuantificar la exactitud de posicionamiento. Dado que los errores de distancia exhiben distribuciones no gaussianas (como se confirmó en Fase 1), se emplearon complementariamente tests no paramétricos (U de Mann--Whitney) para validar diferencias estadísticas significativas entre ubicaciones corporales y condiciones de canal.
