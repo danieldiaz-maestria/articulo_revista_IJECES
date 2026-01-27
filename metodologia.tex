@@ -12,9 +12,9 @@ En relación con el protocolo de recolección de datos, se evaluaron siete ubica
     \caption{Ubicación de los nodos en el cuerpo para las pruebas experimentales.}
     \label{fig:posiciones}
 \end{figure}
-Las mediciones se realizaron en 13 puntos estáticos, a distancias de 1 m a 13 m. En cada punto, se registraron 250 mediciones de distancia, acumulando un total de 91,000 mediciones en la primera fase.
+Las mediciones se realizaron en 13 puntos estáticos, a distancias de 1 m a 13 m. En cada punto, se registraron 250 mediciones de distancia, acumulando un aproximado de $100000$ mediciones en la primera fase.
 
-Para la segunda fase, orientada a la evaluación del sistema de posicionamiento 2D, se habilitó un escenario experimental en un salón de 7.4 m $\times$ 10.4 m. Se desplegaron cuatro anclas fijas instaladas a una altura de 1.52 m, formando un rectángulo que cubre el área de interés (ver Figura \ref{fig:croquis}). Las coordenadas $(x, y)$ de las anclas, en metros, se establecieron de la siguiente manera: $A_1(10.11, 0.37)$, $A_2(0.28, 0.38)$, $A_3(0.28, 6.72)$ y $A_4(10.09, 6.97)$.
+Para la segunda fase, orientada a la evaluación del sistema de posicionamiento 2D, se habilitó un escenario experimental en un salón de $7.4$ m $\times$ $10.4$ m. Se desplegaron cuatro anclas fijas instaladas a una altura de $1.52$ m, formando un rectángulo que cubre el área de interés (ver Figura \ref{fig:croquis}). Las coordenadas $(x, y)$ de las anclas, en metros, se establecieron de la siguiente manera: $A_1(10.11, 0.37)$, $A_2(0.28, 0.38)$, $A_3(0.28, 6.72)$ y $A_4(10.09, 6.97)$.
 
 \begin{figure}[H]
     \centering
@@ -23,6 +23,6 @@ Para la segunda fase, orientada a la evaluación del sistema de posicionamiento 
     \label{fig:croquis}
 \end{figure}
 
-El protocolo de prueba consistió en recorrer una trayectoria predefinida de 18 puntos distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas, con una separación de 1.5 m entre puntos adyacentes. En esta fase se empleó el algoritmo de multilateración basado en Mínimos Cuadrados No Lineales para estimar la posición bruta, seguido de un Filtro de Kalman Extendido (EKF) para suavizar la trayectoria y mitigar el ruido de medición. El KF se configuró con un modelo de movimiento de velocidad constante, asumiendo una varianza del ruido de medición ajustada dinámicamente según la desviación estándar observada en la fase de caracterización.
+El protocolo de prueba consistió en recorrer una trayectoria predefinida de 18 puntos distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas, con una separación de $1.5$ m entre puntos adyacentes. En esta fase se empleó el algoritmo de multilateración basado en Mínimos Cuadrados para estimar la posición bruta, seguido de un Filtro de Kalman Extendido (EKF) para suavizar la cada punto de la trayectoria y mitigar el ruido de medición. El EKF se configuró con un modelo de movimiento de velocidad constante, asumiendo una varianza del ruido de medición ajustada dinámicamente según la desviación estándar observada en la fase de caracterización.
 
-Por último, para el análisis de datos, el error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$. Se utilizaron métricas como el Error Absoluto Medio (MAE) y la Raíz del Error Cuadrático Medio (RMSE) para cuantificar el rendimiento. Dado que las distribuciones de error mostraron ser no gaussianas (prueba de Shapiro-Wilk, $p \ll 0.001$), se emplearon pruebas no paramétricas, como la U de Mann-Whitney, para el análisis inferencial.
+Por último, para el análisis de datos, el error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$. Se utilizaron métricas como el Error Absoluto Medio (MAE) y la Raíz del Error Cuadrático Medio (RMSE) para cuantificar el rendimiento. Dado que las distribuciones de error mostraron ser no gaussianas (prueba de Shapiro-Wilk, $p \ll 0.001$), se emplearon pruebas no paramétricas, como la U de Mann-Whitney, para el análisis entre factores.
