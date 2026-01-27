@@ -25,26 +25,32 @@ Las mediciones se realizaron en 13 posiciones estáticas, a distancias de 1~m a 
 
 Un participante portó el nodo móvil en dos ubicaciones corporales---cadera y pecho, seleccionadas como casos extremos de desempeño (mejor y peor según Fase 1)---y se posicionó secuencialmente en cada uno de los 18 puntos de referencia distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas (separación de 1.5~m entre puntos adyacentes). En cada punto, el participante se mantuvo estacionario durante aproximadamente 70 segundos (equivalente a $\sim$250 muestras) para registrar mediciones de distancia continuas desde los cuatro anclas.
 
-\textbf{Algoritmo de Posicionamiento.} El sistema de posicionamiento 2D empleó dos etapas secuenciales:
+\textbf{Algoritmo de Posicionamiento.} El sistema de posicionamiento implementó un Filtro de Kalman Extendido (EKF) diseñado para procesar directamente las mediciones de distancia (Time-of-Flight) provenientes de los cuatro anclas. A diferencia de enfoques que filtran coordenadas post-trilateración, este diseño fusiona las mediciones de rango crudas, permitiendo un manejo más robusto de la no linealidad geométrica.
 
-\textit{Etapa 1---Estimación Inicial (Trilateración NLLS):} Las mediciones de distancia crudas desde los cuatro anclas se procesaron mediante un algoritmo de Mínimos Cuadrados No Lineales (NLLS) para estimar la posición bruta del nodo móvil. El problema de optimización se formuló como:
+El vector de estado del sistema se definió simplificadamente como la posición 2D del objetivo, $\mathbf{x}_k = [x_k, y_k]^\top$. Considerando la naturaleza del experimento (puntos estáticos o movimiento cuasi-estacionario), se empleó un modelo de transición de identidad con ruido de proceso aditivo para modelar la evolución temporal de la posición:
 \begin{equation}
-\min_{\mathbf{p}} \sum_{i=1}^{4} \left( \|\mathbf{p} - \mathbf{A}_i\| - d_i \right)^2
+\mathbf{x}_{k+1} = \mathbf{x}_k + \mathbf{w}_k, \quad \mathbf{w}_k \sim \mathcal{N}(0, \mathbf{Q})
 \end{equation}
-donde $\mathbf{p} = (x, y)$ es la posición desconocida, $\mathbf{A}_i$ es la posición del ancla $i$-ésima, y $d_i$ es la distancia medida hacia el ancla $i$. Este estimador, aunque robusto a pequeños errores de medición, proporciona estimaciones ruidosas bajo condiciones NLOS debido a los errores sistemáticos introducidos por la Body Shadowing.
+donde $\mathbf{Q}$ es la matriz de covarianza del ruido del proceso, que permite al filtro adaptarse a los cambios de posición entre puntos de prueba.
 
-\textit{Etapa 2---Filtrado con Extended Kalman Filter (EKF):} Para reducir la variabilidad y aprovechar correlaciones temporales, se empleó un Extended Kalman Filter (EKF) que opera sobre las estimaciones NLLS sucesivas. El EKF se configuró con un modelo de movimiento de velocidad constante discreto:
-\begin{align}
-\mathbf{x}_{k+1} &= \mathbf{F} \mathbf{x}_k + \mathbf{w}_k, \quad \mathbf{w}_k \sim \mathcal{N}(0, \mathbf{Q}) \\
-\mathbf{z}_k &= \mathbf{H} \mathbf{x}_k + \mathbf{v}_k, \quad \mathbf{v}_k \sim \mathcal{N}(0, \mathbf{R})
-\end{align}
-donde $\mathbf{x}_k = [x_k, y_k, \dot{x}_k, \dot{y}_k]^\top$ es el estado (posición y velocidad), $\mathbf{F}$ es la matriz de transición de estado, $\mathbf{z}_k$ son las posiciones estimadas por NLLS, $\mathbf{H}$ es la matriz de observación, $\mathbf{w}_k$ es el ruido de proceso, y $\mathbf{v}_k$ es el ruido de medición.
-
-Crucialmente, la matriz de covarianza de ruido de medición $\mathbf{R}$ se ajustó diferencialmente basándose en las desviaciones estándar empíricas derivadas en Fase 1. Específicamente:
+La relación entre el estado y las mediciones es inherentemente no lineal. El vector de medición $\mathbf{z}_k$ contiene las distancias medidas a los cuatro anclas. La ecuación de observación se modela como:
 \begin{equation}
-\mathbf{R} = \text{diag}\left( \left[\sigma_{\text{empirical}}^2 + \Delta_{\text{NLOS}}\right]^2 \right)
+z_{k,i} = h_i(\mathbf{x}_k) + v_{k,i} = \sqrt{(x_k - x_{A,i})^2 + (y_k - y_{A,i})^2} + v_{k,i}
 \end{equation}
-donde $\sigma_{\text{empirical}}$ se obtuvo de la caracterización estadística para la ubicación corporal específica y condición de canal detectada, y $\Delta_{\text{NLOS}}$ es un término adicional que captura la degradación extra en condiciones NLOS. Este enfoque informado por datos conecta explícitamente el análisis estadístico de Fase 1 con la estrategia de filtrado de Fase 2, permitiendo al EKF ponderar adecuadamente las observaciones ruidosas.
+donde $(x_{A,i}, y_{A,i})$ son las coordenadas del $i$-ésimo ancla. En la etapa de corrección del EKF, esta función no lineal $h(\mathbf{x})$ se linealiza mediante el cálculo de la matriz Jacobiana $\mathbf{H}_k$ evaluada en la estimación de estado a priori:
+\begin{equation}
+\mathbf{H}_k = \left[ \begin{array}{cc}
+\frac{x_k - x_{A,1}}{d_1} & \frac{y_k - y_{A,1}}{d_1} \\
+\vdots & \vdots \\
+\frac{x_k - x_{A,4}}{d_4} & \frac{y_k - y_{A,4}}{d_4}
+\end{array} \right]
+\end{equation}
+
+Un componente crítico de la implementación es la definición dinámica de la matriz de covarianza de ruido de medición, $\mathbf{R}_k$. En lugar de asumir un error constante, el algoritmo utiliza las desviaciones estándar ($\sigma$) observadas en tiempo real para cada enlace UWB:
+\begin{equation}
+\mathbf{R}_k = \text{diag}(\sigma_{k,1}^2, \sigma_{k,2}^2, \sigma_{k,3}^2, \sigma_{k,4}^2)
+\end{equation}
+Esta configuración permite que el filtro pondere automáticamente la confianza de cada medición, otorgando menor peso a los enlaces que presentan alta variabilidad (típico de condiciones NLOS) y mayor peso a enlaces estables, mejorando así la estimación de la posición final.
 
 \begin{figure}[H]
     \centering
