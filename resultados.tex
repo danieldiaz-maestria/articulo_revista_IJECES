@@ -118,7 +118,7 @@ Esta separación sistemática entre la trayectoria suavizada y la referencia rea
     \label{fig:kalman_cadera}
 \end{figure}
 
-\subsubsection{Comparación: Pecho y Contraste con Cabeza}
+\subsubsection{Comparación: Pecho}
 Similares efectos se observan en la ubicación del pecho (Figura \ref{fig:kalman_pecho}), donde el error osciló entre 70 y 91 cm. El sesgo es ligeramente menor que en cadera pero igualmente presente.
 
 \begin{figure}[H]
@@ -128,4 +128,3 @@ Similares efectos se observan en la ubicación del pecho (Figura \ref{fig:kalman
     \label{fig:kalman_pecho}
 \end{figure}
 
-En contraste, cuando analizamos hipotéticamente una ubicación como la cabeza (no presentada aquí pero predicha por Fase 1), donde la atenuación NLOS es moderada (MAE: 18.16~cm interior), el sesgo sería mucho menor. En tal caso, el EKF sí convergería cercano a la posición verdadera, demostrando que el sistema es robusto CUANDO la visibilidad de línea de vista es suficiente.
