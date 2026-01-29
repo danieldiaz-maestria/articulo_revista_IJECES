@@ -107,9 +107,7 @@ La Figura \ref{fig:kalman_tag} muestra los resultados para el \textit{tag} de re
 \end{figure}
 
 \subsubsection{Caso con Obstrucción Corporal: Cadera}
-Al introducir el factor humano con el tag en la cadera, la degradación es drástica. La Figura \ref{fig:kalman_cadera} ilustra este caso crítico. Se aprecian desviaciones significativas en múltiples puntos de la trayectoria, con errores de posición que alcanzan hasta 95 cm. Aunque el filtro de Kalman (línea azul) logra suavizar las fluctuaciones aleatorias (reduciendo el jitter en comparación con los puntos naranjas crudos de multilateración), la línea filtrada converge consistentemente LEJOS de la posición verdadera (puntos verdes).
-
-Esta separación sistemática entre la trayectoria suavizada y la referencia real no es noise—es BIAS. El problema fundamental es que el EKF asume ruido de medición con media cero: $\mathbf{v}_k \sim \mathcal{N}(0, \mathbf{R})$. Sin embargo, bajo obstrucción corporal severa, la obstrucción introduce un sesgo positivo sistemático: cada distancia medida es SIEMPRE mayor que la distancia real $d_{\text{medida}} = d_{\text{real}} + \text{bias}(\text{ubicación})$. Como el filtro carece de una referencia externa para estimar este sesgo en tiempo real, converge hacia la medición errónea suavizada, amplificando el error posicional. En otras palabras: el EKF eficientemente suaviza una medición incorrecta.
+Al introducir el factor humano con el tag en la cadera, la degradación es drástica. La Figura \ref{fig:kalman_cadera} ilustra este caso crítico. Se aprecian desviaciones significativas en múltiples puntos de la trayectoria, con errores de posición que alcanzan hasta 95 cm. Aunque el filtro de Kalman logra suavizar las fluctuaciones aleatorias (reduciendo el jitter en comparación con los datos de multilateración), la línea filtrada converge consistentemente lejos de la posición verdadera.
 
 \begin{figure}[H]
     \centering
