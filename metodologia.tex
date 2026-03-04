@@ -1,10 +1,10 @@
-La investigación se basó en una metodología experimental de dos fases, cada una con propósitos específicos: Fase 1 (caracterización estática) para evaluar sistemáticamente el impacto de la BS sobre la estimación de distancia punto a punto en múltiples ubicaciones corporales; Fase 2 (validación dinámica) para evaluar el desempeño del sistema de posicionamiento 2D completo utilizando los modelos estadísticos derivados de Fase 1.
+La investigación se basó en una metodología experimental de dos fases, cada una con propósitos específicos: Fase 1 (pruebas de validación) para evaluar sistemáticamente el impacto de la BS sobre la estimación de distancia punto a punto en múltiples ubicaciones corporales; Fase 2 (pruebas de desempeño) para evaluar el desempeño del sistema de posicionamiento 2D completo utilizando los modelos estadísticos derivados de Fase 1.
 
 \textbf{Configuración del Hardware.} Los experimentos emplearon módulos de desarrollo Qorvo DWM1001, configurados para operar en una frecuencia central de 6.5 GHz \cite{ref8}. El sistema experimental consistió en cuatro nodos ancla fijos (Fase 2) o un nodo de referencia fijo (Fase 1) junto con un nodo móvil portado por participantes humanos.
 
 \textbf{Escenarios Experimentales.} Las dos fases se ejecutaron en entornos distintos, elegidos deliberadamente para reflejar diferentes aspectos del problema:
 
-\textit{Fase 1 (Caracterización de Distancia):} Se realizaron mediciones estáticas en dos escenarios complementarios. Primero, un campo abierto al aire libre (amplitud aproximada de 20~m $\times$ 30~m) seleccionado para minimizar reflexiones y aislar el impacto directo de la Body Shadowing. Segundo, un corredor interior (aproximadamente 2~m de ancho, 50~m de largo, con paredes y techos cercanos) para introducir efectos de multitrayecto controlados y representativos de aplicaciones en espacios cerrados. Esta dualizad de escenarios permitió diferenciar entre atenuación por obstrucción corporal pura (exterior) versus atenuación compuesta con reflexiones (interior).
+\textit{Fase 1 (Validación en Distancia):} Se realizaron mediciones estáticas en dos escenarios complementarios. Primero, un campo abierto al aire libre (amplitud aproximada de 20~m $\times$ 30~m) seleccionado para minimizar reflexiones y aislar el impacto directo de la Body Shadowing. Segundo, un corredor interior (aproximadamente 2~m de ancho, 50~m de largo, con paredes y techos cercanos) para introducir efectos de multitrayecto controlados y representativos de aplicaciones en espacios cerrados. Esta dualizad de escenarios permitió diferenciar entre atenuación por obstrucción corporal pura (exterior) versus atenuación compuesta con reflexiones (interior).
 
 \textit{Fase 2 (Posicionamiento Dinámico 2D):} Se utilizó un salón experimental de dimensiones 7.4~m $\times$ 10.4~m con cuatro anclas UWB fijas instaladas a una altura de 1.52~m. Este entorno representa un escenario de aplicación práctica (oficina, área de laboratorio) donde el sistema debe operar en condiciones realistas con multitrayecto y con los usuarios en movimiento.
 
@@ -19,7 +19,7 @@ Las mediciones se realizaron en 13 posiciones estáticas, a distancias de 1~m a 
     \label{fig:posiciones}
 \end{figure}
 
-\textbf{Análisis Estadístico de Fase 1.} El error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$ para cada medición. Se ajustaron distribuciones de probabilidad teóricas (Gamma, Log-normal, Exponencial, Normal) a los datos empíricos utilizando Estimación de Máxima Verosimilitud (MLE). Se empleó el Criterio de Información de Akaike (AIC) para seleccionar el modelo más parsimonioso. La prueba de Shapiro--Wilk confirmó que los errores en NLOS se apartan significativamente de la normalidad ($p \ll 0.001$), validando la necesidad de distribuciones alternativas. Se calcularon las desviaciones estándar experimentales ($\sigma_{\text{LOS}}$ y $\sigma_{\text{NLOS}}$) para cada ubicación corporal bajo ambas condiciones, datos que fueron utilizados subsecuentemente para configurar la matriz de covarianza de ruido de medición del EKF en Fase 2.
+\textbf{Análisis Estadístico de Fase 1.} El error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$ para cada medición. Se ajustaron distribuciones de probabilidad teóricas (Gamma, Log-normal, Exponencial, Normal) a los datos empíricos utilizando Estimación de Máxima Verosimilitud (MLE). Se empleó el Criterio de Información de Akaike (AIC) para seleccionar el modelo que más se adapta a la distribución de los datos. La prueba de Shapiro--Wilk confirmó que los errores en NLOS se apartan significativamente de la normalidad ($p \ll 0.001$), validando la necesidad de distribuciones alternativas. Se calcularon las desviaciones estándar experimentales ($\sigma_{\text{LOS}}$ y $\sigma_{\text{NLOS}}$) para cada ubicación corporal bajo ambas condiciones, datos que fueron utilizados subsecuentemente para configurar la matriz de covarianza de ruido de medición del EKF en Fase 2.
 
 \textbf{Fase 2: Validación de Posicionamiento 2D Dinámico.} El salón experimental de 7.4~m $\times$ 10.4~m fue equipado con cuatro anclas fijas cuyas coordenadas se determinaron mediante medición directa (Figura~\ref{fig:croquis}): $\mathbf{A}_1(10.11, 0.37)$, $\mathbf{A}_2(0.28, 0.38)$, $\mathbf{A}_3(0.28, 6.72)$, y $\mathbf{A}_4(10.09, 6.97)$ (en metros).
 
@@ -55,7 +55,7 @@ Esta configuración permite que el filtro pondere automáticamente la confianza 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{RepresentacionPosiciones.jpeg}
-    \caption{Croquis del escenario experimental Fase 2: distribución de anclas fijas y trayectoria de 18 puntos.}
+    \caption{Croquis del escenario experimental Fase 2: distribución de anclas fijas y trayectoria de 18 puntos; las flechas indican la dirección del sujeto de prueba.}
     \label{fig:croquis}
 \end{figure}
 
