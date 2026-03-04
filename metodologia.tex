@@ -1,62 +1,56 @@
-La investigación se basó en una metodología experimental de dos fases, cada una con propósitos específicos: Fase 1 (caracterización estática) para evaluar sistemáticamente el impacto de la BS sobre la estimación de distancia punto a punto en múltiples ubicaciones corporales; Fase 2 (validación dinámica) para evaluar el desempeño del sistema de posicionamiento 2D completo utilizando los modelos estadísticos derivados de Fase 1.
+The research was based on a two-phase experimental methodology, each with specific purposes: Phase 1 (static characterization) to systematically evaluate the impact of BS on point-to-point distance estimation in multiple body locations; and Phase 2 (dynamic validation) to evaluate the performance of the complete 2D positioning system using the statistical models derived from Phase 1.
 
-\textbf{Configuración del Hardware.} Los experimentos emplearon módulos de desarrollo Qorvo DWM1001, configurados para operar en una frecuencia central de 6.5 GHz \cite{ref8}. El sistema experimental consistió en cuatro nodos ancla fijos (Fase 2) o un nodo de referencia fijo (Fase 1) junto con un nodo móvil portado por participantes humanos.
+\textbf{Hardware Configuration.} The experiments employed Qorvo DWM1001 development modules, configured to operate at a center frequency of 6.5 GHz \cite{ref8}. The experimental system consisted of four fixed anchor nodes (Phase 2) or a fixed reference node (Phase 1) along with a mobile node carried by human participants.
 
-\textbf{Escenarios Experimentales.} Las dos fases se ejecutaron en entornos distintos, elegidos deliberadamente para reflejar diferentes aspectos del problema:
+\textbf{Experimental Scenarios.} The two phases were executed in distinct environments, deliberately chosen to reflect different aspects of the problem:
 
-\textit{Fase 1 (Caracterización de Distancia):} Se realizaron mediciones estáticas en dos escenarios complementarios. Primero, un campo abierto al aire libre (amplitud aproximada de 20~m $\times$ 30~m) seleccionado para minimizar reflexiones y aislar el impacto directo de la Body Shadowing. Segundo, un corredor interior (aproximadamente 2~m de ancho, 50~m de largo, con paredes y techos cercanos) para introducir efectos de multitrayecto controlados y representativos de aplicaciones en espacios cerrados. Esta dualizad de escenarios permitió diferenciar entre atenuación por obstrucción corporal pura (exterior) versus atenuación compuesta con reflexiones (interior).
+\textit{Phase 1 (Distance Characterization):} Static measurements were performed in two complementary scenarios. First, an open outdoor field (approximate dimensions of 20~m $\times$ 30~m) selected to minimize reflections and isolate the direct impact of Body Shadowing. Second, an indoor corridor (approximately 2~m wide, 50~m long, with nearby walls and ceilings) to introduce controlled multipath effects representative of indoor applications. This duality of scenarios allowed differentiating between attenuation due to pure body obstruction (outdoor) and composite attenuation with reflections (indoor).
 
-\textit{Fase 2 (Posicionamiento Dinámico 2D):} Se utilizó un salón experimental de dimensiones 7.4~m $\times$ 10.4~m con cuatro anclas UWB fijas instaladas a una altura de 1.52~m. Este entorno representa un escenario de aplicación práctica (oficina, área de laboratorio) donde el sistema debe operar en condiciones realistas con multitrayecto y con los usuarios en movimiento.
+\textit{Phase 2 (Dynamic 2D Positioning):} An experimental hall of dimensions 7.4~m $\times$ 10.4~m with four fixed UWB anchors installed at a height of 1.52~m was used. This environment represents a practical application scenario (office, laboratory area) where the system must operate under realistic conditions with multipath and users in motion.
 
-\textbf{Fase 1: Protocolo de Caracterización de Distancia.} Se evaluaron siete ubicaciones corporales del nodo móvil: cabeza, pecho, cadera, mano, muñeca, rodilla y tobillo (Figura~\ref{fig:posiciones}). Para cada ubicación, se recopilaron medidas bajo dos condiciones de propagación: Línea de Vista (LOS) con trayectoria directa entre ancla y nodo móvil, y No-Línea de Vista (NLOS), donde se obstruyó deliberadamente la señal rotando el cuerpo del participante 180° para asegurar oclusión completa del nodo móvil desde el ancla.
+\textbf{Phase 1: Distance Characterization Protocol.} Seven body locations of the mobile node were evaluated: head, chest, hip, hand, wrist, knee, and ankle (Figure~\ref{fig:posiciones}). For each location, measurements were collected under two propagation conditions: Line of Sight (LOS), with direct path between anchor and mobile node; and Non-Line of Sight (NLOS), where the signal was deliberately obstructed by rotating the participant's body 180° to ensure complete occlusion of the mobile node from the anchor.
 
-Las mediciones se realizaron en 13 posiciones estáticas, a distancias de 1~m a 13~m desde el ancla de referencia. En cada posición, se registraron 250 mediciones independientes de distancia, acumulando aproximadamente 91,000 mediciones de distancia en total (13 posiciones $\times$ 7 ubicaciones corporales $\times$ 2 condiciones de canal $\times$ 250 muestras $\times$ 2 escenarios). Este volumen de datos permitió construcción de modelos estadísticos robustos para caracterizar la distribución de errores bajo cada condición.
+Measurements were performed at 13 static positions, at distances from 1~m to 13~m from the reference anchor. At each position, 250 independent distance measurements were recorded, accumulating approximately 100,000 measurements in total (13 positions $\times$ 7 body locations $\times$ 2 channel conditions $\times$ 250 samples $\times$ 2 scenarios). This volume of data allowed the construction of robust statistical models to characterize the error distribution under each condition.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{posiciones_cuerpo.jpg}
-    \caption{Ubicaciones de medición en el cuerpo humano durante Fase 1 de caracterización.}
+    \caption{Measurement locations on the human body during Phase 1 characterization.}
     \label{fig:posiciones}
 \end{figure}
 
-\textbf{Análisis Estadístico de Fase 1.} El error de distancia se calculó como $e_i = d_{\text{medida},i} - d_{\text{real},i}$ para cada medición. Se ajustaron distribuciones de probabilidad teóricas (Gamma, Log-normal, Exponencial, Normal) a los datos empíricos utilizando Estimación de Máxima Verosimilitud (MLE). Se empleó el Criterio de Información de Akaike (AIC) para seleccionar el modelo más parsimonioso. La prueba de Shapiro--Wilk confirmó que los errores en NLOS se apartan significativamente de la normalidad ($p \ll 0.001$), validando la necesidad de distribuciones alternativas. Se calcularon las desviaciones estándar experimentales ($\sigma_{\text{LOS}}$ y $\sigma_{\text{NLOS}}$) para cada ubicación corporal bajo ambas condiciones, datos que fueron utilizados subsecuentemente para configurar la matriz de covarianza de ruido de medición del EKF en Fase 2.
+\textbf{Statistical Analysis of Phase 1.} Distance error was calculated as $e_i = |d_{\text{measured},i} - d_{\text{real},i}|$ for each measurement. Theoretical probability distributions (Gamma, Log-normal, Exponential, Normal) were fitted to the empirical data using Maximum Likelihood Estimation (MLE). The Akaike Information Criterion (AIC) was employed to select the most approximate model. The Shapiro-Wilk test confirmed that errors in NLOS deviate significantly from normality ($p \ll 0.001$), validating the need for alternative distributions. Experimental standard deviations ($\sigma_{\text{LOS}}$ and $\sigma_{\text{NLOS}}$) were calculated for each body location under both conditions, data which were subsequently used to configure the measurement noise covariance matrix of the EKF in Phase 2.
 
-\textbf{Fase 2: Validación de Posicionamiento 2D Dinámico.} El salón experimental de 7.4~m $\times$ 10.4~m fue equipado con cuatro anclas fijas cuyas coordenadas se determinaron mediante medición directa (Figura~\ref{fig:croquis}): $\mathbf{A}_1(10.11, 0.37)$, $\mathbf{A}_2(0.28, 0.38)$, $\mathbf{A}_3(0.28, 6.72)$, y $\mathbf{A}_4(10.09, 6.97)$ (en metros).
+\textbf{Phase 2: Dynamic 2D Positioning Validation.} The experimental hall was equipped with four fixed anchors whose coordinates were determined by direct measurement (Figure~\ref{fig:croquis}): $\mathbf{A}_1(10.11, 0.37)$, $\mathbf{A}_2(0.28, 0.38)$, $\mathbf{A}_3(0.28, 6.72)$, and $\mathbf{A}_4(10.09, 6.97)$ (in meters).
 
-Un participante portó el nodo móvil en dos ubicaciones corporales---cadera y pecho, seleccionadas como casos extremos de desempeño (mejor y peor según Fase 1)---y se posicionó secuencialmente en cada uno de los 18 puntos de referencia distribuidos en una cuadrícula de 3 filas $\times$ 6 columnas (separación de 1.5~m entre puntos adyacentes). En cada punto, el participante se mantuvo estacionario durante aproximadamente 70 segundos (equivalente a $\sim$250 muestras) para registrar mediciones de distancia continuas desde los cuatro anclas.
+Three participants carried the mobile node in two body locations — hip and chest, selected as extreme performance cases (worst and best respectively, according to Phase 1) — and positioned themselves sequentially at each of the 18 reference points distributed in a grid of 3 rows $\times$ 6 columns (1.5~m separation between adjacent points). At each point, the participant remained stationary for approximately 70 seconds (equivalent to $\sim$250 samples) to record continuous distance measurements from the four anchors.
 
-\textbf{Algoritmo de Posicionamiento.} El sistema de posicionamiento implementó un Filtro de Kalman Extendido (EKF) diseñado para procesar directamente las mediciones de distancia (Time-of-Flight) provenientes de los cuatro anclas. A diferencia de enfoques que filtran coordenadas post-trilateración, este diseño fusiona las mediciones de rango crudas, permitiendo un manejo más robusto de la no linealidad geométrica.
+\textbf{Positioning Algorithm.} Two approaches were compared: an Extended Kalman Filter (EKF) designed to process directly the distance measurements (Time-of-Flight) coming from the four anchors, and a multilateration algorithm based on least squares to estimate the position from the measurements of each anchor. The EKF fuses the raw range measurements, allowing for more robust handling of geometric non-linearity, while multilateration solves the position at each instant independently.
 
-El vector de estado del sistema se definió simplificadamente como la posición 2D del objetivo, $\mathbf{x}_k = [x_k, y_k]^\top$. Considerando la naturaleza del experimento (puntos estáticos o movimiento cuasi-estacionario), se empleó un modelo de transición de identidad con ruido de proceso aditivo para modelar la evolución temporal de la posición:
+The system state vector was simplified as the 2D position of the target, $\mathbf{x}_k = [x_k, y_k]^\top$. Considering the nature of the experiment (static points or quasi-stationary movement), an identity transition model with additive process noise was employed to model the temporal evolution of the position:
 \begin{equation}
 \mathbf{x}_{k+1} = \mathbf{x}_k + \mathbf{w}_k, \quad \mathbf{w}_k \sim \mathcal{N}(0, \mathbf{Q})
 \end{equation}
-donde $\mathbf{Q}$ es la matriz de covarianza del ruido del proceso, que permite al filtro adaptarse a los cambios de posición entre puntos de prueba.
+where $\mathbf{Q}$ is the process noise covariance matrix, which allows the filter to adapt to position changes between test points.
 
-La relación entre el estado y las mediciones es inherentemente no lineal. El vector de medición $\mathbf{z}_k$ contiene las distancias medidas a los cuatro anclas. La ecuación de observación se modela como:
+The relationship between the state and measurements is inherently non-linear. The measurement vector $\mathbf{z}_k$ contains the measured distances to the four anchors. The observation equation is modeled as:
 \begin{equation}
 z_{k,i} = h_i(\mathbf{x}_k) + v_{k,i} = \sqrt{(x_k - x_{A,i})^2 + (y_k - y_{A,i})^2} + v_{k,i}
 \end{equation}
-donde $(x_{A,i}, y_{A,i})$ son las coordenadas del $i$-ésimo ancla. En la etapa de corrección del EKF, esta función no lineal $h(\mathbf{x})$ se linealiza mediante el cálculo de la matriz Jacobiana $\mathbf{H}_k$ evaluada en la estimación de estado a priori:
-\begin{equation}
-\mathbf{H}_k = \left[ \begin{array}{cc}
-\frac{x_k - x_{A,1}}{d_1} & \frac{y_k - y_{A,1}}{d_1} \\
-\vdots & \vdots \\
-\frac{x_k - x_{A,4}}{d_4} & \frac{y_k - y_{A,4}}{d_4}
-\end{array} \right]
-\end{equation}
+where $(x_{A,i}, y_{A,i})$ are the coordinates of the $i$-th anchor. In the EKF correction step, this non-linear function $h(\mathbf{x})$ is linearized by calculating the Jacobian matrix $\mathbf{H}_k$ evaluated at the *a priori* state estimate.
 
-Un componente crítico de la implementación es la definición dinámica de la matriz de covarianza de ruido de medición, $\mathbf{R}_k$. En lugar de asumir un error constante, el algoritmo utiliza las desviaciones estándar ($\sigma$) observadas en tiempo real para cada enlace UWB:
+A critical component of the implementation is the dynamic definition of the measurement noise covariance matrix, $\mathbf{R}_k$. Instead of assuming a constant error, the algorithm uses the standard deviations ($\sigma$) observed in real-time for each UWB link:
 \begin{equation}
 \mathbf{R}_k = \text{diag}(\sigma_{k,1}^2, \sigma_{k,2}^2, \sigma_{k,3}^2, \sigma_{k,4}^2)
 \end{equation}
-Esta configuración permite que el filtro pondere automáticamente la confianza de cada medición, otorgando menor peso a los enlaces que presentan alta variabilidad (típico de condiciones NLOS) y mayor peso a enlaces estables, mejorando así la estimación de la posición final.
+This configuration allows the filter to automatically weight the confidence of each measurement, giving less weight to links presenting high variability (typical of NLOS conditions) and more weight to stable links, thus improving the final position estimation.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{RepresentacionPosiciones.jpeg}
-    \caption{Croquis del escenario experimental Fase 2: distribución de anclas fijas y trayectoria de 18 puntos.}
+    \caption{Sketch of the experimental scenario Phase 2: distribution of fixed anchors and trajectory of 18 points.}
     \label{fig:croquis}
 \end{figure}
 
-\textbf{Métricas de Desempeño.} Se utilizaron el Error Absoluto Medio (MAE) y Raíz del Error Cuadrático Medio (RMSE) para cuantificar la exactitud de posicionamiento. Dado que los errores de distancia exhiben distribuciones no gaussianas (como se confirmó en Fase 1), se emplearon complementariamente tests no paramétricos (U de Mann--Whitney) para validar diferencias estadísticas significativas entre ubicaciones corporales y condiciones de canal.
+\textbf{Performance Metrics.} Mean Absolute Error (MAE) and Root Mean Square Error (RMSE) were used to quantify positioning accuracy. Given that distance errors exhibit non-Gaussian distributions (as confirmed in Phase 1), non-parametric tests (Mann-Whitney U) were complementarily employed to validate statistically significant differences between body locations and channel conditions.
+
