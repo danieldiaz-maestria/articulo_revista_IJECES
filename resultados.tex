@@ -12,12 +12,14 @@ Conversely, the hip and chest locations exhibit critical degradation, with NLOS 
 \centering
 \caption{Mean Absolute Error (MAE) Analysis: Impact of Body Location and Environment.}
 \label{tab:resumen_mae}
+\resizebox{\columnwidth}{!}{%
+\renewcommand{\arraystretch}{3}
+\rowcolors{3}{gray!10}{white}
 \begin{tabular}{lcccc}
-\toprule
-\multirow{2}{*}{\textbf{Location}} & \multicolumn{2}{c}{\textbf{Outdoor}} & \multicolumn{2}{c}{\textbf{Indoor}} \\
-\cmidrule(lr){2-3} \cmidrule(lr){4-5}
-& \textbf{LOS} & \textbf{NLOS} & \textbf{LOS} & \textbf{NLOS} \\
-\midrule
+\rowcolor{gray!30}
+\textbf{Location} & \multicolumn{2}{c}{\textbf{Outdoor (cm)}} & \multicolumn{2}{c}{\textbf{Indoor (cm)}} \\
+\rowcolor{gray!30}
+\textit{(Body Part)} & \textbf{LOS} & \textbf{NLOS} & \textbf{LOS} & \textbf{NLOS} \\
 \textbf{Head}     & \textbf{4.87} & \textbf{32.43} & \textbf{8.91} & \textbf{18.16} \\
 Hip      & 8.31 & 89.99 & 7.22 & 95.11 \\
 Hand     & 9.28 & 42.17 & 9.09 & 26.01 \\
@@ -25,8 +27,8 @@ Wrist    & 7.78 & 24.21 & 6.42 & 22.00 \\
 Chest    & 4.62 & 63.69 & 13.74 & 83.98 \\
 Knee     & 14.99 & 51.36 & 12.04 & 49.52 \\
 Ankle    & 29.81 & 38.45 & 41.48 & 29.96 \\
-\bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 A counter-intuitive but critical finding is the \textit{Constructive Multipath Effect} observed indoors. For locations like the head and hand, NLOS errors were actually \textbf{lower} in the indoor corridor (18.16 cm) compared to the open outdoor field (32.43 cm). This confirms that in confined 6.5 GHz environments, reflections from walls and ceilings can partially compensate for direct body blocking.
@@ -74,13 +76,13 @@ As shown in Table \ref{tab:tof_stats} and Figure \ref{fig:tof_pecho_dist}, when 
 \caption{Statistical comparison of ToF for Chest location.}
 \label{tab:tof_stats}
 \resizebox{\columnwidth}{!}{%
+\renewcommand{\arraystretch}{3}
+\rowcolors{2}{gray!10}{white}
 \begin{tabular}{lccc}
-\toprule
+\rowcolor{gray!30}
 \textbf{Metric} & \textbf{LOS (ns)} & \textbf{NLOS (ns)} & \textbf{Increase} \\
-\midrule
-Avg Std Dev & 0.18 & 0.63 & 3.5x \\
+Avg Std Dev ($\sigma$) & 0.18 & 0.63 & 3.5x \\
 Max Range & 27.37 & 42.86 & 1.5x \\
-\bottomrule
 \end{tabular}%
 }
 \end{table}
