@@ -27,7 +27,7 @@ Three participants carried the mobile node in two body locations — hip and che
 
 \textbf{Positioning Algorithm.} Two approaches were compared: an Extended Kalman Filter (EKF) designed to process directly the distance measurements (Time-of-Flight) coming from the four anchors, and a multilateration algorithm based on least squares to estimate the position from the measurements of each anchor. The EKF fuses the raw range measurements, allowing for more robust handling of geometric non-linearity, while multilateration solves the position at each instant independently.
 
-The system state vector was simplified as the 2D position of the target, $\mathbf{x}_k = [x_k, y_k]^\top$. Considering the nature of the experiment (static points or quasi-stationary movement), an identity transition model with additive process noise was employed to model the temporal evolution of the position:
+\textbf{Extended Kalman Filter} The system state vector was simplified as the 2D position of the target, $\mathbf{x}_k = [x_k, y_k]^\top$. Considering the nature of the experiment (static points or quasi-stationary movement), an identity transition model with additive process noise was employed to model the temporal evolution of the position:
 \begin{equation}
 \mathbf{x}_{k+1} = \mathbf{x}_k + \mathbf{w}_k, \quad \mathbf{w}_k \sim \mathcal{N}(0, \mathbf{Q})
 \end{equation}
@@ -44,6 +44,12 @@ A critical component of the implementation is the dynamic definition of the meas
 \mathbf{R}_k = \text{diag}(\sigma_{k,1}^2, \sigma_{k,2}^2, \sigma_{k,3}^2, \sigma_{k,4}^2)
 \end{equation}
 This configuration allows the filter to automatically weight the confidence of each measurement, giving less weight to links presenting high variability (typical of NLOS conditions) and more weight to stable links, thus improving the final position estimation. The complete implementation of the proposed EKF and Multilateration algorithms, including the experimental datasets used for validation, is openly available in the GitHub repository \cite{github_repo}.
+
+\textbf{Multilateration Algorithm.} The multilateration approach estimates the position by solving for the intersection of the range circles from multiple anchors. Since measurements are noisy, the problem is over-determined and is formulated as a Non-Linear Least Squares (NLLS) optimization. The objective is to minimize the sum of squared errors between the measured distances $d_i$ and the calculated Euclidean distances:
+\begin{equation}
+\hat{\mathbf{x}} = \underset{x,y}{\text{argmin}} \sum_{i=1}^{N} \left( d_i - \sqrt{(x - x_i)^2 + (y - y_i)^2} \right)^2
+\end{equation}
+where $(x_i, y_i)$ are the coordinates of the $i$-th anchor. This method provides an instantaneous position estimate but is sensitive to outliers in individual measurements.
 
 \begin{figure}[H]
     \centering
