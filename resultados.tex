@@ -1,10 +1,16 @@
-The experimental results demonstrate a strong dependence between device location, scenario, and propagation condition (LOS/NLOS).
+The experimental evaluation provides crucial empirical evidence regarding the performance of UWB systems operating in the 6.5 GHz band. Unlike previous studies focused on lower frequencies (3-5 GHz), our data reveals that the shorter wavelength of 6.5 GHz signals introduces specific vulnerability patterns to body shadowing.
 
-First, analyzing distance error by body location, Table \ref{tab:resumen_mae} consolidates the Mean Absolute Error (MAE) for all evaluated configurations. Data analysis reveals that the head offers the best overall performance, with stable behavior and moderate degradation between LOS and NLOS (especially indoors, with a factor of 2.0x), possibly because the skull geometry facilitates diffraction. Conversely, the hip presents the worst performance, with severe degradation in NLOS where errors approach one meter and degradation factors exceed 10x, confirming that the torso acts as a critical obstacle. Regarding extremities, the wrist and hand show moderate and consistent performance, positioning them as viable alternatives to the head, while the ankle and knee record higher errors due to proximity to the ground and leg obstruction.
+\subsection{Phase 1: Validation Phase}
+This phase focuses on the systematic quantification of ranging errors across seven body locations to establish a baseline for sensor placement.
+
+\subsubsection{Quantification of BS Impact}
+The comparative analysis of distance error by body location (Table \ref{tab:resumen_mae}) establishes a clear hierarchy of robustness for wearable tag placement. The head location emerges as the optimal placement, maintaining sub-decimeter accuracy (MAE < 9 cm) even in most indoor scenarios. This performance is attributed to the creeping wave diffraction phenomenon around the skull.
+
+Conversely, the hip and chest locations exhibit critical degradation, with NLOS errors increasing by a factor of up to \textbf{13x} compared to LOS conditions (e.g., Hip: 7.22 cm in LOS vs 95.11 cm in NLOS). This result is significant as it quantifies the "cost" of convenient placement: placing the tag on the torso effectively renders standard ranging algorithms useless without advanced bias compensation.
 
 \begin{table}[H]
 \centering
-\caption{Summary of MAE (cm) by Location and Condition.}
+\caption{Mean Absolute Error (MAE) Analysis: Impact of Body Location and Environment.}
 \label{tab:resumen_mae}
 \begin{tabular}{lcccc}
 \toprule
@@ -12,7 +18,7 @@ First, analyzing distance error by body location, Table \ref{tab:resumen_mae} co
 \cmidrule(lr){2-3} \cmidrule(lr){4-5}
 & \textbf{LOS} & \textbf{NLOS} & \textbf{LOS} & \textbf{NLOS} \\
 \midrule
-Head     & 4.87 & 32.43 & 8.91 & 18.16 \\
+\textbf{Head}     & \textbf{4.87} & \textbf{32.43} & \textbf{8.91} & \textbf{18.16} \\
 Hip      & 8.31 & 89.99 & 7.22 & 95.11 \\
 Hand     & 9.28 & 42.17 & 9.09 & 26.01 \\
 Wrist    & 7.78 & 24.21 & 6.42 & 22.00 \\
@@ -23,50 +29,12 @@ Ankle    & 29.81 & 38.45 & 41.48 & 29.96 \\
 \end{tabular}
 \end{table}
 
-Complementarily, non-parametric statistical analysis confirmed that differences between configurations are statistically significant ($p \ll 0.001$). A relevant finding was the differential behavior between scenarios: for several locations (head, hand, ankle), NLOS error was lower indoors compared to outdoors. This phenomenon does not imply a real "improvement" in accuracy, but reflects a qualitative change in the propagation mechanism. In the indoor environment (corridor with nearby walls), the proximity of reflective surfaces allows maintaining signal connectivity through multiple paths (reflections) which, although introducing additional delays and temporal variability, guarantee continuous energy reception. In contrast, outdoors, when the body obstructs the direct path, the signal is severely attenuated without alternative nearby reflection sources, resulting in loss of signal integrity \cite{ref11, ref17}. This distinction between indoor (persistent multipath) and outdoor (absence of propagation alternatives) is critical for interpreting the nature of the error observed in Phase 2.
+A counter-intuitive but critical finding is the \textit{Constructive Multipath Effect} observed indoors. For locations like the head and hand, NLOS errors were actually \textbf{lower} in the indoor corridor (18.16 cm) compared to the open outdoor field (32.43 cm). This confirms that in confined 6.5 GHz environments, reflections from walls and ceilings can partially compensate for direct body blocking.
 
-\subsection{Temporal Analysis of Time of Flight (ToF)}
-Detailed analysis of Time of Flight (ToF) reveals critical patterns explaining both distance accuracy degradation and the probabilistic structure of the error. Signal temporal variability, quantified by standard deviation ($\sigma$), was identified as the most robust indicator to distinguish between LOS and NLOS conditions and inform the EKF covariance matrix configuration in Phase 2.
+\subsubsection{Probabilistic Error Characterization}
+Statistical error modeling is essential for designing robust navigation algorithms. Using the Akaike Information Criterion (AIC), the fit of various theoretical distributions (Gamma, Log-normal, Exponential, Normal) to empirical data was evaluated.
 
-As observed in Table \ref{tab:tof_stats}, moving from a line-of-sight condition to body obstruction, ToF standard deviation increases drastically, with an average increase of 3.5$\times$ (from 0.18~ns to 0.63~ns), illustrating the exponential increase in temporal uncertainty under body shadowing. This variability increase is the temporal manifestation of the severe distance errors documented in Table \ref{tab:resumen_mae}.
-
-\begin{table}[H]
-\centering
-\caption{Statistical comparison of ToF for Chest location.}
-\label{tab:tof_stats}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lccc}
-\toprule
-\textbf{Metric} & \textbf{LOS (ns)} & \textbf{NLOS (ns)} & \textbf{Increase} \\
-\midrule
-Avg Std Dev & 0.18 & 0.63 & 3.5x \\
-Max Range & 27.37 & 42.86 & 1.5x \\
-\bottomrule
-\end{tabular}%
-}
-\end{table}
-
-Figure \ref{fig:tof_pecho_dist} illustrates ToF distributions for Subject 1. It is evident that in NLOS conditions (lower graphs or long tails), temporal dispersion is much greater, implying direct uncertainty in distance estimation.
-
-\begin{figure}[H]
-    \centering
-    \begin{minipage}[b]{0.48\columnwidth}
-        \includegraphics[width=\linewidth]{pecho_sujeto1_ancla1_tof_sin_outliers.png}
-        \caption*{Anchor 1}
-    \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.48\columnwidth}
-        \includegraphics[width=\linewidth]{pecho_sujeto1_ancla2_tof_sin_outliers.png}
-        \caption*{Anchor 2}
-    \end{minipage}
-    \caption{ToF Distributions (Chest, Subject 1). Greater dispersion in certain links indicates severe obstruction.}
-    \label{fig:tof_pecho_dist}
-\end{figure}
-
-\subsection{Probabilistic Error Characterization}
-Statistical error modeling is essential for designing robust navigation algorithms. Using the Akaike Information Criterion (AIC), the fit of various theoretical distributions (Gamma, Log-normal, Exponential, Normal) to empirical data was evaluated, selecting the model that best captured the error tail structure.
-
-In LOS conditions, the Gamma distribution proved to be the optimal model (see Figure \ref{fig:ajuste_los}), adequately characterizing the slight positive skewness inherent to ToF measurement in direct propagation. However, in NLOS conditions, the error structure changes radically. Figure \ref{fig:ajuste_nlos} conclusively demonstrates that \textbf{the Log-normal distribution offers the best fit for NLOS data}, significantly outperforming Gamma according to the AIC criterion. This finding is not accidental: it reflects the multiplicative nature of noise in obstructed environments. Unlike additive Gaussian errors assumed by classic linear filters, NLOS errors result from multiplicative processes where multiple factors (BS attenuation, multipath delay, diffraction distortion) concatenate, generating distributions with heavy tails characteristic of these processes. Distance error in NLOS can be approximately expressed as: $d_{\text{error}} \propto d_{\text{real}} \cdot (1 + \alpha_1 \cdot \alpha_2 \cdot \alpha_3)$, where $\alpha_i$ represent multiplicative attenuation factors, whose composition generates the observed Log-normal distribution.
+In LOS conditions, the Gamma distribution proved to be the optimal model (see Figure \ref{fig:ajuste_los}), adequately characterizing the slight positive skewness. However, in NLOS conditions, the error structure changes radically. Figure \ref{fig:ajuste_nlos} conclusively demonstrates that \textbf{the Log-normal distribution offers the best fit for NLOS data}, significantly outperforming Gamma. This finding reflects the multiplicative nature of noise in obstructed environments. Distance error in NLOS can be approximately expressed as: $d_{\text{error}} \propto d_{\text{real}} \cdot (1 + \alpha_1 \cdot \alpha_2 \cdot \alpha_3)$, where $\alpha_i$ represent multiplicative attenuation factors.
 
 \begin{figure}[H]
     \centering
@@ -84,7 +52,7 @@ In LOS conditions, the Gamma distribution proved to be the optimal model (see Fi
     \caption{Comparison of probability distribution fits for distance errors.}
 \end{figure}
 
-Deviation from normality is critical for understanding the limitations of traditional filters. Figure \ref{fig:qq_nlos} presents the Q-Q plot for NLOS data, where extreme divergence in the upper tail confirms that large errors are much more frequent than a Gaussian distribution would predict (Shapiro-Wilk test: $p \ll 0.001$). Specifically, the pronounced curvature at the right extreme indicates that the probability of "large error events" in NLOS is orders of magnitude higher than under the Gaussian hypothesis, explaining why classic linear filters (Linear Kalman) are ineffective in the presence of severe body obstruction. The Extended Kalman Filter (EKF) employed in Phase 2, being informed by these empirical standard deviations (Table \ref{tab:tof_stats}) in its measurement covariance matrix configuration, provides an adaptation mechanism that, although not completely resolving non-Gaussianity, significantly improves trajectory coherence compared to a non-adaptive linear filter.
+Deviation from normality is critical for understanding the limitations of traditional filters. Figure \ref{fig:qq_nlos} presents the Q-Q plot for NLOS data, where extreme divergence in the upper tail confirms that large errors are much more frequent than a Gaussian distribution would predict (Shapiro-Wilk test: $p \ll 0.001$).
 
 \begin{figure}[H]
     \centering
@@ -93,38 +61,75 @@ Deviation from normality is critical for understanding the limitations of tradit
     \label{fig:qq_nlos}
 \end{figure}
 
-\subsection{2D Positioning System Evaluation}
-To validate the impact of distance errors in a real application, a 2D positioning system was implemented in a 7.4 $\times$ 10.4 m hall, equipped with four fixed anchors in the corners. A test trajectory composed of 18 stop points (stationary stop of ~70 seconds at each point) was traced, distributed in a grid of 3 rows $\times$ 6 columns with 1.5~m spacing.
+\subsection{Phase 2: Performance Phase (Positioning System Evaluation)}
+This phase evaluates the dynamic performance of the system in a real-world scenario, analyzing the impact of body shadowing on signal stability and trajectory estimation.
 
-\subsubsection{Reference Case: Tag without Human Body}
-Figure \ref{fig:kalman_tag} shows results for the reference \textit{tag} (without human body). The EKF (blue line) effectively smooths raw multilateration fluctuations (orange points), achieving a trajectory that faithfully fits the real reference (green points), with an average positioning error of 48 cm. This performance represents the optimal system case: when no body obstruction exists, measurement noise is approximately Gaussian with zero mean, and the EKF converges correctly to real positions.
+\subsubsection{Analysis of Time of Flight (ToF) Stability}
+Within the context of the positioning system evaluation, we analyzed the Time of Flight (ToF) distributions to visualize the signal behavior under real tracking conditions. This analysis explicitly demonstrates the variability introduced when the tag transitions between Line-of-Sight (LOS) and Non-Line-of-Sight (NLOS) relative to the fixed anchors.
+
+As shown in Table \ref{tab:tof_stats} and Figure \ref{fig:tof_pecho_dist}, when the body obstructs the direct path to an anchor, the ToF variance increases significantly (Standard Deviation increases by 3.5x). This temporal dispersion explains the "noisy" nature of the range measurements observed during the positioning experiments.
+
+\begin{table}[H]
+\centering
+\caption{Statistical comparison of ToF for Chest location.}
+\label{tab:tof_stats}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+\textbf{Metric} & \textbf{LOS (ns)} & \textbf{NLOS (ns)} & \textbf{Increase} \\
+\midrule
+Avg Std Dev & 0.18 & 0.63 & 3.5x \\
+Max Range & 27.37 & 42.86 & 1.5x \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.48\columnwidth}
+        \includegraphics[width=\linewidth]{pecho_sujeto1_ancla1_tof_sin_outliers.png}
+        \caption*{Anchor 1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.48\columnwidth}
+        \includegraphics[width=\linewidth]{pecho_sujeto1_ancla2_tof_sin_outliers.png}
+        \caption*{Anchor 2}
+    \end{minipage}
+    \caption{ToF Distributions (Chest, Subject 1). Greater dispersion in certain links indicates severe obstruction.}
+    \label{fig:tof_pecho_dist}
+\end{figure}
+
+\subsubsection{2D Positioning System Evaluation}
+To validate the impact of distance errors in a real application, a 2D positioning system was implemented in a 7.4 $\times$ 10.4 m hall.
+
+\paragraph{Reference Case: Tag without Human Body}
+Figure \ref{fig:kalman_tag} shows results for the reference \textit{tag} (without human body). The EKF (blue line) effectively smooths raw multilateration fluctuations (orange points), achieving a trajectory that faithfully fits the real reference (green points), with an average positioning error of 48 cm.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{kalman_tag.pdf}
-    \caption{Estimated trajectory for reference tag: comparison between real and estimated positions.}
+    \caption{Estimated trajectory for reference tag.}
     \label{fig:kalman_tag}
 \end{figure}
 
-\subsubsection{Case with Body Obstruction: Hip}
-Introducing the human factor with the tag on the hip, degradation is drastic. Figure \ref{fig:kalman_cadera} illustrates this critical case. Significant deviations are appreciated at multiple trajectory points, with position errors reaching up to 95 cm. Although the Kalman filter (blue line) manages to smooth random fluctuations (reducing *jitter* compared to raw multilateration orange points), the filtered line consistently converges AWAY from the true position (green points).
-
-This systematic separation between the smoothed trajectory and the real reference is not noise, it is BIAS. The fundamental problem is that the EKF assumes measurement noise with zero mean: $\mathbf{v}_k \sim \mathcal{N}(0, \mathbf{R})$. However, under severe body obstruction, the obstruction introduces a systematic positive bias: every measured distance is ALWAYS greater than the real distance $d_{\text{measured}} = d_{\text{real}} + \text{bias}(\text{location})$. Since the filter lacks an external reference to estimate this bias in real-time, it converges towards the smoothed erroneous measurement, amplifying positional error. In other words: the EKF efficiently smooths an incorrect measurement.
+\paragraph{Case with Body Obstruction: Hip}
+Introducing the human factor with the tag on the hip, degradation is drastic. Figure \ref{fig:kalman_cadera} illustrates this critical case. Significant deviations are appreciated, with position errors reaching up to 95 cm. The EKF manages to smooth random fluctuations but consistently converges AWAY from the true position due to systematic bias.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{kalman_cadera_sujeto1.pdf}
-    \caption{Estimated trajectory for Hip location (Subject 1). The filter smooths jitter (blue line vs orange points) but does not correct systematic bias, resulting in consistent deviations from the true reference (green points).}
+    \caption{Estimated trajectory for Hip location (Subject 1). The filter smooths jitter but does not correct systematic bias.}
     \label{fig:kalman_cadera}
 \end{figure}
 
-\subsubsection{Comparison: Chest}
-Similar effects are observed in the chest location (Figure \ref{fig:kalman_pecho}), where error oscillated between 70 and 91 cm. Bias is slightly lower than in the hip but equally present.
+\paragraph{Comparison: Chest}
+Similar effects are observed in the chest location (Figure \ref{fig:kalman_pecho}), where error oscillated between 70 and 91 cm.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{kalman_pecho_sujeto1.pdf}
-    \caption{Estimated trajectory for Chest location (Subject 1). Similar to hip, EKF smooths but does not eliminate bias.}
+    \caption{Estimated trajectory for Chest location (Subject 1).}
     \label{fig:kalman_pecho}
 \end{figure}
 

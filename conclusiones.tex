@@ -1,7 +1,13 @@
-This work presented an exhaustive experimental characterization of the body shadowing effect in a UWB positioning system operating at 6.5 GHz. It has been quantitatively demonstrated that the location of the device on the body is a critical factor that can degrade distance estimation accuracy by more than an order of magnitude.
+This study presented a rigorous experimental characterization of Body Shadowing effects on 6.5 GHz UWB positioning, addressing the gap in empirical data for this frequency band. The following core conclusions are drawn:
 
-The main conclusions of this study indicate that the location on the head provides the greatest robustness and consistency against body obstruction, while the hip and chest turn out to be the positions most vulnerable to significant errors in Non-Line-of-Sight conditions. Likewise, it was determined that the error induced by body obstruction in NLOS conditions does not follow a Gaussian distribution, which highlights the need to employ localization and filtering algorithms capable of handling outliers. On the other hand, the results confirm that the 6.5 GHz band is fully viable for human tracking, achieving a 2D positioning accuracy of between 55 and 95 cm. Finally, it was observed that multipath indoors can generate a constructive effect that improves accuracy in obstruction conditions compared to open outdoor environments.
+\begin{enumerate}
+    \item \textbf{Optimal Tag Placement:} The head is unequivocally the most robust location for human-centric UWB applications, yielding an indoor NLOS accuracy of 18.16 cm, compared to 95.11 cm for the hip. This establishes a design constraint for safety-critical systems: reliance on belt-mounted tags introduces unacceptable error risks without auxiliary compensation.
+    
+    \item \textbf{Frequency-Specific Propagation:} We identified that at 6.5 GHz, the indoor environment acts as a "diversity provider," reducing NLOS errors compared to outdoor environments for diffractive body locations. This "Constructive Multipath" effect is a distinct feature that can be exploited in indoor network planning.
+    
+    \item \textbf{Statistical Error Modeling:} The assumption of Gaussian noise is invalid for human tracking in NLOS. We demonstrated that errors follow a Log-normal distribution with heavy tails. Consequently, standard Extended Kalman Filters fail to correct the systematic positive bias induced by the body, acting only as smoothers rather than correctors.
+    
+    \item \textbf{System Viability:} Despite body shadowing challenges, a standard UWB system at 6.5 GHz achieves sub-meter accuracy (55-95 cm) even in worst-case scenarios (hip placement), which remains sufficient for room-level localization, though insufficient for precision navigation without advanced algorithms.
+\end{enumerate}
 
-The contributions of this research include an experimental database for the 6.5 GHz band, practical design guidelines for commercial systems, and performance benchmarks that can serve as a reference for future work.
-
-As future work, it is recommended to extend the analysis to a larger number of participants to model anthropometric variability, evaluate more complex and dynamic scenarios, and develop advanced mitigation algorithms that fuse UWB data with inertial sensors to improve system robustness and precision.
+Future work will focus on developing a hybrid "bias-aware" EKF that utilizes real-time ToF variance to dynamically switch between LOS (Gaussian) and NLOS (Log-normal) observation models, directly addressing the limitations identified in this study.

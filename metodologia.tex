@@ -1,4 +1,4 @@
-The research was based on a two-phase experimental methodology, each with specific purposes: Phase 1 (static characterization) to systematically evaluate the impact of BS on point-to-point distance estimation in multiple body locations; and Phase 2 (dynamic validation) to evaluate the performance of the complete 2D positioning system using the statistical models derived from Phase 1.
+The research was based on a Data-Driven Methodology divided into two phases. This approach was designed to solve the problem of parametric uncertainty: Phase 1 (static characterization) systematically generates the statistical models of the error, which are then fed into Phase 2 (dynamic validation) to configure the positioning algorithms. This ensures that the tracking system is not tuned by trial and error, but by empirical evidence of the channel behavior.
 
 \textbf{Hardware Configuration.} The experiments employed Qorvo DWM1001 development modules, configured to operate at a center frequency of 6.5 GHz \cite{ref8}. The experimental system consisted of four fixed anchor nodes (Phase 2) or a fixed reference node (Phase 1) along with a mobile node carried by human participants.
 
@@ -43,7 +43,7 @@ A critical component of the implementation is the dynamic definition of the meas
 \begin{equation}
 \mathbf{R}_k = \text{diag}(\sigma_{k,1}^2, \sigma_{k,2}^2, \sigma_{k,3}^2, \sigma_{k,4}^2)
 \end{equation}
-This configuration allows the filter to automatically weight the confidence of each measurement, giving less weight to links presenting high variability (typical of NLOS conditions) and more weight to stable links, thus improving the final position estimation.
+This configuration allows the filter to automatically weight the confidence of each measurement, giving less weight to links presenting high variability (typical of NLOS conditions) and more weight to stable links, thus improving the final position estimation. The complete implementation of the proposed EKF and Multilateration algorithms, including the experimental datasets used for validation, is openly available in the GitHub repository \cite{github_repo}.
 
 \begin{figure}[H]
     \centering
