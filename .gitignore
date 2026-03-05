@@ -1,6 +1,7 @@
 /build
 /.vscode
 /revista
+/articulos
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
