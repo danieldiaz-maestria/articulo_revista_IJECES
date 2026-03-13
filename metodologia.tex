@@ -35,8 +35,12 @@ where $\mathbf{Q}$ is the process noise covariance matrix, which allows the filt
 
 The relationship between the state and measurements is inherently non-linear. The measurement vector $\mathbf{z}_k$ contains the measured distances to the four anchors. The observation equation is modeled as:
 \begin{equation}
-z_{k,i} = h_i(\mathbf{x}_k) + v_{k,i} = \sqrt{(x_k - x_{A,i})^2 + (y_k - y_{A,i})^2} + v_{k,i}
+z_{k,i} = h_i(\mathbf{x}_k) + v_{k,i} =
 \end{equation}
+
+\begin{equation*}
+    \sqrt{(x_k - x_{A,i})^2 + (y_k - y_{A,i})^2} + v_{k,i}
+\end{equation*}
 where $(x_{A,i}, y_{A,i})$ are the coordinates of the $i$-th anchor. In the EKF correction step, this non-linear function $h(\mathbf{x})$ is linearized by calculating the Jacobian matrix $\mathbf{H}_k$ evaluated at the *a priori* state estimate.
 
 A critical component of the implementation is the dynamic definition of the measurement noise covariance matrix, $\mathbf{R}_k$. Instead of assuming a constant error, the algorithm uses the standard deviations ($\sigma$) observed in real-time for each UWB link:
