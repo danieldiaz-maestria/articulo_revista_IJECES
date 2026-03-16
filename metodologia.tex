@@ -1,66 +1,20 @@
-The research was based on a Data-Driven Methodology divided into two phases. This approach was designed to solve the problem of parametric uncertainty: Phase 1 (static characterization) systematically generates the statistical models of the error, which are then fed into Phase 2 (dynamic validation) to configure the positioning algorithms. This ensures that the tracking system is not tuned by trial and error, but by empirical evidence of the channel behavior.
+The research was based on a comprehensive Data-Driven Methodology designed to systematically characterize the statistical models of the distance error induced by Body Shadowing.
 
-\textbf{Hardware Configuration.} The experiments employed Qorvo DWM1001 development modules, configured to operate at a center frequency of 6.5 GHz \cite{ref8}. The experimental system consisted of four fixed anchor nodes (Phase 2) or a fixed reference node (Phase 1) along with a mobile node carried by human participants.
+\textbf{Hardware Configuration.} The experiments employed Qorvo DWM1001 development modules, configured to operate at a center frequency of 6.5 GHz (Channel 5) \cite{ref8}. The experimental system consisted of one fixed reference node (anchor) and a mobile node (tag) carried by human participants.
 
-\textbf{Experimental Scenarios.} The two phases were executed in distinct environments, deliberately chosen to reflect different aspects of the problem:
+\textbf{Experimental Scenarios.} The characterization was executed in two distinct environments, deliberately chosen to isolate different aspects of the physical propagation problem:
+\textit{Scenario 1 (Outdoor Open Field):} Static measurements were performed in an open outdoor field (approximate dimensions of 20~m $\times$ 30~m) selected to minimize environmental reflections and isolate the direct impact of pure Body Shadowing attenuation.
+\textit{Scenario 2 (Indoor Corridor):} A second set of measurements was performed in an indoor corridor (approximately 2~m wide, 50~m long, with nearby walls, floor, and ceilings) to introduce controlled multipath effects representative of typical indoor navigation applications. This duality of scenarios allowed differentiating between attenuation due to pure body obstruction (outdoor) and composite attenuation combined with reflections (indoor).
 
-\textit{Phase 1 (Distance Characterization):} Static measurements were performed in two complementary scenarios. First, an open outdoor field (approximate dimensions of 20~m $\times$ 30~m) selected to minimize reflections and isolate the direct impact of Body Shadowing. Second, an indoor corridor (approximately 2~m wide, 50~m long, with nearby walls and ceilings) to introduce controlled multipath effects representative of indoor applications. This duality of scenarios allowed differentiating between attenuation due to pure body obstruction (outdoor) and composite attenuation with reflections (indoor).
+\textbf{Distance Characterization Protocol.} Seven body locations for the mobile node were evaluated to represent typical wearable use-cases: head, chest, hip, hand, wrist, knee, and ankle (Figure~\ref{fig:posiciones}). For each location, measurements were collected under two propagation conditions: Line-of-Sight (LOS), with a direct path between the anchor and the mobile node; and Non-Line-of-Sight (NLOS), where the signal was deliberately obstructed by rotating the participant's body 180° to ensure complete occlusion of the mobile node from the anchor by the torso.
 
-\textit{Phase 2 (Dynamic 2D Positioning):} An experimental hall of dimensions 7.4~m $\times$ 10.4~m with four fixed UWB anchors installed at a height of 1.52~m was used. This environment represents a practical application scenario (office, laboratory area) where the system must operate under realistic conditions with multipath and users in motion.
-
-\textbf{Phase 1: Distance Characterization Protocol.} Seven body locations of the mobile node were evaluated: head, chest, hip, hand, wrist, knee, and ankle (Figure~\ref{fig:posiciones}). For each location, measurements were collected under two propagation conditions: Line of Sight (LOS), with direct path between anchor and mobile node; and Non-Line of Sight (NLOS), where the signal was deliberately obstructed by rotating the participant's body 180° to ensure complete occlusion of the mobile node from the anchor.
-
-Measurements were performed at 13 static positions, at distances from 1~m to 13~m from the reference anchor. At each position, 250 independent distance measurements were recorded, accumulating approximately 100,000 measurements in total (13 positions $\times$ 7 body locations $\times$ 2 channel conditions $\times$ 250 samples $\times$ 2 scenarios). This volume of data allowed the construction of robust statistical models to characterize the error distribution under each condition.
+Measurements were performed at 13 static positions, spaced in 1-meter increments at distances from 1~m to 13~m from the reference anchor. At each position, 250 independent distance measurements were recorded, accumulating over 100,000 measurements in total (13 positions $\times$ 7 body locations $\times$ 2 channel conditions $\times$ 250 samples $\times$ 2 scenarios). This massive volume of empirical data allowed the construction of highly robust statistical models to characterize the error distribution under each condition.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{partes_cuerpo.pdf}
-    \caption{Measurement locations on the human body during Phase 1 characterization.}
+    \caption{Measurement locations on the human body during characterization.}
     \label{fig:posiciones}
 \end{figure}
 
-\textbf{Statistical Analysis of Phase 1.} Distance error was calculated as $e_i = |d_{\text{measured},i} - d_{\text{real},i}|$ for each measurement. Theoretical probability distributions (Gamma, Log-normal, Exponential, Normal) were fitted to the empirical data using Maximum Likelihood Estimation (MLE). The Akaike Information Criterion (AIC) was employed to select the most approximate model. The Shapiro-Wilk test confirmed that errors in NLOS deviate significantly from normality ($p \ll 0.001$), validating the need for alternative distributions. Experimental standard deviations ($\sigma_{\text{LOS}}$ and $\sigma_{\text{NLOS}}$) were calculated for each body location under both conditions, data which were subsequently used to configure the measurement noise covariance matrix of the EKF in Phase 2.
-
-\textbf{Phase 2: Dynamic 2D Positioning Validation.} The experimental hall was equipped with four fixed anchors whose coordinates were determined by direct measurement (Figure~\ref{fig:croquis}): $\mathbf{A}_1(10.11, 0.37)$, $\mathbf{A}_2(0.28, 0.38)$, $\mathbf{A}_3(0.28, 6.72)$, and $\mathbf{A}_4(10.09, 6.97)$ (in meters).
-
-Three participants carried the mobile node in two body locations — hip and chest, selected as extreme performance cases (worst and best respectively, according to Phase 1) — and positioned themselves sequentially at each of the 18 reference points distributed in a grid of 3 rows $\times$ 6 columns (1.5~m separation between adjacent points). At each point, the participant remained stationary for approximately 70 seconds (equivalent to $\sim$250 samples) to record continuous distance measurements from the four anchors.
-
-\textbf{Positioning Algorithm.} Two approaches were compared: an Extended Kalman Filter (EKF) designed to process directly the distance measurements (Time-of-Flight) coming from the four anchors, and a multilateration algorithm based on least squares to estimate the position from the measurements of each anchor. The EKF fuses the raw range measurements, allowing for more robust handling of geometric non-linearity, while multilateration solves the position at each instant independently.
-
-\textbf{Extended Kalman Filter} The system state vector was simplified as the 2D position of the target, $\mathbf{x}_k = [x_k, y_k]^\top$. Considering the nature of the experiment (static points or quasi-stationary movement), an identity transition model with additive process noise was employed to model the temporal evolution of the position:
-\begin{equation}
-\mathbf{x}_{k+1} = \mathbf{x}_k + \mathbf{w}_k, \quad \mathbf{w}_k \sim \mathcal{N}(0, \mathbf{Q})
-\end{equation}
-where $\mathbf{Q}$ is the process noise covariance matrix, which allows the filter to adapt to position changes between test points.
-
-The relationship between the state and measurements is inherently non-linear. The measurement vector $\mathbf{z}_k$ contains the measured distances to the four anchors. The observation equation is modeled as:
-\begin{equation}
-z_{k,i} = h_i(\mathbf{x}_k) + v_{k,i} =
-\end{equation}
-
-\begin{equation*}
-    \sqrt{(x_k - x_{A,i})^2 + (y_k - y_{A,i})^2} + v_{k,i}
-\end{equation*}
-where $(x_{A,i}, y_{A,i})$ are the coordinates of the $i$-th anchor. In the EKF correction step, this non-linear function $h(\mathbf{x})$ is linearized by calculating the Jacobian matrix $\mathbf{H}_k$ evaluated at the *a priori* state estimate.
-
-A critical component of the implementation is the dynamic definition of the measurement noise covariance matrix, $\mathbf{R}_k$. Instead of assuming a constant error, the algorithm uses the standard deviations ($\sigma$) observed in real-time for each UWB link:
-\begin{equation}
-\mathbf{R}_k = \text{diag}(\sigma_{k,1}^2, \sigma_{k,2}^2, \sigma_{k,3}^2, \sigma_{k,4}^2)
-\end{equation}
-This configuration allows the filter to automatically weight the confidence of each measurement, giving less weight to links presenting high variability (typical of NLOS conditions) and more weight to stable links, thus improving the final position estimation. The complete implementation of the proposed EKF and Multilateration algorithms, including the experimental datasets used for validation, is openly available in the GitHub repository \cite{github_repo}.
-
-\textbf{Multilateration Algorithm.} The multilateration approach estimates the position by solving for the intersection of the range circles from multiple anchors. Since measurements are noisy, the problem is over-determined and is formulated as a Non-Linear Least Squares (NLLS) optimization. The objective is to minimize the sum of squared errors between the measured distances $d_i$ and the calculated Euclidean distances:
-\begin{equation}
-\hat{\mathbf{x}} = \underset{x,y}{\text{argmin}} \sum_{i=1}^{N} \left( d_i - \sqrt{(x - x_i)^2 + (y - y_i)^2} \right)^2
-\end{equation}
-where $(x_i, y_i)$ are the coordinates of the $i$-th anchor. This method provides an instantaneous position estimate but is sensitive to outliers in individual measurements.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\linewidth]{RepresentacionPosiciones.jpeg}
-    \caption{Sketch of the experimental scenario Phase 2: distribution of fixed anchors and trajectory of 18 points.}
-    \label{fig:croquis}
-\end{figure}
-
-\textbf{Performance Metrics.} Mean Absolute Error (MAE) and Root Mean Square Error (RMSE) were used to quantify positioning accuracy. Given that distance errors exhibit non-Gaussian distributions (as confirmed in Phase 1), non-parametric tests (Mann-Whitney U) were complementarily employed to validate statistically significant differences between body locations and channel conditions.
-
+\textbf{Statistical Analysis Protocol.} The distance error was calculated as $e_i = |d_{\text{measured},i} - d_{\text{real},i}|$ for each measurement. To rigorously evaluate the statistical nature of the error, theoretical probability distributions (Gamma, Log-normal, Exponential, Normal) were fitted to the empirical data using Maximum Likelihood Estimation (MLE). The Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) were employed to quantitatively select the most accurate underlying distribution model. Furthermore, non-parametric inferential tests, specifically the Shapiro-Wilk test for normality and the Mann-Whitney U test, were applied to validate the statistical significance of the differences observed across different body locations and conditions.
