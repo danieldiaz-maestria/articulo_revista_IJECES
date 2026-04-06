@@ -1,8 +1,8 @@
-The experimental evaluation provides crucial empirical evidence regarding the performance of ranging error in UWB systems operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for sensor placement and showing the fundamental statistical shift in error characteristics induced by BS.
+The experimental evaluation provides crucial empirical evidence regarding the performance of ranging error in UWB systems operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for node placement and showing the fundamental statistical shift in error characteristics induced by BS.
 
 \subsection{Quantification of BS Impact by Body Placement}
 
-To determine the most robust body placement for wearable UWB nodes, a comparative analysis of the 1D ranging error was performed. Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, which is highly representative of practical Indoor Positioning Systems (IPS). It was evaluated the Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and the Maximum Error registered.
+To determine the most robust body placement for mobile nodes, a comparative analysis of the 1D ranging error was performed. Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, which is highly representative of practical Indoor Positioning Systems (IPS). It was evaluated the Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and the Maximum Error registered.
 %
 \begin{table}[H]
 \centering
@@ -32,7 +32,7 @@ To determine the most robust body placement for wearable UWB nodes, a comparativ
 }
 \end{table}
 
-The comparative analysis establishes a clear hierarchy of robustness for wearable tag placement. The head placement emerges as optimal, maintaining stability with modest degradation (i.e., MAE $\approx$ 18.6 cm in NLOS). This performance is attributed to the creeping-wave diffraction phenomenon around the curvature of the human skull, allowing 6.5 GHz UWB signals to bend and maintain communication even when visually obstructed.
+The comparative analysis establishes a clear hierarchy of robustness for tag placement. The head placement emerges as optimal, maintaining stability with modest degradation (i.e., MAE $\approx$ 18.6 cm in NLOS). This performance is attributed to the creeping-wave diffraction phenomenon around the curvature of the human skull, allowing 6.5 GHz UWB signals to bend and maintain communication even when visually obstructed.
 
 Conversely, torso placements (i.e., chest and hip) exhibit critical degradation, with NLOS ranging error increasing by a factor of over 13$\times$ compared to LOS conditions (i.e., Hip transitioning from 7.19 cm in LOS to 97.76 cm in NLOS). The human torso acts as an insurmountable electromagnetic wall at 6.5 GHz, effectively blocking the direct path. The massive Maximum Error recorded at the hip (i.e., 2.9 m) highlights that placing the tag on a belt clip effectively renders standard ranging algorithms useless for precision tracking.
 
@@ -105,4 +105,4 @@ The profound deviation from normality under BS is mathematically critical. Figur
 
 \subsection{Non-Parametric Statistical Testing}
 
-Because the data severely violate the assumptions of normality and homoscedasticity (i.e., Levene's test, $p \ll 0.001$), standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, it was utilized the Mann-Whitney U test to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an exceptionally large effect size (i.e., $r = 0.968$ in NLOS, $p \ll 0.001$), showing conclusively that sensor placement on the body is a dominant, statistically undeniable factor in determining the reliability of 6.5 GHz UWB systems.
+Because the data severely violate the assumptions of normality and homoscedasticity (i.e., Levene's test, $p \ll 0.001$), standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, it was utilized the Mann-Whitney U test to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an exceptionally large effect size (i.e., $r = 0.968$ in NLOS, $p \ll 0.001$), showing conclusively that node placement on the body is a dominant, statistically undeniable factor in determining the reliability of 6.5 GHz UWB systems.
