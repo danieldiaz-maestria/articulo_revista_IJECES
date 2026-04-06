@@ -47,7 +47,7 @@ This degradation is visually striking when examining the error distribution acro
 
 \subsection{Probabilistic Modeling of Body Shadowing Ranging Error}
 
-Statistical error modeling is essential for designing robust navigation algorithms. Traditional filters, such as the standard Kalman Filter, explicitly assume that measurement noise follows a Gaussian (normal) distribution. To validate this assumption, the fit of various theoretical distributions (gamma, log-normal, and exponential) was evaluated using the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) on the entire dataset of 100,000+ samples.
+Statistical error modeling is essential for designing robust navigation algorithms. Because the analyzed metric is absolute ranging error ($e_i \geq 0$), the primary candidate families were positive-support distributions (gamma, log-normal, and exponential). Traditional filters, such as the standard Kalman Filter, explicitly assume Gaussian (normal) measurement noise; therefore, normality was evaluated only as a reference hypothesis, not as the expected final model for absolute error. The fit of these distributions was evaluated using the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) on the entire dataset of 100,000+ samples.
 %
 \begin{table}[H]
 \centering
