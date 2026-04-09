@@ -1,5 +1,14 @@
 The experimental evaluation provides crucial empirical evidence regarding the ranging error behavior of UWB systems operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for node placement and showing the BS-induced statistical shift in error characteristics.
 
+Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of measurement dispersion across all experimental configurations. The scatter plot displays real distance (x-axis) versus measured distance (y-axis) for each combination of scenario (Indoor/Outdoor), body location, and condition (LOS/NLOS). This visualization demonstrates both the accuracy (proximity to the ideal diagonal line) and precision (vertical dispersion at each distance) of the ranging system under different body shadowing conditions. Configurations such as Outdoor-Chest-LOS exhibit tight clustering around the reference line, indicating high accuracy and precision, while configurations like Indoor-Hip-NLOS show significant vertical spread and systematic bias, revealing the severe impact of torso obstruction on ranging reliability.
+%
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{dispersión_mediciones_alta_calidad.png}
+    \caption{Measurement dispersion across all experimental configurations showing real distance vs. measured distance for each scenario-placement-condition combination.}
+    \label{fig:dispersion_mediciones}
+\end{figure}
+
 \subsection{Quantification of BS Impact by Body Placement}
 
 To determine the most robust body placement for mobile nodes, a comparative analysis of the 1D ranging error was performed. Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, where multipath effects are strongly present. The reported metrics are Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and Maximum Error. Therefore, this table reports mean-based statistics and does not report median or mode.
