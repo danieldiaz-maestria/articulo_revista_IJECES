@@ -91,7 +91,7 @@ As shown in Table \ref{tab:aic_bic}, under LOS conditions, the gamma distributio
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.1\columnwidth]{ajuste_hist_Datos_LOS.png}
+    \includegraphics[width=1\columnwidth]{ajuste_hist_Datos_LOS.png}
     \caption{Histogram fit for LOS data, where gamma shows the best goodness-of-fit.}
     \label{fig:ajuste_los}
 \end{figure}
@@ -100,8 +100,8 @@ For NLOS conditions, the statistical structure of the error undergoes a radical 
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.1\columnwidth]{ajuste_hist_Datos_NLOS.png}
-    \caption{Histogram fit for NLOS data, where log-normal provides the best goodness-of-fit.}
+    \includegraphics[width=1\columnwidth]{ajuste_hist_Datos_NLOS.png}
+    \caption{Ranging error distribution data, where log-normal provides the best goodness-of-fit.}
     \label{fig:ajuste_nlos}
 \end{figure}
 
@@ -109,11 +109,11 @@ The profound deviation from normality under BS is mathematically critical. Figur
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\columnwidth]{ajuste_qq_Datos_NLOS.png}
+    \includegraphics[width=1\columnwidth]{ajuste_qq_Datos_NLOS.png}
     \caption{Q-Q Plot for NLOS Data vs. Theoretical Normal. The severe upper-tail curvature visually shows the non-Gaussian nature of BS ranging errors.}
     \label{fig:qq_nlos}
 \end{figure}
 
 \subsection{Non-Parametric Statistical Testing}
 
-Because the data severely violate the assumptions of normality and homoscedasticity (i.e., Levene's test, $p \ll 0.001$), standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, it was utilized the Mann-Whitney U test to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an exceptionally large effect size (i.e., $r = 0.968$ in NLOS, $p \ll 0.001$), showing conclusively that node placement on the body is a dominant, statistically undeniable factor in determining the reliability of 6.5 GHz UWB systems.
+Because the data severely violate the assumptions of normality and homoscedasticity (i.e., Levene's test, $p \ll 0.001$), standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, it was utilized the Mann-Whitney U test to quantify the magnitude of the differences between placements of the node in the body. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an exceptionally large effect size (i.e., $r = 0.968$ in NLOS, $p \ll 0.001$), showing conclusively that node placement on the body is a dominant, statistically undeniable factor in determining the reliability of 6.5 GHz UWB systems.
