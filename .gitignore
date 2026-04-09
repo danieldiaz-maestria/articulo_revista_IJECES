@@ -326,7 +326,7 @@ TSWLatexianTemp*
 *.xwm
 .github
 results
-
+imagenes_no_usadas
 # REVTeX puts footnotes in the bibliography by default, unless the nofootinbib
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
