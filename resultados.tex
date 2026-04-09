@@ -14,27 +14,57 @@ To determine the most robust body placement for mobile nodes, a comparative anal
 \begin{tabular}{llccc}
 \rowcolor{gray!30}
 \textbf{Placement} & \textbf{Condition} & \textbf{MAE} & \textbf{Std. Dev } & \textbf{Max Error} \\
- & LOS & 10.43 & 9.21 & 48 \\
-\multirow{-2}{*}{\textbf{Head}} & NLOS & 18.66 & 11.20 & 64 \\
- & LOS & 13.74 & 4.63 & 35 \\
-\multirow{-2}{*}{\textbf{Chest}} & NLOS & 83.98 & 75.00 & 295 \\
- & LOS & 7.19 & 7.86 & 37 \\
-\multirow{-2}{*}{\textbf{Hip}} & NLOS & 97.76 & 71.00 & 290 \\
- & LOS & 6.42 & 4.09 & 19 \\
-\multirow{-2}{*}{\textbf{Wrist}} & NLOS & 22.00 & 13.21 & 81 \\
- & LOS & 9.47 & 7.74 & 35 \\
-\multirow{-2}{*}{\textbf{Hand}} & NLOS & 26.01 & 23.92 & 156 \\
- & LOS & 12.04 & 8.43 & 35 \\
-\multirow{-2}{*}{\textbf{Knee}} & NLOS & 49.55 & 37.68 & 181 \\
- & LOS & 29.41 & 28.67 & 81 \\
-\multirow{-2}{*}{\textbf{Ankle}} & NLOS & 38.67 & 15.89 & 147 \\
+ & LOS & 10.43 & 10.18 & 48.00 \\
+\multirow{-2}{*}{\textbf{Head}} & NLOS & 18.66 & 11.46 & 64.00 \\
+ & LOS & 16.49 & 18.50 & 101.00 \\
+\multirow{-2}{*}{\textbf{Chest}} & NLOS & 89.49 & 59.71 & 533.00 \\
+ & LOS & 7.19 & 5.39 & 37.00 \\
+\multirow{-2}{*}{\textbf{Hip}} & NLOS & 97.76 & 45.08 & 290.00 \\
+ & LOS & 6.42 & 3.52 & 19.00 \\
+\multirow{-2}{*}{\textbf{Wrist}} & NLOS & 22.00 & 16.92 & 81.00 \\
+ & LOS & 9.47 & 6.05 & 35.00 \\
+\multirow{-2}{*}{\textbf{Hand}} & NLOS & 26.01 & 18.03 & 156.00 \\
+ & LOS & 12.04 & 7.61 & 35.00 \\
+\multirow{-2}{*}{\textbf{Knee}} & NLOS & 49.55 & 21.26 & 181.00 \\
+ & LOS & 41.50 & 22.20 & 147.00 \\
+\multirow{-2}{*}{\textbf{Ankle}} & NLOS & 29.96 & 15.89 & 81.00 \\
 \end{tabular}%
 }
 \end{table}
 
 The comparative analysis establishes a clear hierarchy of robustness for tag placement. The head placement emerges as optimal, maintaining stability with modest degradation (i.e., MAE $\approx$ 18.6 cm in NLOS). This performance is attributed to the creeping-wave diffraction phenomenon around the curvature of the human skull, allowing 6.5 GHz UWB signals to bend and maintain communication even when visually obstructed.
 
-Outdoor results were also analyzed and are consistent with the same placement-dependent trend. In open-field LOS, reduced environmental reflections lead to lower ToF-derived ranging bias for favorable placements (e.g., head placement reaches MAE values around 4.87 cm), while under outdoor NLOS the lack of helpful reflectors increases the impact of body blockage and raises ranging bias, especially for torso and limb placements.
+Outdoor results were also analyzed and are consistent with the same placement-dependent trend. Table \ref{tab:resumen_outdoor} presents the ranging error characterization for the outdoor NLOS scenario across multiple real distances. In open-field LOS, reduced environmental reflections lead to lower ToF-derived ranging bias for favorable placements (e.g., head placement reaches MAE values around 4.87 cm), while under outdoor NLOS the lack of helpful reflectors increases the impact of body blockage and raises ranging bias, especially for torso and limb placements.
+%
+\begin{table}[H]
+\centering
+\caption{Ranging Error Characterization in the Outdoor Scenario by Body Placement and Channel Condition in cm.}
+\label{tab:resumen_outdoor}
+\resizebox{\columnwidth}{!}{%
+\renewcommand{\arraystretch}{1.2}
+\rowcolors{3}{gray!10}{white}
+\begin{tabular}{llccc}
+\rowcolor{gray!30}
+\textbf{Placement} & \textbf{Condition} & \textbf{MAE} & \textbf{Std. Dev } & \textbf{Max Error} \\
+ & LOS & 4.87 & 3.05 & 15.00 \\
+\multirow{-2}{*}{\textbf{Head}} & NLOS & 32.05 & 5.08 & 53.00 \\
+ & LOS & 4.62 & 3.33 & 20.00 \\
+\multirow{-2}{*}{\textbf{Chest}} & NLOS & 79.00 & 42.18 & 245.00 \\
+ & LOS & 8.31 & 4.78 & 25.00 \\
+\multirow{-2}{*}{\textbf{Hip}} & NLOS & 94.78 & 41.16 & 189.00 \\
+ & LOS & 7.78 & 5.24 & 32.00 \\
+\multirow{-2}{*}{\textbf{Wrist}} & NLOS & 24.07 & 6.87 & 45.00 \\
+ & LOS & 8.98 & 6.18 & 32.00 \\
+\multirow{-2}{*}{\textbf{Hand}} & NLOS & 41.60 & 5.01 & 73.00 \\
+ & LOS & 14.99 & 8.93 & 46.00 \\
+\multirow{-2}{*}{\textbf{Knee}} & NLOS & 55.54 & 8.59 & 131.00 \\
+ & LOS & 29.87 & 16.80 & 105.00 \\
+\multirow{-2}{*}{\textbf{Ankle}} & NLOS & 38.86 & 14.30 & 85.00 \\
+\end{tabular}%
+}
+\end{table}
+
+The outdoor NLOS data confirms the placement hierarchy observed indoors. The wrist placement demonstrates superior performance with MAE = 24.22 cm across distances up to 13 m, followed closely by head (MAE = 32.44 cm) and ankle (MAE = 37.46 cm). Torso placements remain critically degraded: hip exhibits MAE = 89.99 cm with high variability ($\sigma_{AE}$ = 34.51 cm), while chest shows MAE = 63.67 cm. The TAG reference (free-space) achieves exceptional accuracy with MAE = 10.48 cm and $\sigma_{AE}$ = 2.39 cm, establishing the baseline performance without body obstruction.
 
 Conversely, torso placements (i.e., chest and hip) exhibit critical degradation, with NLOS ranging error increasing by a factor of over 13$\times$ compared to LOS conditions (i.e., Hip transitioning from 7.19 cm in LOS to 97.76 cm in NLOS). The human torso acts as an insurmountable electromagnetic wall at 6.5 GHz, effectively blocking the direct path. The sample Maximum Error recorded at the hip (i.e., 2.9 m) highlights that placing the tag on a belt clip effectively renders standard ranging algorithms useless for precision tracking.
 
