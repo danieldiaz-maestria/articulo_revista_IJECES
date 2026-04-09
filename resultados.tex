@@ -144,13 +144,25 @@ For NLOS conditions, the statistical structure of the error undergoes a radical 
     \label{fig:ajuste_nlos}
 \end{figure}
 
-The profound deviation from normality under BS is mathematically critical. Figure \ref{fig:qq_nlos} presents the Quantile-Quantile (Q-Q) plot for the NLOS data against a theoretical Normal distribution. The extreme curvature and divergence in the upper tail confirm that large positive errors (biases) are vastly more frequent than a Gaussian model would predict. The Shapiro-Wilk normality test yielded $p \ll 0.001$, firmly rejecting the Gaussian hypothesis.
+The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution. Under LOS conditions (Figure \ref{fig:qq_los}), the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit. Under NLOS conditions (Figure \ref{fig:qq_nlos}), the extreme curvature and divergence in the upper tail confirm that large positive errors (biases) are vastly more frequent than a Gaussian model would predict. The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
 %
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\columnwidth]{ajuste_qq_Datos_NLOS.png}
-    \caption{Q-Q Plot for NLOS Data vs. Theoretical Normal. The severe upper-tail curvature visually shows the non-Gaussian nature of BS ranging errors.}
-    \label{fig:qq_nlos}
+    \begin{subfigure}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\linewidth]{ajuste_qq_LOS_Data.pdf}
+        \caption{Q-Q Plot for LOS Data}
+        \label{fig:qq_los}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\columnwidth}
+        \centering
+        \includegraphics[width=\linewidth]{ajuste_qq_NLOS_Data.pdf}
+        \caption{Q-Q Plot for NLOS Data}
+        \label{fig:qq_nlos}
+    \end{subfigure}
+    \caption{Q-Q Plots comparing ranging error distributions against theoretical Normal distribution. (a) LOS data shows moderate alignment with slight tail deviations. (b) NLOS data exhibits severe upper-tail curvature, demonstrating the non-Gaussian nature of BS ranging errors.}
+    \label{fig:qq_plots}
 \end{figure}
 
 \subsection{Non-Parametric Statistical Testing}
