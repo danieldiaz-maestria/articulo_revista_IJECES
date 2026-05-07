@@ -148,27 +148,25 @@ For NLOS conditions, the statistical structure of the error undergoes a radical 
     \label{fig:ajuste_nlos}
     \includegraphics[width=1\columnwidth]{ajuste_hist_NLOS_Data.pdf}
 \end{figure}
-The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution. Under LOS conditions (Figure \ref{fig:qq_los}), the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit. 
+The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution. Under LOS conditions, Figure \ref{fig:qq_los} shows that the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit.
+
 \begin{figure}[H]
     \centering
-    \caption{Q-Q Plots comparing ranging error distributions against the theoretical Normal distribution.}
-    \label{fig:qq_plots}
-    \begin{subfigure}[b]{0.48\columnwidth}
-        \centering
-        \caption{Q-Q Plot for LOS Data}
-        \label{fig:qq_los}
-        \includegraphics[width=\linewidth]{ajuste_qq_LOS_Data.pdf}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.48\columnwidth}
-        \centering
-        \caption{Q-Q Plot for NLOS Data}
-        \label{fig:qq_nlos}
-        \includegraphics[width=\linewidth]{ajuste_qq_NLOS_Data.pdf}
-    \end{subfigure}
+    \caption{Q-Q plot comparing LOS ranging error against the theoretical Normal distribution.}
+    \label{fig:qq_los}
+    \includegraphics[width=1\columnwidth]{ajuste_qq_LOS_Data.pdf}
 \end{figure}
 
-Under NLOS conditions (Figure \ref{fig:qq_nlos}), the extreme curvature and divergence in the upper tail confirm that large positive errors (biases) are vastly more frequent than a Gaussian model would predict. The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
+Under NLOS conditions, Figure \ref{fig:qq_nlos} shows extreme curvature and divergence in the upper tail, confirming that large positive errors (biases) are vastly more frequent than a Gaussian model would predict.
+
+\begin{figure}[H]
+    \centering
+    \caption{Q-Q plot comparing NLOS ranging error against the theoretical Normal distribution.}
+    \label{fig:qq_nlos}
+    \includegraphics[width=1\columnwidth]{ajuste_qq_NLOS_Data.pdf}
+\end{figure}
+
+The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
 
 \subsection{Non-Parametric Statistical Testing}
 Because the data severely violate the assumptions of normality and homoscedasticity, i.e., Levene's test, $p \ll 0.001$, standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, the Mann-Whitney U test was utilized to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an exceptionally large effect size, i.e., $r = 0.968$ in NLOS, $p \ll 0.001$, showing conclusively that tag placement on the body is a dominant, statistically undeniable factor in determining the reliability of 6.5 GHz UWB systems.
