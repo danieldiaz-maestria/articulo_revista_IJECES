@@ -15,9 +15,9 @@ Measurements were performed at 13 static positions, spaced in 1~m increments at 
 %
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=1\linewidth]{partes_cuerpo.pdf}
     \caption{Measurement placements on the human body during characterization.}
     \label{fig:posiciones}
+    \includegraphics[width=1\linewidth]{partes_cuerpo.pdf}
 \end{figure}
 %
 \textbf{Statistical Analysis Protocol.} The ranging error was calculated as ${e_i = |d_{\text{measured},i} - d_{\text{real},i}|}$ for each measurement. Since this absolute-error metric is non-negative by definition, the primary fitted families were positive-support distributions (gamma, log-normal, and exponential), estimated via Maximum Likelihood Estimation (MLE). The Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) were employed to select the most accurate underlying distribution model quantitatively. Normality was assessed only as a reference hypothesis, commonly assumed in Gaussian-noise models (using the Shapiro-Wilk test and Q-Q plots), not as the expected final model for absolute error. Alternative candidates such as Weibull or Rayleigh can also model positive errors and are relevant for extended analyses; Student's t is more appropriate for symmetric signed residuals and was therefore not prioritized for this absolute-error formulation. Furthermore, non-parametric inferential tests, specifically the Mann-Whitney U test, were applied to assess the statistical significance of differences observed across body placements and conditions.

@@ -5,9 +5,9 @@ Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of
 \end{multicols}
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=\textwidth]{dispersión_mediciones_alta_calidad.pdf}
     \caption{Measurement dispersion across all experimental configurations showing real distance vs. measured distance for each scenario-placement-condition combination.}
     \label{fig:dispersion_mediciones}
+    \includegraphics[width=\textwidth]{dispersión_mediciones_alta_calidad.pdf}
 \end{figure}
 \begin{multicols}{2}
 
@@ -85,16 +85,16 @@ Figures \ref{fig:tof_chest_corridor}, \ref{fig:tof_chest_outdoor}, show the unit
 %
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=1\linewidth]{tof_distribution_chest_corridor.pdf}
     \caption{Unitary ToF distribution for chest placement in the corridor scenario.}
     \label{fig:tof_chest_corridor}
+    \includegraphics[width=1\linewidth]{tof_distribution_chest_corridor.pdf}
 \end{figure}
 
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=1\linewidth]{tof_distribution_chest_outdoor.pdf}
     \caption{Unitary ToF distribution for chest placement in the outdoor scenario.}
     \label{fig:tof_chest_outdoor}
+    \includegraphics[width=1\linewidth]{tof_distribution_chest_outdoor.pdf}
 \end{figure}
 
 \subsection{Probabilistic Modeling of Body Shadowing Ranging Error}
@@ -134,39 +134,39 @@ As shown in Table \ref{tab:aic_bic}, under LOS conditions, the gamma distributio
 %
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=1\columnwidth]{ajuste_hist_LOS_Data.pdf}
     \caption{Ranging error distribution fit for LOS data, where gamma shows the best goodness-of-fit.}
     \label{fig:ajuste_los}
+    \includegraphics[width=1\columnwidth]{ajuste_hist_LOS_Data.pdf}
 \end{figure}
 
 For NLOS conditions, the statistical structure of the error undergoes a radical transformation. Table \ref{tab:aic_bic} and Figure \ref{fig:ajuste_nlos} show that the log-normal distribution offers the best fit, displacing the gamma and exponential distribution models. This transition from gamma to log-normal reflects the multiplicative nature of noise in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
 %
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=1\columnwidth]{ajuste_hist_NLOS_Data.pdf}
     \caption{Rangin error distribution fit for NLOS data, where log-normal provides the best goodness-of-fit.}
     \label{fig:ajuste_nlos}
+    \includegraphics[width=1\columnwidth]{ajuste_hist_NLOS_Data.pdf}
 \end{figure}
 
 The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution. Under LOS conditions (Figure \ref{fig:qq_los}), the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit. Under NLOS conditions (Figure \ref{fig:qq_nlos}), the extreme curvature and divergence in the upper tail confirm that large positive errors (biases) are vastly more frequent than a Gaussian model would predict. The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
 %
 \begin{figure}[!t]
     \centering
+    \caption{Q-Q Plots comparing ranging error distributions against the theoretical Normal distribution. (a) LOS data shows moderate alignment with slight tail deviations. (b) NLOS data exhibits severe upper-tail curvature, demonstrating the non-Gaussian nature of BS ranging errors.}
+    \label{fig:qq_plots}
     \begin{subfigure}[b]{0.48\columnwidth}
         \centering
-        \includegraphics[width=\linewidth]{ajuste_qq_LOS_Data.pdf}
         \caption{Q-Q Plot for LOS Data}
         \label{fig:qq_los}
+        \includegraphics[width=\linewidth]{ajuste_qq_LOS_Data.pdf}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\columnwidth}
         \centering
-        \includegraphics[width=\linewidth]{ajuste_qq_NLOS_Data.pdf}
         \caption{Q-Q Plot for NLOS Data}
         \label{fig:qq_nlos}
+        \includegraphics[width=\linewidth]{ajuste_qq_NLOS_Data.pdf}
     \end{subfigure}
-    \caption{Q-Q Plots comparing ranging error distributions against the theoretical Normal distribution. (a) LOS data shows moderate alignment with slight tail deviations. (b) NLOS data exhibits severe upper-tail curvature, demonstrating the non-Gaussian nature of BS ranging errors.}
-    \label{fig:qq_plots}
 \end{figure}
 
 \subsection{Non-Parametric Statistical Testing}
