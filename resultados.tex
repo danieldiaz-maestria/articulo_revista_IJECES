@@ -1,19 +1,23 @@
-The experimental evaluation provides crucial empirical evidence regarding the ranging error behavior of UWB systems operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for node placement and showing the BS-induced statistical shift in error characteristics.
+The experimental evaluation provides crucial empirical evidence regarding the ranging error behavior of UWB systems operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for tag placement and showing the BS-induced statistical shift in error characteristics.
 
-Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of measurement dispersion across all experimental configurations. The scatter plot displays real distance (x-axis) versus measured distance (y-axis) for each combination of scenario (Indoor/Outdoor), body location, and condition (LOS/NLOS). This visualization demonstrates both the accuracy (proximity to the ideal diagonal line) and precision (vertical dispersion at each distance) of the ranging system under different body shadowing conditions. Configurations such as Outdoor-Chest-LOS exhibit tight clustering around the reference line, indicating high accuracy and precision. In contrast, configurations such as Indoor-Hip-NLOS exhibit significant vertical spread and systematic bias, revealing the severe impact of torso obstruction on ranging reliability.
+Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of measurement dispersion across all experimental configurations. The scatter plot displays real distance (x-axis) versus measured distance (y-axis) for each combination of scenario (Indoor/Outdoor), body location, and condition (LOS/NLOS). This visualization demonstrates both the accuracy (proximity to the ideal diagonal line) and precision (vertical dispersion at each distance) of the ranging system under different body shadowing conditions. Configurations such as Outdoor-Chest-LOS exhibit tight clustering around the reference line, indicating high accuracy and precision. In contrast, configurations such as Indoor-Hip-NLOS exhibit significant vertical spread and systematic bias, revealing the severe impact of BS on ranging reliability.
 %
-\begin{figure}[H]
+\end{multicols}
+\begin{figure}[!t]
     \centering
-    \includegraphics[width=1\linewidth]{dispersión_mediciones_alta_calidad.pdf}
+    \includegraphics[width=\textwidth]{dispersión_mediciones_alta_calidad.pdf}
     \caption{Measurement dispersion across all experimental configurations showing real distance vs. measured distance for each scenario-placement-condition combination.}
     \label{fig:dispersion_mediciones}
 \end{figure}
+\begin{multicols}{2}
 
 \subsection{Quantification of BS Impact by Body Placement}
 
-To determine the most robust body placement for mobile nodes, a comparative analysis of the 1D ranging error was performed. Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, where multipath effects are strongly present. The reported metrics are Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and Maximum Error. Therefore, this table reports mean-based statistics and does not report median or mode.
+To determine the most robust tag placement, a comparative analysis of the 1D ranging error was performed. The analysis is presented first for the indoor corridor and then for the outdoor open-field scenario, allowing direct comparison of LOS and NLOS behavior in each environment. The reported metrics are Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and Maximum Error; therefore, the tables report mean-based statistics and do not report median or mode.
+
+Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, where multipath effects are strongly present. Under indoor LOS conditions, the lowest MAE is obtained at the wrist (6.42 cm), followed by the hip (7.19 cm), whereas the ankle shows the maximum LOS MAE (41.50 cm). Under indoor NLOS conditions, the head provides the best body-placement performance (18.66 cm), while the hip is the worst case (97.76 cm). These results show that the indoor corridor can preserve usable ranging for head and limb placements, but torso-adjacent placements remain critically affected by BS.
 %
-\begin{table}[H]
+\begin{table}[!t]
 \centering
 \caption{Ranging Error Characterization in the Indoor Scenario by Body Placement and Channel Condition in cm.}
 \label{tab:resumen_indoor}
@@ -41,11 +45,11 @@ To determine the most robust body placement for mobile nodes, a comparative anal
 }
 \end{table}
 
-The comparative analysis establishes a clear hierarchy of robustness for tag placement. The head placement emerges as optimal, maintaining stability with modest degradation (i.e., MAE $\approx$ 18.6 cm in NLOS). This performance is attributed to the creeping-wave diffraction phenomenon around the curvature of the human skull, allowing 6.5 GHz UWB signals to bend and maintain communication even when visually obstructed.
+The indoor comparative analysis establishes a clear hierarchy of robustness for tag placement. The head placement emerges as the most stable NLOS option indoors, maintaining modest degradation with MAE $\approx$ 18.66 cm. This performance is attributed to the creeping-wave diffraction phenomenon around the curvature of the human skull, allowing 6.5 GHz UWB signals to bend and maintain communication even under BS conditions.
 
-Outdoor results were also analyzed and are consistent with the same placement-dependent trend. Table \ref{tab:resumen_outdoor} presents the ranging error characterization for the outdoor NLOS scenario across multiple real distances. In open-field LOS, reduced environmental reflections lead to lower ToF-derived ranging bias for favorable placements (e.g., head placement reaches an MAE of around 4.87 cm). In contrast, under outdoor NLOS conditions, the lack of useful reflectors increases the impact of body blockage and raises ranging bias, especially for torso and limb placements.
+Outdoor results were also analyzed and are consistent with the same placement-dependent trend. Table \ref{tab:resumen_outdoor} presents the ranging error characterization for the outdoor scenario. In open-field LOS, reduced environmental reflections lead to lower ToF-derived ranging bias for favorable placements; for example, chest and head placements reach MAE values of 4.62 cm and 4.87 cm, respectively. The ankle shows the maximum outdoor LOS MAE (29.87 cm). In contrast, under outdoor NLOS conditions, the lack of useful reflectors increases the impact of BS and raises ranging bias, especially for torso and limb placements.
 %
-\begin{table}[H]
+\begin{table}[!t]
 \centering
 \caption{Ranging Error Characterization in the Outdoor Scenario by Body Placement and Channel Condition in cm.}
 \label{tab:resumen_outdoor}
@@ -73,20 +77,20 @@ Outdoor results were also analyzed and are consistent with the same placement-de
 }
 \end{table}
 
-The outdoor NLOS data confirms the placement hierarchy observed indoors. The wrist placement demonstrates superior performance, with MAE = 24.22 cm across distances up to 13 m, followed closely by the head (MAE = 32.44 cm) and the ankle (MAE = 37.46 cm). Torso placements remain critically degraded: hip exhibits MAE = 89.99 cm with high variability ($\sigma_{AE}$ = 34.51 cm), while chest shows MAE = 63.67 cm. The TAG reference (free-space) achieves exceptional accuracy with MAE = 10.48 cm and $\sigma_{AE}$ = 2.39 cm, establishing the baseline performance without body obstruction.
+The outdoor NLOS data confirms the placement hierarchy observed indoors while changing the best-performing body location. The wrist placement demonstrates superior outdoor NLOS performance, with MAE = 24.07 cm, followed by the head (MAE = 32.05 cm) and the ankle (MAE = 38.86 cm). Torso placements remain critically degraded: the hip is the worst outdoor NLOS case, with MAE = 94.78 cm, while the chest reaches MAE = 79.00 cm. The tag baseline without body shadowing, reported separately in the source measurements, achieves MAE = 9.99 cm and $\sigma_{AE}$ = 4.46 cm, establishing the reference performance without body-induced BS.
 
-Conversely, torso placements (i.e., chest and hip) exhibit critical degradation, with NLOS ranging error increasing by a factor of over 13$\times$ compared to LOS conditions (i.e., Hip transitioning from 7.19 cm in LOS to 97.76 cm in NLOS). The human torso acts as an insurmountable electromagnetic wall at 6.5 GHz, effectively blocking the direct path. The recorded Maximum Error sample at the hip (i.e., 2.9 m) indicates that placing the tag on a belt clip effectively renders standard ranging algorithms useless for precision tracking.
+When indoor and outdoor results are compared, the most important pattern is that NLOS degradation depends jointly on body placement and available multipath. Indoor NLOS favors the head (18.66 cm), whereas outdoor NLOS favors the wrist (24.07 cm). The worst case is consistently associated with the hip under NLOS, reaching 97.76 cm indoors and 94.78 cm outdoors. Torso placements, i.e., chest and hip, exhibit critical degradation, with NLOS ranging error increasing by a factor of over 13$\times$ compared to LOS conditions, i.e., the hip transitions from 7.19 cm in indoor LOS to 97.76 cm in indoor NLOS. The recorded Maximum Error sample at the hip, i.e., 2.9 m, indicates that placing the tag on a belt clip effectively renders standard ranging algorithms unsuitable for precision tracking under BS.
 
 Figures \ref{fig:tof_chest_corridor}, \ref{fig:tof_chest_outdoor}, show the unitary ToF measurement distributions for the placements of the chest and hip in corridor (indoor) and outdoor scenarios. A higher level of noise is observed in the indoor data. Still, this environment exhibits a constructive multipath effect that preserves observable measurements under both LOS and NLOS conditions across the evaluated range. In contrast, outdoor measurements show lower visible noise, but after the 6 m mark, the distributions become severely degraded, and no data are available. 
 %
-\begin{figure}[H]
+\begin{figure}[!t]
     \centering
     \includegraphics[width=1\linewidth]{tof_distribution_chest_corridor.pdf}
     \caption{Unitary ToF distribution for chest placement in the corridor scenario.}
     \label{fig:tof_chest_corridor}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!t]
     \centering
     \includegraphics[width=1\linewidth]{tof_distribution_chest_outdoor.pdf}
     \caption{Unitary ToF distribution for chest placement in the outdoor scenario.}
@@ -99,7 +103,7 @@ Statistical error modeling is essential for designing robust navigation algorith
 
 The distribution analysis in Table \ref{tab:aic_bic} is reported at the global level (all body placements combined) to identify the overall BS-induced statistical shift between LOS and NLOS. In parallel, placement-dependent behavior is explicitly analyzed through Table \ref{tab:resumen_indoor} and subsequent non-parametric contrasts. This combined view is consistent with prior body-shadowing studies that report both global channel-condition behavior and body-placement-specific effects \cite{ref4, ref14, Otim2019}.
 %
-\begin{table}[H]
+\begin{table}[!t]
 \centering
 \caption{Goodness-of-Fit metrics for ranging error under LOS and NLOS conditions (Lower AIC/BIC indicates a better fit).}
 \label{tab:aic_bic}
@@ -128,7 +132,7 @@ The distribution analysis in Table \ref{tab:aic_bic} is reported at the global l
 
 As shown in Table \ref{tab:aic_bic}, under LOS conditions, the gamma distribution is the optimal model. Figure \ref{fig:ajuste_los} confirms this behavior by closely matching the empirical histogram and capturing the slight positive skewness generated by hardware noise and minor multi-path reflections.
 %
-\begin{figure}[H]
+\begin{figure}[!t]
     \centering
     \includegraphics[width=1\columnwidth]{ajuste_hist_LOS_Data.pdf}
     \caption{Ranging error distribution fit for LOS data, where gamma shows the best goodness-of-fit.}
@@ -137,7 +141,7 @@ As shown in Table \ref{tab:aic_bic}, under LOS conditions, the gamma distributio
 
 For NLOS conditions, the statistical structure of the error undergoes a radical transformation. Table \ref{tab:aic_bic} and Figure \ref{fig:ajuste_nlos} show that the log-normal distribution offers the best fit, displacing the gamma and exponential distribution models. This transition from gamma to log-normal reflects the multiplicative nature of noise in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
 %
-\begin{figure}[H]
+\begin{figure}[!t]
     \centering
     \includegraphics[width=1\columnwidth]{ajuste_hist_NLOS_Data.pdf}
     \caption{Rangin error distribution fit for NLOS data, where log-normal provides the best goodness-of-fit.}
@@ -146,7 +150,7 @@ For NLOS conditions, the statistical structure of the error undergoes a radical 
 
 The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution. Under LOS conditions (Figure \ref{fig:qq_los}), the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit. Under NLOS conditions (Figure \ref{fig:qq_nlos}), the extreme curvature and divergence in the upper tail confirm that large positive errors (biases) are vastly more frequent than a Gaussian model would predict. The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
 %
-\begin{figure}[H]
+\begin{figure}[!t]
     \centering
     \begin{subfigure}[b]{0.48\columnwidth}
         \centering
@@ -167,4 +171,4 @@ The profound deviation from normality under BS is mathematically critical. Figur
 
 \subsection{Non-Parametric Statistical Testing}
 
-Because the data severely violate the assumptions of normality and homoscedasticity (i.e., Levene's test, $p \ll 0.001$), standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, the Mann-Whitney U test was utilized to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an exceptionally large effect size (i.e., $r = 0.968$ in NLOS, $p \ll 0.001$), showing conclusively that node placement on the body is a dominant, statistically undeniable factor in determining the reliability of 6.5 GHz UWB systems.
+Because the data severely violate the assumptions of normality and homoscedasticity, i.e., Levene's test, $p \ll 0.001$, standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, the Mann-Whitney U test was utilized to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an exceptionally large effect size, i.e., $r = 0.968$ in NLOS, $p \ll 0.001$, showing conclusively that tag placement on the body is a dominant, statistically undeniable factor in determining the reliability of 6.5 GHz UWB systems.
