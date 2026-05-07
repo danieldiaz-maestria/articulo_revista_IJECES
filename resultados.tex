@@ -81,7 +81,7 @@ The outdoor NLOS data confirms the placement hierarchy observed indoors while ch
 
 When indoor and outdoor results are compared, the most important pattern is that NLOS degradation depends jointly on body placement and available multipath. Indoor NLOS favors the head (18.66 cm), whereas outdoor NLOS favors the wrist (24.07 cm). The worst case is consistently associated with the hip under NLOS, reaching 97.76 cm indoors and 94.78 cm outdoors. Torso placements, i.e., chest and hip, exhibit critical degradation, with NLOS ranging error increasing by a factor of over 13$\times$ compared to LOS conditions, i.e., the hip transitions from 7.19 cm in indoor LOS to 97.76 cm in indoor NLOS. The recorded Maximum Error sample at the hip, i.e., 2.9 m, indicates that placing the tag on a belt clip effectively renders standard ranging algorithms unsuitable for precision tracking under BS.
 
-Figures \ref{fig:tof_chest_corridor}, \ref{fig:tof_chest_outdoor}, show the unitary ToF measurement distributions for the placements of the chest and hip in corridor (indoor) and outdoor scenarios. A higher level of noise is observed in the indoor data. Still, this environment exhibits a constructive multipath effect that preserves observable measurements under both LOS and NLOS conditions across the evaluated range. In contrast, outdoor measurements show lower visible noise, but after the 6 m mark, the distributions become severely degraded, and no data are available. 
+Figures \ref{fig:tof_chest_corridor}, \ref{fig:tof_chest_outdoor}, show the unitary ToF measurement distributions for the placements of the chest and hip in corridor (indoor) and outdoor scenarios. 
 %
 \begin{figure}[H]
     \centering
@@ -89,6 +89,8 @@ Figures \ref{fig:tof_chest_corridor}, \ref{fig:tof_chest_outdoor}, show the unit
     \label{fig:tof_chest_corridor}
     \includegraphics[width=1\linewidth]{tof_distribution_chest_corridor.pdf}
 \end{figure}
+
+A higher level of noise is observed in the indoor data. Still, this environment exhibits a constructive multipath effect that preserves observable measurements under both LOS and NLOS conditions across the evaluated range. In contrast, outdoor measurements show lower visible noise, but after the 6 m mark, the distributions become severely degraded, and no data are available. 
 
 \begin{figure}[H]
     \centering
@@ -140,19 +142,16 @@ As shown in Table \ref{tab:aic_bic}, under LOS conditions, the gamma distributio
 \end{figure}
 
 For NLOS conditions, the statistical structure of the error undergoes a radical transformation. Table \ref{tab:aic_bic} and Figure \ref{fig:ajuste_nlos} show that the log-normal distribution offers the best fit, displacing the gamma and exponential distribution models. This transition from gamma to log-normal reflects the multiplicative nature of noise in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
-%
 \begin{figure}[H]
     \centering
     \caption{Rangin error distribution fit for NLOS data, where log-normal provides the best goodness-of-fit.}
     \label{fig:ajuste_nlos}
     \includegraphics[width=1\columnwidth]{ajuste_hist_NLOS_Data.pdf}
 \end{figure}
-
-The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution. Under LOS conditions (Figure \ref{fig:qq_los}), the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit. Under NLOS conditions (Figure \ref{fig:qq_nlos}), the extreme curvature and divergence in the upper tail confirm that large positive errors (biases) are vastly more frequent than a Gaussian model would predict. The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
-%
+The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution. Under LOS conditions (Figure \ref{fig:qq_los}), the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit. 
 \begin{figure}[H]
     \centering
-    \caption{Q-Q Plots comparing ranging error distributions against the theoretical Normal distribution. (a) LOS data shows moderate alignment with slight tail deviations. (b) NLOS data exhibits severe upper-tail curvature, demonstrating the non-Gaussian nature of BS ranging errors.}
+    \caption{Q-Q Plots comparing ranging error distributions against the theoretical Normal distribution.}
     \label{fig:qq_plots}
     \begin{subfigure}[b]{0.48\columnwidth}
         \centering
@@ -169,6 +168,7 @@ The profound deviation from normality under BS is mathematically critical. Figur
     \end{subfigure}
 \end{figure}
 
-\subsection{Non-Parametric Statistical Testing}
+Under NLOS conditions (Figure \ref{fig:qq_nlos}), the extreme curvature and divergence in the upper tail confirm that large positive errors (biases) are vastly more frequent than a Gaussian model would predict. The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
 
+\subsection{Non-Parametric Statistical Testing}
 Because the data severely violate the assumptions of normality and homoscedasticity, i.e., Levene's test, $p \ll 0.001$, standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, the Mann-Whitney U test was utilized to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an exceptionally large effect size, i.e., $r = 0.968$ in NLOS, $p \ll 0.001$, showing conclusively that tag placement on the body is a dominant, statistically undeniable factor in determining the reliability of 6.5 GHz UWB systems.
