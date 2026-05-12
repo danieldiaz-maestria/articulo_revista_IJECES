@@ -1,15 +1,15 @@
 The experimental evaluation provides crucial empirical evidence regarding the ranging error behavior of a UWB link operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for tag placement and showing the BS-induced statistical shift in error ranging characteristics.
 
-Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of measurement dispersion across all experimental configurations. The scatter plot displays real distance (x-axis) versus measured distance (y-axis) for each combination of scenario (Indoor/Outdoor), body location, and condition (LOS/NLOS). This visualization shows both the accuracy (proximity to the ideal diagonal line) and precision (vertical dispersion at each distance) of the ranging estimation  under different body shadowing conditions. Configurations such as Outdoor-Chest-LOS exhibit tight clustering around the reference line, indicating high accuracy and precision. In contrast, configurations such as Indoor-Hip-NLOS exhibit significant vertical spread and systematic bias, revealing the severe impact of BS on ranging reliability.
+Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of measurement dispersion across all experimental configurations. The scatter plot displays real distance (x-axis) versus measured distance (y-axis) for each combination of scenario (Indoor/Outdoor), body location, and condition (LOS/NLOS). This visualization shows both the accuracy (proximity to the ideal diagonal line) and precision (vertical dispersion at each distance) of the ranging estimation  under different BS channel conditions. Configurations such as Outdoor-Chest-LOS exhibit tight clustering around the reference line, indicating high accuracy and precision. In contrast, configurations such as Indoor-Hip-NLOS exhibit significant vertical spread and systematic bias, revealing the severe impact of BS on ranging reliability.
 %
 \begin{figure*}[!t]
     \centering
-    \caption{Measurement dispersion across all experimental configurations showing real distance vs. measured distance for each scenario-placement-condition combination.}
+    \caption{Dispersion measurements estimated across all experimental configurations showing real distance vs. measured distance for each scenario-placement-condition combination.}
     \label{fig:dispersion_mediciones}
     \includegraphics[width=\textwidth]{dispersión_mediciones_alta_calidad.pdf}
 \end{figure*}
 
-\subsection{Quantification of BS Impact by Body Placement}
+\subsection{Quantification of BS Impact by Body Tag Placement}
 
 To determine the most robust tag placement, a comparative analysis of 1D ranging error was performed in the recommended interpretation order: first, the indoor corridor was examined by contrasting LOS and NLOS conditions; then, the outdoor open-field scenario was evaluated using the same LOS/NLOS sequence. The reported metrics are Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and Maximum Error.
 
