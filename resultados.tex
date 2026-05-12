@@ -90,6 +90,8 @@ Figures \ref{fig:tof_chest_corridor} and \ref{fig:tof_chest_outdoor} show the un
     \includegraphics[width=1\linewidth]{tof_distribution_chest_corridor.pdf}
 \end{center}
 
+In the corridor case, the chest placement shows a broad but continuous ToF response across the evaluated distances. This behavior indicates that the indoor environment introduces additional dispersion, but it also helps preserve link observability when the direct path is affected by BS. Therefore, the indoor corridor does not simply act as a degradation source; it also provides reflected components that can sustain range estimation even under obstructed body orientations.
+
 A higher noise level is observed in the indoor data. Still, this environment exhibits a constructive multipath effect that preserves measurement observability under both LOS and NLOS conditions across the evaluated range. In contrast, outdoor measurements show lower visible noise, but after the 6 m mark, the distributions become severely degraded, and no data are available. 
 %
 \begin{center}
@@ -98,9 +100,11 @@ A higher noise level is observed in the indoor data. Still, this environment exh
     \includegraphics[width=1\linewidth]{tof_distribution_chest_outdoor.pdf}
 \end{center}
 
+The outdoor chest measurements provide the complementary behavior: when the direct path is blocked by the torso, the absence of nearby reflective structures reduces the availability of alternative propagation paths. As a result, the ToF estimates become less stable and eventually disappear at larger distances. This contrast between corridor and outdoor measurements motivates the subsequent probabilistic analysis, where the transition from bounded LOS errors to skewed NLOS errors is quantified through distribution fitting.
+
 \subsection{Probabilistic Modeling of Body Shadowing Ranging Error}
 
-Statistical error modeling is essential for designing robust navigation algorithms. Because the analyzed metric is absolute ranging error, i.e., $e_i \geq 0$, the primary candidate families are positive-support distributions (gamma, log-normal, and exponential). Traditional filters, such as the standard Kalman Filter, explicitly assume Gaussian (normal) measurement noise; therefore, normality was evaluated only as a reference hypothesis, not as the expected distribution final model for absolute error. The fit of these distributions was evaluated using the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) on the entire dataset of 100,000+ samples.
+Statistical error modeling is essential for designing robust navigation algorithms. Because the analyzed metric is absolute ranging error, i.e., $e_i \geq 0$, the primary candidate families are positive-support distributions (gamma, log-normal, and exponential). Traditional filters, such as the standard Kalman Filter, explicitly assume Gaussian measurement noise; therefore, the Gaussian assumption was evaluated only as a reference hypothesis, not as the expected distribution final model for absolute error. The fit of these distributions was evaluated using the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) on the entire dataset of 100,000+ samples.
 
 The distribution analysis in Table \ref{tab:aic_bic} is reported at the global level, i.e., all body placements combined) to identify the overall BS-induced statistical shift between LOS and NLOS. In parallel, placement-dependent behavior is explicitly analyzed through Table \ref{tab:resumen_indoor} and subsequent non-parametric contrasts. This combined view is consistent with prior body-shadowing studies that report both global channel-condition behavior and body-placement-specific effects \cite{ref4, Otim2019}.
 
@@ -149,10 +153,10 @@ For NLOS conditions, the statistical structure of the error undergoes a radical 
     \end{subfigure}
 \end{figure*}
 
-The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution. Under LOS conditions, Figure \ref{fig:qq_los} shows that the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit.
+The profound deviation from Gaussianity under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Gaussian distribution. Under LOS conditions, Figure \ref{fig:qq_los} shows that the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit.
 %
 \begin{center}
-    \captionof{figure}{Q-Q plot comparing LOS ranging error against the theoretical Normal distribution.}
+    \captionof{figure}{Q-Q plot comparing LOS ranging error against the theoretical Gaussian distribution.}
     \label{fig:qq_los}
     \includegraphics[width=1\columnwidth]{ajuste_qq_LOS_Data.pdf}
 \end{center}
@@ -160,12 +164,12 @@ The profound deviation from normality under BS is mathematically critical. Figur
 Under NLOS conditions, Figure \ref{fig:qq_nlos} shows extreme curvature and divergence in the upper tail, confirming that large positive errors (biases) are vastly more frequent than a Gaussian model would predict.
 %
 \begin{center}
-    \captionof{figure}{Q-Q plot comparing NLOS ranging error against the theoretical Normal distribution.}
+    \captionof{figure}{Q-Q plot comparing NLOS ranging error against the theoretical Gaussian distribution.}
     \label{fig:qq_nlos}
     \includegraphics[width=1\columnwidth]{ajuste_qq_NLOS_Data.pdf}
 \end{center}
 
-The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
+The Shapiro-Wilk test for Gaussianity yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
 
 \subsection{Non-Parametric Statistical Testing}
-Because the data severely violate the assumptions of normality and homoscedasticity, i.e., Levene's test, $p \ll 0.001$, standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, the Mann-Whitney U test was utilized to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an  qexceptionally large effect size, i.e., $r = 0.968$ in NLOS, $p \ll 0.001$, showing conclusively that tag placement on the body is a dominant, statistically undeniable factor in determining the reliability of a 6.5 GHz UWB ranging system.
+Because the data severely violate the assumptions of Gaussianity and homoscedasticity, i.e., Levene's test, $p \ll 0.001$, standard parametric tests such as ANOVA are methodologically invalid for this dataset. Consequently, the Mann-Whitney U test was utilized to quantify the magnitude of the differences between locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded an  qexceptionally large effect size, i.e., $r = 0.968$ in NLOS, $p \ll 0.001$, showing conclusively that tag placement on the body is a dominant, statistically undeniable factor in determining the reliability of a 6.5 GHz UWB ranging system.
