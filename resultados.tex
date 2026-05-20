@@ -1,10 +1,10 @@
 The experimental evaluation provides crucial empirical evidence regarding the ranging error behavior of a UWB link operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for tag placement and showing the BS-induced statistical shift in error ranging characteristics.
 
-Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of measurement dispersion across all experimental configurations. The scatter plot displays real distance (x-axis) versus measured distance (y-axis) for each combination of scenario (Indoor/Outdoor), body location, and condition (LOS/NLOS). This visualization shows both the accuracy (proximity to the ideal diagonal line) and precision (vertical dispersion at each distance) of the ranging estimation  under different BS channel conditions. Configurations such as Outdoor-Chest-LOS exhibit tight clustering around the reference line, indicating high accuracy and precision. In contrast, configurations such as Indoor-Hip-NLOS exhibit significant vertical spread and systematic bias, revealing the severe impact of BS on ranging reliability.
+Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of measurement dispersion across all experimental configurations. In this scatter plot, the x-axis represents the nominal separation distances evaluated from 1 m to 13 m, while the y-axis lists each scenario-placement-condition combination, such as Outdoor-Hip-NLOS. This representation is a direct comparison of how the measurements are distributed across the tested distances for each experimental configuration. More compact point distributions indicate more stable ranging behavior, whereas wider dispersion patterns reveal stronger BS-induced degradation under the corresponding propagation and body-placement conditions.
 %
 \begin{figure*}[!t]
     \centering
-    \caption{Dispersion measurements estimated across all experimental configurations showing real distance vs. measured distance for each scenario-placement-condition combination.}
+    \caption{Dispersion of estimated measurements across all experimental configurations, with tested distances from 1 m to 13 m on the x-axis and each scenario-placement-condition combination on the y-axis.}
     \label{fig:dispersion_mediciones}
     \includegraphics[width=\textwidth]{dispersión_mediciones_alta_calidad.pdf}
 \end{figure*}
