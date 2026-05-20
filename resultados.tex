@@ -14,7 +14,7 @@ In addition, this graph provides a clear way to assess the accuracy and precisio
 
 To determine the most robust tag placement, a comparative analysis of 1D ranging error was performed in the recommended interpretation order: first, the indoor corridor was examined by contrasting LOS and NLOS conditions; then, the outdoor open-field scenario was evaluated using the same LOS/NLOS sequence. The reported metrics are Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and Maximum Error.
 
-Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, where multipath effects are strongly present. In indoor LOS, the lowest MAE is obtained at the wrist, i.e., 6.42 cm, followed by the hip, i.e., 7.19 cm, whereas the ankle shows the maximum LOS MAE, i.e., 41.50 cm. In indoor NLOS, the head provides the best body-placement performance, i.e., 18.66 cm, while the hip is the worst case, i.e., 97.76 cm.
+Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, where multipath effects are strongly present. In indoor LOS, the lowest MAE is obtained at the wrist, i.e., 6.42 cm, followed by the hip, i.e., 7.19 cm, whereas the ankle shows the maximum LOS MAE, i.e., 41.50 cm. In indoor NLOS, the head provides the best body-placement performance, i.e., 18.66 cm, while
 
 %
 \begin{center}
@@ -43,16 +43,15 @@ Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor
 \end{tabular}
 }
 \end{center}
+the hip is the worst case, i.e., 97.76 cm.
 
-  This LOS-to-NLOS reading shows that the indoor corridor can preserve usable ranging for head and limb placements, but torso-adjacent placements remain critically affected by BS.
+This LOS-to-NLOS reading shows that the indoor corridor can preserve usable ranging for head and limb placements, but torso-adjacent placements remain critically affected by BS.
 
 The indoor comparative analysis establishes a clear hierarchy of robustness for tag placement. After considering the LOS baseline, head placement emerges as the most stable NLOS option indoors, with modest degradation, i.e., MAE $\approx$ 18.66 cm. This performance is attributed to the creeping-wave diffraction phenomenon around the curvature of the human skull, allowing 6.5 GHz UWB signals to bend and maintain communication even under BS conditions.
 
 The outdoor scenario was then analyzed with the same LOS-to-NLOS order. Table \ref{tab:resumen_outdoor} presents the characterization of ranging error for the outdoor scenario. In outdoor LOS, reduced environmental reflections lead to lower ToF-derived ranging bias for favorable placements; for example, chest and head placements reach MAE values of 4.62 cm and 4.87 cm, respectively. The ankle shows the maximum outdoor LOS MAE, i.e., 29.87 cm. In outdoor NLOS, the lack of useful reflectors increases the impact of BS and raises ranging bias, especially for torso and limb placements.
 
-After the outdoor LOS baseline is established, the outdoor NLOS data confirm the placement hierarchy observed indoors, with the best-performing body location changing. The wrist placement shows superior outdoor NLOS performance, with MAE = 24.07 cm, followed by the head, with MAE = 32.05 cm, and the ankle with MAE = 38.86 cm.
-
-Torso placements remain critically degraded: the hip is the worst outdoor NLOS case, with MAE = 94.78 cm, while the chest reaches MAE = 79.00 cm. The tag baseline without body shadowing, reported separately in the source measurements, achieves MAE = 9.99 cm and $\sigma_{AE}$ = 4.46 cm, establishing the reference performance without body-induced BS.
+After the outdoor LOS baseline is established, the outdoor NLOS data confirm the 
 
 %
 \begin{center}
@@ -82,36 +81,35 @@ Torso placements remain critically degraded: the hip is the worst outdoor NLOS c
 }
 \end{center}
 
+placement hierarchy observed indoors, with the best-performing body placement changing. The wrist placement shows superior outdoor NLOS performance, with MAE = 24.07 cm, followed by the head, with MAE = 32.05 cm, and the ankle with MAE = 38.86 cm.
+
+Torso placements remain critically degraded: the hip is the worst outdoor NLOS case, with MAE = 94.78 cm, while the chest reaches MAE = 79.00 cm. The tag baseline without body shadowing, reported separately in the source measurements, achieves MAE = 9.99 cm and $\sigma_{AE}$ = 4.46 cm, establishing the reference performance without body-induced BS.
 
 When indoor and outdoor results are compared, the most important pattern is that NLOS degradation depends jointly on body placement and available multipath. Indoor NLOS favors the head (18.66 cm), whereas outdoor NLOS favors the wrist (24.07 cm). The worst case is consistently associated with the hip under NLOS, reaching 97.76 cm indoors and 94.78 cm outdoors. Torso placements, i.e., chest and hip, exhibit critical degradation, with NLOS ranging error increasing by a factor of over 13$\times$ compared to LOS conditions, i.e., the hip transitions from 7.19 cm in indoor LOS to 97.76 cm in indoor NLOS.
 
-The recorded Maximum Error sample at the hip, i.e., 2.9 m, indicates that placing the tag on a belt clip effectively renders standard ranging algorithms unsuitable for precision tracking under BS.
-
-Figures \ref{fig:tof_chest_corridor} and \ref{fig:tof_chest_outdoor} show the unitary ToF measurements for the tag placements on the chest and the hip in corridor (indoor) and outdoor scenarios. 
-
-
-
+The recorded Maximum Error sample at the hip, i.e., 2.9 m, indicates that placing
 %
 \begin{center}
-    \captionof{figure}{Unitary ToF distribution for chest placement in the corridor scenario.}
+    \captionof{figure}{Unitary ToF measurements for chest placement in the corridor scenario.}
     \label{fig:tof_chest_corridor}
-    \includegraphics[width=1\linewidth]{tof_distribution_chest_corridor.pdf}
+    \includegraphics[width=0.95\linewidth]{tof_distribution_chest_corridor.pdf}
 \end{center}
+
+the tag on a belt clip effectively renders standard ranging algorithms unsuitable for precision tracking under BS. Figures \ref{fig:tof_chest_corridor} and \ref{fig:tof_chest_outdoor} show the unitary ToF measurements for the tag placements on the chest in corridor (indoor) scenario.
 
 In the corridor case, the chest placement shows a broad but continuous ToF response across the evaluated distances. This behavior indicates that the indoor environment introduces additional dispersion, but it also helps preserve link observability when the direct path is affected by BS. Therefore, the indoor corridor does not merely serve as a degradation source; it also provides reflected components that can sustain range estimation even with obstructed body orientations.
 
-A higher noise level is observed in the indoor data. Still, this environment exhibits a constructive multipath effect that preserves measurement observability under both LOS and NLOS conditions across the evaluated range. In contrast, outdoor measurements show lower visible noise, but after the 6 m mark, the distributions become severely degraded, and no data are available. 
+A higher variability is observed in the indoor data. Still, this environment exhibits a constructive multipath effect that preserves measurement observability under both LOS and NLOS conditions across the evaluated range. In contrast, outdoor measurements show lower visible variability, but after the 6 m mark, the measurements become severely degraded, and no data are available. 
 
-
-
+The outdoor chest measurements provide the complementary behavior: when the direct path is blocked by the torso, the absence of nearby reflective structures reduces the availability of alternative propagation paths. As a result, the ToF estimates become less stable and eventually disappear at larger distances. This contrast between corridor and outdoor measurements motivates the subsequent probabilistic analysis, in which the
 
 \begin{center}
-    \captionof{figure}{Unitary ToF distribution for chest placement in the outdoor scenario.}
+    \captionof{figure}{Unitary ToF measurements for chest placement in the outdoor scenario.}
     \label{fig:tof_chest_outdoor}
-    \includegraphics[width=1\linewidth]{tof_distribution_chest_outdoor.pdf}
+    \includegraphics[width=0.95\linewidth]{tof_distribution_chest_outdoor.pdf}
 \end{center}
 
-The outdoor chest measurements provide the complementary behavior: when the direct path is blocked by the torso, the absence of nearby reflective structures reduces the availability of alternative propagation paths. As a result, the ToF estimates become less stable and eventually disappear at larger distances. This contrast between corridor and outdoor measurements motivates the subsequent probabilistic analysis, in which the transition from bounded LOS errors to skewed NLOS errors is quantified via distribution fitting.
+ transition from bounded LOS errors to skewed NLOS errors is quantified via distribution fitting.
 
 \subsection{Probabilistic Modeling of Body Shadowing Ranging Error}
 
