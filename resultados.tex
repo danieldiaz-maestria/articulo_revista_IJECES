@@ -139,6 +139,8 @@ The distribution analysis in Table \ref{tab:aic_bic} is reported separately for 
 As shown in Table \ref{tab:aic_bic}, under LOS conditions, the gamma distribution remains the closest model in both scenarios. The fitted indoor LOS model is parameterized as $e-\mathrm{loc}\sim\Gamma(\alpha,\theta)$, with $\alpha=0.5026$, $\theta=0.1840~\mathrm{m}$, and $\mathrm{loc}=0.0000~\mathrm{m}$, while the outdoor LOS model has $\alpha=0.9480$, $\theta=0.1237~\mathrm{m}$, and $\mathrm{loc}=0.0000~\mathrm{m}$. Figure \ref{fig:ajuste_los} provides the pooled LOS visual reference, showing the positive-support and right-skewed error structure captured by the gamma family.
 %
 
+For NLOS conditions, the statistical structure of the error undergoes a radical transformation in both environments. Table \ref{tab:aic_bic} shows that the log-normal distribution offers the best fit in both indoor and outdoor NLOS, displacing the gamma and exponential distribution models; Figure \ref{fig:ajuste_nlos} provides the corresponding pooled visual reference. The fitted indoor NLOS model is parameterized as $e-\mathrm{loc}\sim\mathrm{Lognormal}(\mu,\sigma)$, with $\mu=-0.9186$, $\sigma=0.8016$, $\mathrm{scale}=\exp(\mu)=0.3991~\mathrm{m}$, and $\mathrm{loc}=-0.0427~\mathrm{m}$; for outdoor NLOS, the parameters are $\mu=-1.0749$, $\sigma=0.5173$, $\mathrm{scale}=0.3413~\mathrm{m}$, and $\mathrm{loc}=0.0372~\mathrm{m}$.
+
 \begin{center}
 \captionof{table}{Scenario-specific goodness-of-fit metrics for body-placement ranging error under LOS and NLOS conditions, excluding baseline TAG measurements (Lower AIC/BIC indicates a better fit).}
 \label{tab:aic_bic}
@@ -174,9 +176,9 @@ As shown in Table \ref{tab:aic_bic}, under LOS conditions, the gamma distributio
 }
 \end{center}
 
-For NLOS conditions, the statistical structure of the error undergoes a radical transformation in both environments. Table \ref{tab:aic_bic} shows that the log-normal distribution offers the best fit in both indoor and outdoor NLOS, displacing the gamma and exponential distribution models; Figure \ref{fig:ajuste_nlos} provides the corresponding pooled visual reference. The fitted indoor NLOS model is parameterized as $e-\mathrm{loc}\sim\mathrm{Lognormal}(\mu,\sigma)$, with $\mu=-0.9186$, $\sigma=0.8016$, $\mathrm{scale}=\exp(\mu)=0.3991~\mathrm{m}$, and $\mathrm{loc}=-0.0427~\mathrm{m}$; for outdoor NLOS, the parameters are $\mu=-1.0749$, $\sigma=0.5173$, $\mathrm{scale}=0.3413~\mathrm{m}$, and $\mathrm{loc}=0.0372~\mathrm{m}$.
 
-This transition from gamma to log-normal reflects the multiplicative nature of noise in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
+
+This transition from gamma to log-normal  reflects the multiplicative nature of noise in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
 
 The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution.
 
