@@ -1,6 +1,7 @@
-The experimental evaluation provides crucial empirical evidence regarding the ranging error behavior of a UWB link operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for tag placement and showing the BS-induced statistical shift in error ranging characteristics.
+The experimental evaluation provides crucial empirical evidence regarding the ranging error behavior of a UWB link operating in the 6.5 GHz band. This phase focuses on the systematic quantification of ranging errors across seven body placements, establishing a baseline for tag placement and showing the BS-induced statistical shift in error ranging characteristics.  
 
-Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of measurement dispersion across all experimental configurations. In this scatter plot, the x-axis represents the nominal separation distances evaluated from 1 m to 13 m, while the y-axis lists each scenario-placement-condition combination, such as Outdoor-Hip-NLOS. This representation is a direct comparison of how the measurements are distributed across the tested distances for each experimental configuration. More compact point distributions indicate more stable ranging behavior, whereas wider dispersion patterns reveal stronger BS-induced degradation under the corresponding propagation and body-placement conditions.
+Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of the measurement dispersion in all experimental configurations. In this scatter plot, the x-axis represents the nominal separation distances evaluated from 1 m to 13 m, while the y-axis lists each scenario-placement-condition combination, such as Outdoor-Hip-NLOS. This representation is a direct comparison of how the measurements are distributed across the distances tested for each experimental configuration. More compact point distributions indicate more stable range behavior, whereas wider dispersion patterns reveal stronger BS-induced degradation under the corresponding propagation and body-placement conditions.
+In addition, this graph provides a clear way to assess the accuracy and precision of each measurement.
 %
 \begin{figure*}[!t]
     \centering
@@ -13,7 +14,8 @@ Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of
 
 To determine the most robust tag placement, a comparative analysis of 1D ranging error was performed in the recommended interpretation order: first, the indoor corridor was examined by contrasting LOS and NLOS conditions; then, the outdoor open-field scenario was evaluated using the same LOS/NLOS sequence. The reported metrics are Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and Maximum Error.
 
-Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, where multipath effects are strongly present. In indoor LOS, the lowest MAE is obtained at the wrist, i.e., 6.42 cm, followed by the hip, i.e., 7.19 cm, whereas the ankle shows the maximum LOS MAE, i.e., 41.50 cm. In indoor NLOS, the head provides the best body-placement performance, i.e., 18.66 cm, while the hip is the worst case, i.e., 97.76 cm. This LOS-to-NLOS reading shows that the indoor corridor can preserve usable ranging for head and limb placements, but torso-adjacent placements remain critically affected by BS.
+Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, where multipath effects are strongly present. In indoor LOS, the lowest MAE is obtained at the wrist, i.e., 6.42 cm, followed by the hip, i.e., 7.19 cm, whereas the ankle shows the maximum LOS MAE, i.e., 41.50 cm. In indoor NLOS, the head provides the best body-placement performance, i.e., 18.66 cm, while the hip is the worst case, i.e., 97.76 cm.
+
 %
 \begin{center}
 \captionof{table}{Ranging Error Characterization in the Indoor Scenario by Body Placement and Channel Condition in cm.}
@@ -41,6 +43,8 @@ Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor
 \end{tabular}
 }
 \end{center}
+
+  This LOS-to-NLOS reading shows that the indoor corridor can preserve usable ranging for head and limb placements, but torso-adjacent placements remain critically affected by BS.
 
 The indoor comparative analysis establishes a clear hierarchy of robustness for tag placement. After considering the LOS baseline, head placement emerges as the most stable NLOS option indoors, with modest degradation, i.e., MAE $\approx$ 18.66 cm. This performance is attributed to the creeping-wave diffraction phenomenon around the curvature of the human skull, allowing 6.5 GHz UWB signals to bend and maintain communication even under BS conditions.
 
