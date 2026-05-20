@@ -176,9 +176,9 @@ For NLOS conditions, the statistical structure of the error undergoes a radical 
 }
 \end{center}
 
+This scenario-specific consistency confirms that the gamma-to-log-normal shift is not an artifact of pooling indoor and outdoor measurements across environments.
 
-
-This transition from gamma to log-normal  reflects the multiplicative nature of noise in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
+This transition from gamma to log-normal reflects the multiplicative nature of noise in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
 
 The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution.
 
@@ -190,6 +190,8 @@ The profound deviation from normality under BS is mathematically critical. Figur
 \end{figure}
 
 Under LOS conditions, Figure \ref{fig:qq_los} shows that the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit.
+
+This moderate departure from normality becomes substantially amplified when body shadowing dominates the received signal.
 
 Under NLOS conditions, Figure \ref{fig:qq_nlos} shows extreme curvature and divergence in the upper tail, confirming that large positive errors (biases) are vastly more frequent than a Gaussian model would predict.
 
