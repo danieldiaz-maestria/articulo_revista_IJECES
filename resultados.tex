@@ -50,7 +50,7 @@ The indoor comparative analysis establishes a clear hierarchy of robustness for 
 
 The outdoor scenario was then analyzed with the same LOS-to-NLOS order. Table \ref{tab:resumen_outdoor} presents the characterization of the ranging error for the outdoor scenario. In outdoor LOS, reduced environmental reflections lead to lower ToF-derived ranging bias for favorable placements; for example, chest and head placements reach MAE values of 4.62 cm and 4.87 cm, respectively. The ankle shows the maximum outdoor LOS MAE, i.e., 29.87 cm. In outdoor NLOS, the lack of useful reflectors increases the impact of BS and raises ranging bias, especially for torso and limb placements.
 
-After the outdoor LOS baseline is established, the outdoor NLOS data confirm the placement hierarchy observed indoors, with the best-performing body placement changing. The wrist placement shows superior outdoor NLOS performance, with MAE = 24.07 cm, followed by the head, with MAE = 32.05 cm, and the ankle with MAE = 38.86 cm.
+After the outdoor LOS baseline is established, the outdoor NLOS data confirm the placement hierarchy observed indoors, with the best-performing body placement changing. The wrist placement shows superior outdoor NLOS performance, i.e., MAE = 24.07 cm, followed by the head, i.e., MAE = 32.05 cm, and the ankle, i.e., MAE = 38.86 cm.
 
 \begin{center}
 \captionof{table}{Ranging Error Characterization in the Outdoor Scenario by Body Placement and Channel Condition in cm.}
@@ -100,11 +100,11 @@ The recorded Maximum Error sample at the hip, i.e., 2.9 m, indicates that placin
  %   \includegraphics[width=0.95\linewidth]{tof_distribution_chest_corridor.pdf}
 %\end{center}
 
-In the corridor case, the chest placement shows a broad but continuous ToF response across the evaluated distances. This behavior indicates that the indoor environment introduces additional dispersion, but it also helps preserve link observability when the direct path is affected by BS. Therefore, the indoor corridor does not merely serve as a source of degradation; it also provides reflected components that can sustain range estimation even when the tag is obstructed by the body.
+In the corridor case, the chest placement shows a broad but continuous ToF response across the evaluated distances. This behavior indicates that the indoor environment introduces additional dispersion, but it also helps preserve link observability when the direct path is affected by BS. Therefore, the indoor corridor does not merely serve as a source of degradation; it also provides reflected components that can sustain range estimation even when the body obstructs the tag.
 
 A higher variability is observed in the indoor data. Still, this environment exhibits a constructive multipath effect that preserves measurement observability under both LOS and NLOS conditions across the evaluated range. In contrast, outdoor measurements show lower visible variability, but after the 6 m mark, they become severely degraded, and no data are available. 
 
-The outdoor chest measurements provide the complementary behavior: when the direct path is blocked by the torso, the absence of nearby reflective structures reduces the availability of alternative propagation paths. As a result, the ToF estimates become less stable and eventually disappear at larger distances. This contrast between corridor and outdoor measurements motivates the subsequent probabilistic analysis, in which the transition from bounded LOS errors to skewed NLOS errors is quantified via distribution fitting.
+The outdoor chest measurements provide the complementary behavior: when the torso blocks the direct path, the absence of nearby reflective structures reduces the availability of alternative propagation paths. As a result, the ToF estimates become less stable and eventually disappear at larger distances. This contrast between corridor and outdoor measurements motivates the subsequent probabilistic analysis, in which the transition from bounded LOS errors to skewed NLOS errors is quantified via distribution fitting.
 %
 % \begin{center}
  %   \captionof{figure}{Unitary ToF measurements for chest placement in the outdoor scenario.}
@@ -188,7 +188,7 @@ This scenario-specific consistency confirms that the gamma-to-log-normal shift i
 
 
 
-This transition from gamma to log-normal reflects higer dispersion in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
+This transition from gamma to log-normal reflects higher dispersion in strongly obstructed environments, where ranging error can be modeled as the product of attenuation and reflection factors rather than as simple additive Gaussian noise.
 
 The profound deviation from normality under BS is mathematically critical. Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution.
 %
@@ -198,7 +198,7 @@ The profound deviation from normality under BS is mathematically critical. Figur
     \includegraphics[width=1\columnwidth]{ajuste_qq_LOS_Data.pdf}
 \end{figure}
 
-Under LOS conditions, Figure \ref{fig:qq_los} shows that the data points exhibit moderate alignment with the theoretical line, though slight deviations in the tails suggest the gamma distribution provides a better fit.
+Under LOS conditions, Figure \ref{fig:qq_los} shows that the data points exhibit moderate alignment with the theoretical line. However, slight deviations in the tails suggest the gamma distribution provides a better fit.
 
 This moderate departure from normality becomes substantially amplified when body shadowing dominates the received signal.
 
