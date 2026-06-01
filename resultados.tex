@@ -215,12 +215,12 @@ Under LOS conditions, the points in Figure \ref{fig:qq_los} remain closer to the
 
 The departure from normality is larger when body shadowing dominates the received signal.
 
-In the NLOS Q-Q plot, the largest departure from the normal reference line appears in the upper quantiles. That region corresponds to the largest positive ranging errors, so the plot agrees with the heavy right tail observed in the fitted distribution.
+In the NLOS Q-Q plot, the largest departure from the normal reference line appears in the upper quantiles. These points correspond to high positive-error samples and match the right tail of the fitted NLOS model.
 
-The Shapiro-Wilk test returned $p \ll 0.001$ for both LOS and NLOS samples. For the following comparisons, normality was therefore not assumed.
+The Shapiro-Wilk test gave $p \ll 0.001$ for both LOS and NLOS samples.
 
 \subsection{Non-Parametric Statistical Testing}
-The same criterion was applied to the body-placement comparisons. Levene's test also returned $p \ll 0.001$, which points to unequal variances among groups; therefore, ANOVA was not used. The Mann-Whitney U test was applied to compare configurations and locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded a large effect size ($r = 0.968$ in NLOS, $p \ll 0.001$), supporting tag placement as an important factor in the reliability of a 6.5 GHz UWB ranging system.
+The placement contrasts were handled with non-parametric tests. Levene's test gave $p \ll 0.001$, indicating unequal group variances, so ANOVA was excluded from this comparison. The Mann-Whitney U test was applied to compare configurations and locations. The contrast between the best-performing placements (Head/Wrist) and the worst-performing placements (Hip/Chest) yielded a large effect size ($r = 0.968$ in NLOS, $p \ll 0.001$), supporting tag placement as an important factor in the reliability of a 6.5 GHz UWB ranging system.
 %
 \begin{figure}[H]
     \caption{Q-Q plot comparing NLOS ranging error against the theoretical Normal distribution.}
