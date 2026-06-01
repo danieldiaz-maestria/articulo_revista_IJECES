@@ -143,10 +143,24 @@ The probabilistic analysis was included to relate the measured errors to observa
 
 Table \ref{tab:aic_bic} separates the distribution fits by scenario and channel condition: indoor LOS, indoor NLOS, outdoor LOS, and outdoor NLOS. Within each group, the seven body placements are combined. This grouping avoids mixing propagation environments while preserving enough samples for distribution fitting. Placement-dependent behavior is analyzed separately through Table \ref{tab:resumen_indoor} and the non-parametric contrasts. This combined view is consistent with prior body-shadowing studies that report both channel-condition behavior and body-placement-specific effects \cite{ref4, Otim2019}.
 
-In the LOS subsets, AIC and BIC favor the gamma family for both scenarios. The indoor fit is $e-\mathrm{loc}\sim\Gamma(\alpha,\theta)$ with $\alpha=0.5026$, $\theta=0.1840~\mathrm{m}$, and $\mathrm{loc}=0.0000~\mathrm{m}$. For the outdoor subset, the fitted values are $\alpha=0.9480$, $\theta=0.1237~\mathrm{m}$, and $\mathrm{loc}=0.0000~\mathrm{m}$. The pooled histogram in Figure \ref{fig:ajuste_los} is consistent with this result because the LOS absolute errors are non-negative and right-skewed.
+For the LOS data, the AIC/BIC comparison selects the gamma family in both propagation scenarios. The fitted parameters were:
+\[
+\begin{aligned}
+\text{Indoor LOS: }  & \alpha=0.5026,\quad \theta=0.1840~\mathrm{m},\quad \mathrm{loc}=0.0000~\mathrm{m},\\
+\text{Outdoor LOS: } & \alpha=0.9480,\quad \theta=0.1237~\mathrm{m},\quad \mathrm{loc}=0.0000~\mathrm{m}.
+\end{aligned}
+\]
+This result is also visible in Figure \ref{fig:ajuste_los}: the LOS error samples are bounded at zero and keep a right-skewed shape, which a gamma model represents more naturally than a symmetric Gaussian curve.
 %
 
-In the NLOS subsets, the lowest AIC/BIC values correspond to the log-normal fit rather than to the gamma or exponential alternatives. For indoor NLOS, the fitted model is $e-\mathrm{loc}\sim\mathrm{Lognormal}(\mu,\sigma)$ with $\mu=-0.9186$, $\sigma=0.8016$, $\mathrm{scale}=0.3991~\mathrm{m}$, and $\mathrm{loc}=-0.0427~\mathrm{m}$. For outdoor NLOS, the corresponding values are $\mu=-1.0749$, $\sigma=0.5173$, $\mathrm{scale}=0.3413~\mathrm{m}$, and $\mathrm{loc}=0.0372~\mathrm{m}$. Figure \ref{fig:ajuste_nlos} shows the pooled NLOS fit, where the heavier right tail is more visible than in LOS.
+For the NLOS data, the ranking changes: the log-normal model gives the lowest AIC/BIC values in both scenarios. The estimated parameters were:
+\[
+\begin{aligned}
+\text{Indoor NLOS: }  & \mu=-0.9186,\quad \sigma=0.8016,\quad \mathrm{scale}=0.3991~\mathrm{m},\quad \mathrm{loc}=-0.0427~\mathrm{m},\\
+\text{Outdoor NLOS: } & \mu=-1.0749,\quad \sigma=0.5173,\quad \mathrm{scale}=0.3413~\mathrm{m},\quad \mathrm{loc}=0.0372~\mathrm{m}.
+\end{aligned}
+\]
+The pooled NLOS histogram in Figure \ref{fig:ajuste_nlos} explains this selection: compared with LOS, the distribution has a heavier right tail caused by larger positive ranging errors under BS.
 
 The same change in both scenarios suggests that the gamma-to-log-normal shift is not only an artifact of pooling indoor and outdoor measurements.
 
