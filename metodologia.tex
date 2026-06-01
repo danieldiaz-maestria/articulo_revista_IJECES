@@ -17,11 +17,11 @@ The research was based on a comprehensive Data-Driven Methodology designed to sy
     \label{fig:posiciones}
 \end{figure}
 
-\textbf{Experimental Scenarios.} The characterization was executed in two distinct scenarios, deliberately chosen to isolate different aspects of the physical propagation:
+\textbf{Experimental Scenarios.} Measurements were collected in two sites with different propagation conditions:
 
-\textit{Scenario 1 (Outdoor Open Field):} Static measurements were performed in an open outdoor field (approximate dimensions of 20~m $\times$ 30~m) selected to minimize environmental reflections and isolate the direct impact of BS on ToF-based ranging error.
+\textit{Scenario 1 (Outdoor Open Field):} Static measurements were taken in an open field of approximately 20~m $\times$ 30~m. This site was used as the reduced-reflection case, where the ranging error is mainly associated with BS and ToF estimation under weak environmental multipath.
 
-\textit{Scenario 2 (Indoor Corridor):} A second set of measurements was performed in an indoor corridor (approximately 2~m wide, 50~m long, with nearby walls, floor, and ceilings) to introduce multipath effects representative of typical indoor navigation applications. This duality of scenarios allowed differentiation between a reduced-multipath baseline (outdoor) and a reflection-rich condition (indoor), in which reflected, diffracted, and refracted components interact as signal echoes. These interactions affect attenuation and first-path detection, directly impacting ToF estimation and, consequently, the ranging error.
+\textit{Scenario 2 (Indoor Corridor):} Indoor measurements were taken in a corridor approximately 2~m wide and 50~m long, with nearby walls, floor, and ceiling. This site provided a reflection-rich case, where reflected, diffracted, and refracted components can affect attenuation, first-path detection, ToF estimation, and the resulting ranging error.
 
 
 \textbf{The ranging characterization} protocol evaluated seven body placements for the tag to represent typical wearable use-cases: head, chest, hip, hand, wrist, knee, and ankle, as shown in Figure~\ref{fig:system_model} and Figure~\ref{fig:posiciones}. For each body part considered, range estimation was performed relative to a single anchor using the Time of Flight (ToF) signal metric between the tag and the anchor. Measurements were collected under two propagation conditions: Line-of-Sight (LOS), with a direct path between the tag and the anchor; and Non-Line-of-Sight (NLOS), where BS was deliberately induced by rotating the participant's body $180^{\circ}$ so the participant's body lay between the tag and the anchor.
