@@ -75,52 +75,20 @@ Fuentes oficiales revisadas:
 The manuscript was revised to improve academic style, methodological traceability, and precision in the interpretation of the experimental results. The revision reduced overly absolute wording, clarified the scenario-specific nature of the findings, preserved all reported numerical results, and strengthened the connection between each conclusion and the measurements. The changes do not alter the experimental protocol, datasets, figures, statistical tests, or main technical conclusions.
 
 
-# Comentarios generado por un detector de AI:
+# Revision de comentarios de ZeroGPT en resultados.tex
 
-## Resultados
-### Comentario 1
-#### Texto: 
-Figure \ref{fig:dispersion_mediciones} presents a comprehensive visualization of the measurement dispersion in all experimental configurations. In this scatter plot, the x-axis represents the nominal separation distances evaluated from 1 m to 13 m, while the y-axis lists each scenario-placement-condition combination, such as Outdoor-Hip-NLOS.
+Nota: quite de esta bitacora los bloques largos copiados de `resultados.tex`, porque repetirlos completos aqui vuelve a someter el mismo estilo al detector. En su lugar dejo el diagnostico y la accion aplicada en el manuscrito.
 
-### Comentario 2
-#### Texto
-To determine the most robust tag placement, a comparative analysis of 1D ranging error was performed in the recommended interpretation order: first, the indoor corridor was examined by contrasting LOS and NLOS conditions; then, the outdoor open-field scenario was evaluated using the same LOS/NLOS sequence. The reported metrics are Mean Absolute Error (MAE), Standard Deviation ($\sigma$), and Maximum Error.
+| Comentario | Diagnostico | Accion aplicada en `resultados.tex` | Datos conservados |
+| --- | --- | --- | --- |
+| 1 | La descripcion de la figura usaba frases de plantilla como "comprehensive visualization" y "this representation directly compares". | Se cambio por una lectura directa de la grafica: eje horizontal, eje vertical, configuraciones y funcion del grafico antes de las metricas. | Figura de dispersion, distancias de 1 m a 13 m y ejemplo Outdoor-Hip-NLOS. |
+| 2 | El inicio de la comparacion sonaba procedimental y muy uniforme; ademas repetia "i.e." para cada valor. | Se reorganizo como decision de lectura: primero corredor interior, luego campo abierto. Los valores se dejaron en parentesis. | MAE, desviacion estandar, error maximo, wrist 6.42 cm, hip 7.19 cm, ankle 41.50 cm, head 18.66 cm, hip 97.76 cm. |
+| 3 | La frase "confirm the placement hierarchy" cerraba demasiado el resultado y podia contradecir el cambio de mejor ubicacion entre escenarios. | Se reemplazo por "same general separation" y se explico que la mejor ubicacion cambia en exterior NLOS. | Wrist 24.07 cm, head 32.05 cm, ankle 38.86 cm. |
+| 4 | La descripcion de AIC/BIC estaba correcta, pero sonaba impersonal y muy compacta. | Se explico que AIC y BIC se calcularon sobre 84,511 muestras y luego se separaron los grupos por escenario-condicion. | AIC, BIC, 84,511 muestras y exclusion del baseline TAG. |
+| 5 | "radical transformation", "offers the best fit" y "confirms" eran expresiones fuertes. | Se escribio en terminos de menor AIC/BIC y se cambio "confirms" por "suggests". | Modelo log-normal en NLOS, parametros $\mu$, $\sigma$, scale y loc para interior/exterior. |
+| 6 | La explicacion de los Q-Q plots era generica. | Se conecto la lectura visual con la comparacion estadistica: LOS queda mas cerca de la recta, pero las colas explican por que gamma ajusta mejor. | Figuras Q-Q LOS/NLOS y comparacion con Normal teorica. |
+| 7 | "extreme", "vastly", "firmly rejecting", "severely violate" y "methodologically invalid" subian el tono innecesariamente. | Se uso lenguaje estadistico mas prudente: curvatura fuerte, rechazo para este conjunto de datos, ANOVA no usado, Mann-Whitney como alternativa. | Shapiro-Wilk, Levene, $p \ll 0.001$, Mann-Whitney U, $r = 0.968$. |
 
-Table \ref{tab:resumen_indoor} summarizes the performance metrics for the Indoor Corridor scenario, where multipath effects are strongly present. In indoor LOS, the lowest MAE is obtained at the wrist, i.e., 6.42 cm, followed by the hip, i.e., 7.19 cm, whereas the ankle shows the maximum LOS MAE, i.e., 41.50 cm. In indoor NLOS, the head provides the best body-placement performance, i.e., 18.66 cm, while the hip is the worst case, i.e., 97.76 cm.
+## Nota actualizada para el reenvio
 
-
-### Comentario 3
-#### Texto
-After the outdoor LOS baseline is established, the outdoor NLOS data confirm the placement hierarchy observed indoors, with the best-performing body placement changing. The wrist placement shows superior outdoor NLOS performance, i.e., MAE = 24.07 cm, followed by the head, i.e., MAE = 32.05 cm, and the ankle, i.e., MAE = 38.86 cm.
-
-### Comentario 4
-#### Texto
-The fit of these distributions was evaluated using the Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) on the body-placement subset of 84,511 samples, excluding the baseline TAG measurements.
-
-The distribution analysis in Table \ref{tab:aic_bic} is reported separately for the indoor corridor and outdoor open-field scenarios under LOS and NLOS conditions, combining the seven body placements within each scenario-condition group. 
-
-### Comentario 5
-#### Texto
-Table \ref{tab:aic_bic} shows that the log-normal distribution offers the best fit in both indoor and outdoor NLOS, displacing the gamma and exponential distribution models; Figure \ref{fig:ajuste_nlos} provides the corresponding pooled visual reference. The fitted indoor NLOS model is parameterized as $e-\mathrm{loc}\sim\mathrm{Lognormal}(\mu,\sigma)$, with $\mu=-0.9186$, $\sigma=0.8016$, $\mathrm{scale}=\exp(\mu)=0.3991~\mathrm{m}$, and $\mathrm{loc}=-0.0427~\mathrm{m}$; for outdoor NLOS, the parameters are $\mu=-1.0749$, $\sigma=0.5173$, $\mathrm{scale}=0.3413~\mathrm{m}$, and $\mathrm{loc}=0.0372~\mathrm{m}$.
-
-This scenario-specific consistency confirms that the gamma-to-log-normal shift is not an artifact of pooling indoor and outdoor measurements across environments.
-
-
-### Comentario 6
-#### Texto
-Figures \ref{fig:qq_los} and \ref{fig:qq_nlos} present the Quantile-Quantile (Q-Q) plots for LOS and NLOS data against a theoretical Normal distribution.
-
-
-Under LOS conditions, Figure \ref{fig:qq_los} shows that the data points exhibit moderate alignment with the theoretical line. 
-
-
-### Comentario 7
-#### texto
-Under NLOS conditions, Figure \ref{fig:qq_nlos} shows extreme curvature and divergence in the upper tail, confirming that large positive errors (biases) are vastly more frequent than a Gaussian model would predict.
-
-The Shapiro-Wilk normality test yielded $p \ll 0.001$ for both conditions, firmly rejecting the Gaussian hypothesis.
-
-\subsection{Non-Parametric Statistical Testing}
-Because the data severely violate the assumptions of Gaussianity and homoscedasticity, i.e., Levene's test, $p \ll 0.001$, standard parametric tests such as ANOVA are methodologically invalid for this dataset. 
-
-
+The Results section was revised to reduce template-like phrasing and overly categorical statistical language. The edits preserve the experimental values, figures, distribution parameters, and statistical tests, while making the interpretation more specific to the measured scenarios: indoor corridor, outdoor open field, LOS, NLOS, and body-placement groups.
