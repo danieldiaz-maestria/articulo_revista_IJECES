@@ -1,86 +1,126 @@
-% IJECES LaTeX Template
-% IJECES Technical Support: Stephen Ward - sward@ferit.hr
-% Requires XeLaTeX or LuaLaTeX typesetting engine
-% Not complete. Please use the DOCX template (https://ijeces.ferit.hr/index.php/ijeces/libraryFiles/downloadPublic/236) as a guide to rest of the template (including reference formatting)
+% IJET LaTeX format based on articulo-para-ijet/IJET_Template_blank.tex
+\documentclass[journal,a4paper,twoside]{IEEEtran}
 
-\documentclass[a4paper,10pt,twoside]{article}
-\usepackage[a4paper, inner=20mm, outer=25mm, top=20mm, bottom=25mm]{geometry}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyfoot[LE,RO]{\thepage}
-\renewcommand{\headrulewidth}{0pt}
-\usepackage[english]{babel}
-%\usepackage{fontspec}
+\def\IEEEkeywordsname{Keywords}
+
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{multicol}
-\usepackage[explicit]{titlesec}
-%\spanishdecimal{.}
-
-\usepackage{lineno}
-\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{ragged2e}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{gensymb}
 \usepackage{graphicx}
-\usepackage{float}
+\usepackage{caption}
+\DeclareCaptionLabelSeparator{colon}{. }
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{multirow}
-\usepackage{cite}
-\usepackage{caption}
-\usepackage{subcaption}
-\captionsetup{font=small}
+\usepackage{float}
 \usepackage[table]{xcolor}
-\graphicspath{{imagenes/}{../Monografía/imagenes/}}
+\IfFileExists{balance.sty}{%
+\usepackage{balance}
+}{%
+\newcommand{\balance}{}
+}
+\usepackage[bottom]{footmisc}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\IfFileExists{doclicense.sty}{%
+\usepackage[
+type={CC},
+modifier={by},
+version={4.0},
+]{doclicense}
+}{%
+\newcommand{\doclicenseImage}[1][]{\fbox{\scriptsize CC BY 4.0}}%
+}
 \usepackage{hyperref}
 
+\graphicspath{{imagenes/}{articulo-para-ijet/}{articulo-para-ijet/img/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.eps}
 
-\setlength{\columnsep}{5mm}
-%\setmainfont{Arial}
-\titleformat{\section}
-  {\normalfont\bfseries}{\thesection}{1em}{\MakeUppercase{#1}}
-\titleformat{\subsection}
-    {\normalfont\bfseries}{\thesubsection}{1em}{#1}
-\titleformat{\subsubsection}
-    {\normalfont\bfseries}{\thesubsubsection}{1em}{#1}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdfauthor={Danny Daniel Diaz Lopez and Victor Quintero},
+    pdftitle={Experimental Analysis of Body Shadowing Effects on a UWB Ranging System at 6.5 GHz},
+    pdfsubject={International Journal of Electronics and Telecommunications},
+    pdfkeywords={Ultra-Wideband; UWB; Body Shadowing; Time of Flight; Ranging Accuracy; 6.5 GHz},
+    pdfproducer={LaTeX},
+    pdfcreator={pdfLaTeX}
+}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+\widowpenalty=300000
+\clubpenalty=300000
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% IJET editor metadata. Final volume, pages, received/revised dates and DOI are
+% assigned by the journal during production.
+\newcommand{\YEAR}{2026}
+\newcommand{\VOLUME}{XX}
+\newcommand{\NUMBER}{X}
+\newcommand{\PAGES}{1--XX}
+\newcommand{\RECEIVEDATE}{Month DD, YYYY}
+\newcommand{\REVISIONDATE}{Month DD, YYYY}
+\newcommand{\DOI}{DOI: 10.24425/ijet.20xx.xxxxxx}
+
+\lhead
+{
+    \begin{picture}(0,0)
+    \put(0,-35){\includegraphics{logo_first_page-eps-converted-to.pdf}}
+    \put(30,-22){\scriptsize\MakeUppercase{INTL Journal of Electronics and Telecommunications, \YEAR, Vol. \VOLUME, no. \NUMBER, pp. \PAGES}}
+    \put(30,-30){\scriptsize{Manuscript received \RECEIVEDATE; revised \REVISIONDATE.$\qquad\qquad\qquad\qquad\qquad$\DOI}}
+    \end{picture}
+}
+\chead{}
+\rhead{}
+\lfoot
+{
+    \begin{picture}(0,0)
+    \put(0,0){\doclicenseImage[imagewidth=5.5em]}
+    \put(65,12){\scriptsize $\copyright$
+    {\scriptsize The Author(s). This is an open-access article distributed under the terms of the Creative Commons Attribution License (CC BY 4.0,}}
+    \put(65,2){\scriptsize {\href{https://creativecommons.org/licenses/by/4.0/}{https://creativecommons.org/licenses/by/4.0/}), which permits use, distribution, and reproduction in any medium, provided that the Article is properly cited.}}
+    \end{picture}
+}
+\cfoot{}
+\rfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setcounter{page}{1}
 
 \begin{document}
-\setlength{\parindent}{0ex}
-{\fontsize{22}{0} \selectfont \textbf{Experimental Analysis of Body Shadowing Effects on a UWB Ranging System at 6.5 GHz}}
-\begin{flushright}
-{\fontsize{10}{0} \selectfont \textit{Original Scientific Paper}} %Please choose from the following Paper Categories: "Original Scientific Paper", "Review Paper", "Case Study" or "Preliminary Communication"
-\end{flushright}
 
-{\fontsize{12}{0} \selectfont \textbf{Danny Daniel Diaz Lopez}}
+\title{\vspace{1cm} Experimental Analysis of Body Shadowing Effects on a UWB Ranging System at 6.5 GHz}
 
-Author Affiliation: Universidad del Cauca
+\author{Danny~Daniel~Diaz~Lopez and Victor~Quintero%
+\thanks{D.~D.~Diaz~Lopez and V.~Quintero are with Universidad del Cauca, Popayan, Cauca, Colombia (e-mail: danieldiaz@unicauca.edu.co; vflorez@unicauca.edu.co).}%
+}
 
-Address: Popayán-Cauca
+\markboth{}{}
 
-E-mail: danieldiaz@unicauca.edu.co
+\maketitle
+\thispagestyle{fancy}%
+\markboth{D.~D.~Diaz~Lopez and V.~Quintero}{Experimental Analysis of Body Shadowing Effects on a UWB Ranging System at 6.5 GHz}
 
-\vspace{5mm}
+\begin{abstract}
+Ultra-Wideband (UWB) is widely used in Indoor Positioning Systems (IPS) because its short pulses support accurate range estimation. In body-worn tracking, however, the human body can obstruct the radio link and introduce body-shadowing (BS) errors. This article reports an experimental characterization of BS in a 1D UWB ranging link operating at 6.5 GHz, a band for which fewer body-placement measurements have been reported than for 3-5 GHz systems. A fixed anchor and a body-worn tag were used to evaluate seven placements: head, chest, hip, wrist, hand, ankle, and knee. More than 100,000 independent Time-of-Flight (ToF) range samples were collected under Line-of-Sight (LOS) and Non-Line-of-Sight (NLOS) conditions in an indoor corridor and an outdoor open field. The results indicate a clear dependence on tag placement. Head placement yielded an MAE of 4.87 cm in outdoor LOS and 18.66 cm in indoor NLOS, while indoor LOS measurements varied across placements, with MAE values of 10.43 cm at the head, 16.49 cm at the chest, and 7.19 cm at the hip. Torso placements were the most affected under NLOS; the maximum reported MAE was 97.76 cm. Distribution fitting showed that NLOS absolute errors were better represented by a heavy-tailed log-normal model than by the Gaussian approximation often used in probabilistic ranging models. The indoor corridor also produced lower NLOS errors than the outdoor setting for several limb-mounted tags, suggesting that reflected components can partially preserve ToF observability when the direct path is blocked. These measurements provide experimental support for body-placement-aware and distribution-aware UWB ranging algorithms.
+\end{abstract}
 
-{\fontsize{12}{0} \selectfont \textbf{Victor Quintero}}
+\begin{IEEEkeywords}
+Ultra-Wideband (UWB), Body Shadowing, Time of Flight (ToF), Ranging Accuracy, 6.5 GHz, Ranging, Accuracy Performance.
+\end{IEEEkeywords}
 
-Author Affiliation: Universidad del Cauca
+\IEEEpeerreviewmaketitle
 
-Address: Popayán-Cauca
-
-E-mail: vflorez@unicauca.edu.co
-
-\vspace{5mm}
-
-    \textbf{Abstract - }	\textit{Ultra-Wideband (UWB) is widely used in Indoor Positioning Systems (IPS) because its short pulses support accurate range estimation. In body-worn tracking, however, the human body can obstruct the radio link and introduce body-shadowing (BS) errors. This article reports an experimental characterization of BS in a 1D UWB ranging link operating at 6.5 GHz, a band for which fewer body-placement measurements have been reported than for 3-5 GHz systems. A fixed anchor and a body-worn tag were used to evaluate seven placements: head, chest, hip, wrist, hand, ankle, and knee. More than 100,000 independent Time-of-Flight (ToF) range samples were collected under Line-of-Sight (LOS) and Non-Line-of-Sight (NLOS) conditions in an indoor corridor and an outdoor open field. The results indicate a clear dependence on tag placement. Head placement yielded an MAE of 4.87 cm in outdoor LOS and 18.66 cm in indoor NLOS, while indoor LOS measurements varied across placements, with MAE values of 10.43 cm at the head, 16.49 cm at the chest, and 7.19 cm at the hip. Torso placements were the most affected under NLOS; the maximum reported MAE was 97.76 cm. Distribution fitting showed that NLOS absolute errors were better represented by a heavy-tailed log-normal model than by the Gaussian approximation often used in probabilistic ranging models. The indoor corridor also produced lower NLOS errors than the outdoor setting for several limb-mounted tags, suggesting that reflected components can partially preserve ToF observability when the direct path is blocked. These measurements provide experimental support for body-placement-aware and distribution-aware UWB ranging algorithms.}
-
-\vspace{5mm}
-
-\noindent\makebox[\linewidth]{\rule{\columnwidth}{0.4pt}}
-
-\textbf{Keywords - }\textit{Ultra-Wideband (UWB), Body Shadowing, Time of Flight (ToF), Ranging Accuracy, 6.5 GHz, Ranging, Accuracy Performance.}
-
-\noindent\makebox[\linewidth]{\rule{\columnwidth}{0.4pt}}
-
-\setlength{\parindent}{3mm}
-\begin{multicols}{2}
 \section{Introduction}
 \label{sec:introduction}
 \input{introduccion.tex}
@@ -108,33 +148,19 @@ The authors thank the School of Electronic and Telecommunication Engineering and
 The authors declare no conflict of interest regarding the publication of this paper.
 
 \section*{Data Availability Statement}
-The data presented in this study and the validation datasets are available on GitHub at \url{https://github.com/danieldiaz-maestria/Sistema-de-\\
-posicionamiento-2D}.
+The data presented in this study and the validation datasets are available on GitHub at \url{https://github.com/danieldiaz-maestria/Sistema-de-posicionamiento-2D}.
 
-\bibliographystyle{ieeetr}
-\bibliography{bibliografia/bibliografia.bib}
+\bibliographystyle{articulo-para-ijet/BibTex/IEEEtran}
+\bibliography{bibliografia/bibliografia}
 
-\vspace{1cm}
-\section*{Biographies}
+\balance
 
-\noindent
-\begin{minipage}[t]{0.3\linewidth}
-    \centering
-    \includegraphics[width=0.8\linewidth]{imagenes/photo_danny.jpeg}
-\end{minipage}%
-\begin{minipage}[t]{0.7\linewidth}
-    \textbf{Danny Daniel Diaz Lopez} received the B.S. degree in Electronics and Telecommunications Engineering from the University of Cauca, Popayán, Colombia. His research interests include wireless communications, indoor positioning systems, and signal processing.
-\end{minipage}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{imagenes/photo_danny.jpeg}}]{Danny Daniel Diaz Lopez}
+received the B.S. degree in Electronics and Telecommunications Engineering from the University of Cauca, Popayan, Colombia. His research interests include wireless communications, indoor positioning systems, and signal processing.
+\end{IEEEbiography}
 
-\vspace{0.5cm}
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{imagenes/photo_victor.jpeg}}]{Victor Quintero}
+received the B.Sc. and M.Sc. degrees in electronics and telecommunications engineering from Universidad del Cauca, Popayan, Colombia, in 1999 and 2011, respectively, and the Ph.D. degree in electrical engineering from the Universit\'e de Lyon, Lyon, France, in 2018. He is currently an Assistant Professor at Universidad del Cauca. He is the Director of the GRIAL Research Group. His research interests span information theory, signal processing, and wireless communication systems. Dr. Quintero received the 2017 Best Ph.D. Thesis Award in the Domain of Information and Digital Societies from INSA de Lyon, Villeurbanne, France.
+\end{IEEEbiography}
 
-\noindent
-\begin{minipage}[t]{0.3\linewidth}
-    \centering
-    \includegraphics[width=0.8\linewidth]{photo_victor.jpeg}
-\end{minipage}%
-\begin{minipage}[t]{0.7\linewidth}
-    \textbf{Victor Quintero} received the B.Sc. and M.Sc. degrees in electronics and telecommunications engineering from Universidad del Cauca, Popayán, Colombia, in 1999 and 2011, respectively, and the Ph.D. degree in electrical engineering from the Université de Lyon, Lyon, France, in 2018. He is currently an Assistant Professor at Universidad del Cauca. He is the Director of the GRIAL Research Group. His research interests span information theory, signal processing, and wireless communication systems. Dr. Quintero received the 2017 Best Ph.D. Thesis Award in the Domain of Information and Digital Societies from INSA de Lyon, Villeurbanne, France.
-\end{minipage}
-\end{multicols}
 \end{document}
