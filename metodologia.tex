@@ -1,14 +1,8 @@
-The research was based on a comprehensive Data-Driven Methodology designed to systematically characterize the statistical models of the ranging error induced by BS.
+The research was conducted according to a Data-Driven Methodology that was utilized to systematically characterize the statistical models of the ranging error caused by BS.
 
-\textbf{Hardware Configuration.} The experiments used Qorvo DWM1001 development modules, configured to operate at a center frequency of 6.5 GHz (Channel 5) \cite{ref8}. The experimental system consisted of one anchor and one tag carried by a human participant.
+Hardware Configuration. The experiments were performed with Qorvo DWM1001 development modules, with a center frequency of 6.5 GHz (Channel 5) \cite{ref8}. We have one anchor and one tag, which were the human participant.
 
-\textbf{System Model Description.} As shown in Figure~\ref{fig:system_model}, the anchor was installed at a known reference position, while the tag was placed on different parts of the participant's body. The ranging process was based on ToF measurements between the tag and the anchor under LOS and NLOS conditions. This configuration captures the direct impact of BS on ranging error while maintaining a controlled, reproducible setup.
-
-%\begin{center}
-%    \captionof{figure}{Tag placements on the human body during ranging characterization.}
-%    \includegraphics[width=1\linewidth]{partes_cuerpo.pdf}
-%    \label{fig:posiciones}
-%\end{center}
+System Model Description. As shown in Figure~\ref{fig:system_model}, the anchor is placed at a known position, and the tag is placed on the different parts of the participant's body. The ranging process was based on ToF measurements between the tag and the anchor in LOS and NLOS. This configuration captures the direct impact of BS on ranging error while keeping a controlled and reproducible setup.
 
 \begin{figure}[H]
     \centering
@@ -17,29 +11,16 @@ The research was based on a comprehensive Data-Driven Methodology designed to sy
     \label{fig:posiciones}
 \end{figure}
 
-\textbf{Experimental Scenarios.} Measurements were collected in two sites with different propagation conditions:
+Experimental Scenarios. Measurements were collected in two sites with different propagation conditions:
 
-\textit{Scenario 1 (Outdoor Open Field):} Static measurements were taken in an open field of approximately 20~m $\times$ 30~m. This site was used as the reduced-reflection case, where the ranging error is mainly associated with BS and ToF estimation under weak environmental multipath.
+Scenario 1 (Outdoor Open Field): Static measurements were taken in an open field of approximately 20~m × 30~m. We used this site as the reduced-reflection case where the ranging error is mainly related to BS and ToF estimation with weak environmental multipath.
 
-\textit{Scenario 2 (Indoor Corridor):} Indoor measurements were taken in a corridor approximately 2~m wide and 50~m long, with nearby walls, floor, and ceiling. This site provided a reflection-rich case, where reflected, diffracted, and refracted components can affect attenuation, first-path detection, ToF estimation, and the resulting ranging error.
+Scenario 2 (Indoor Corridor): The indoor measurements were carried out in a corridor about 2~m wide and 50~m long, with walls, floor, and ceiling close by. This site provided a reflection-rich case where reflected, diffracted, and refracted components can affect attenuation, first-path detection, ToF estimation, and the resulting ranging error.
 
+The ranging characterization protocol evaluated seven body positions for the tag to represent a typical wearable use-case (head, chest, hip, hand, wrist, knee, and ankle) from Fig. \ref{fig:system_model} and Fig. \ref{fig:posiciones} to estimate the range of the tag to a single anchor with time of flight (ToF) signal between the tag and the anchor. The measurements were collected in two propagation settings: LOS (Line-of-Sight) where the tag and the anchor are directly connected and NLOS (Non-Line-of-Sight) where BS is induced when the participant's body is rotated 180 degrees in the direction the tag and anchor are located.
 
-\textbf{The ranging characterization} protocol evaluated seven body placements for the tag to represent typical wearable use-cases: head, chest, hip, hand, wrist, knee, and ankle, as shown in Figure~\ref{fig:system_model} and Figure~\ref{fig:posiciones}. For each body part considered, range estimation was performed relative to a single anchor using the Time of Flight (ToF) signal metric between the tag and the anchor. Measurements were collected under two propagation conditions: Line-of-Sight (LOS), with a direct path between the tag and the anchor; and Non-Line-of-Sight (NLOS), where BS was deliberately induced by rotating the participant's body $180^{\circ}$ so the participant's body lay between the tag and the anchor.
+Although the attenuation was not used as the main ranging metric, it was considered a relevant propagation factor since severe NLOS attenuation, especially in outdoor situations, can restrict the link reliability between tag and anchor and affect the ToF estimation quality.
 
-Although attenuation was not used as the primary ranging metric, it was considered a relevant propagation factor because severe NLOS attenuation, particularly in outdoor scenarios, can limit link reliability between the tag and anchor and affect the ToF estimation quality.
+Measurements were performed at 13 static positions in 1~m increments, and the distances from 1~m to 13~m from the anchor were taken from positions. At each position, 250 independent distance measurements were taken for each channel condition, LOS and NLOS, for each body placement and for each scenario, resulting in over 100,000 measurements (13 positions × 7 body placements × 2 channel conditions × 250 samples × 2 scenarios). From this huge amount of data, we can construct very good statistical models to characterize the distribution of ranging errors under each condition.
 
-Measurements were performed at 13 static positions, spaced in 1~m increments at distances from 1~m to 13~m from the anchor. At each position, 250 independent distance measurements were recorded for each channel condition, i.e., LOS and NLOS, for each body placement, and for each scenario, accumulating over 100,000 measurements in total (13 positions $\times$ 7 body placements $\times$ 2 channel conditions $\times$ 250 samples $\times$ 2 scenarios). This massive volume of empirical data enabled the construction of highly robust statistical models to characterize the distribution of ranging errors under each condition.
-
-
-
-
-%\begin{figure}[H]
-%  \centering
-%  \includegraphics[width=0.45\textwidth]{partes_cuerpo.pdf}
-%  \caption{Tag placements on the human body during ranging characterization.}
-%  \label{fig:posiciones}
-%\end{figure}
-
-\textbf{Statistical analysis protocol.} The absolute error was calculated for each measurement as ${e_i = |d_{\text{measured},i} - d_{\text{true},i}|}$. This positive nature of the measurements resulted in distributions with a positive support, such as the gamma and log-normal distributions. The Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) were employed to quantitatively select the most accurate underlying distribution model. The Gaussian assumption was assessed only as a reference hypothesis, commonly assumed in Gaussian-noise models (using the Shapiro-Wilk test and Q-Q plots), not as the expected final model for absolute error. Alternative candidates, such as Weibull or Rayleigh, can also model positive errors and are relevant for extended analyses; Student's t is more appropriate for symmetric signed residuals and was therefore not prioritized in this absolute-error formulation. Furthermore, non-parametric inferential tests, specifically the Mann-Whitney U test, were applied to assess the statistical significance of differences observed across body placements and conditions.
-%
-
+The absolute error for each measurement was ${e_i = |d_{\text{measured},i} - d_{\text{true},i}|}$. Because of the positive nature of the measurements, the distributions had a positive support, such as the gamma and log-normal distributions. Akaike Information Criterion (AIC) and Bayesian Information Criterion (BIC) were used for quantitatively selecting the most accurate underlying distribution model. The Gaussian assumption was only used as a reference hypothesis which is often used in Gaussian noise models (Shapiro-Wilk test and Q-Q plots) but not as the final model for absolute error. Other candidates like Weibull or Rayleigh can also model positive errors and will be useful for more detailed analysis. Student's t is more appropriate for symmetric signed residuals and was not considered in this absolute-error analysis. In addition, non-parametric inferential tests (Mann-Whitney U test) were performed to evaluate whether differences in placements and conditions were statistically significant.
